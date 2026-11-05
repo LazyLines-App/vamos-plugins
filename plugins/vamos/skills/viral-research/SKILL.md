@@ -1,6 +1,6 @@
 ---
-name: viral-research
-description: Finds what's going viral in a niche on TikTok, Instagram and YouTube, ranked against each creator's usual, then turns it into ideas and a week of scripts. Use for "content ideas", "scroll for me".
+name: "viral-research"
+description: "Finds what's going viral in a niche on TikTok, Instagram and YouTube, ranked against each creator's usual, then turns it into ideas and a week of scripts. Use for \"content ideas\", \"scroll for me\"."
 ---
 # Viral research
 

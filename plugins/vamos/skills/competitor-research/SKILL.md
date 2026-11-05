@@ -1,6 +1,6 @@
 ---
-name: competitor-research
-description: Tears down a competitor, brand or category: posts that beat their usual, the Meta ads they keep running, the creators who post for them, and what to copy. Use for a brand's ads or creator program.
+name: "competitor-research"
+description: "Tears down a competitor, brand or category: posts that beat their usual, the Meta ads they keep running, the creators who post for them, and what to copy. Use for a brand's ads or creator program."
 ---
 # Competitor research
 

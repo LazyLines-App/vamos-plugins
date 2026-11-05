@@ -8,5 +8,6 @@
     "url": "https://getvamos.ai"
   },
   "homepage": "https://getvamos.ai",
-  "license": "MIT"
+  "license": "MIT",
+  "privacyPolicyUrl": "https://getvamos.ai/privacy-policy"
 }
