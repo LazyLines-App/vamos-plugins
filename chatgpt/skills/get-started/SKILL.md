@@ -1,18 +1,20 @@
 ---
 name: get-started
-description: Sets up Vamos for the user from their social accounts and site (profile, voice, creators to follow), then offers their first three asks. Use right after install, or for "set up Vamos".
+description: Set up the user's Vamos workspace from their social accounts, website and what they do, so its research and writing fit their brand. Use when the user first connects Vamos, asks to set it up, or a Vamos tool reports the workspace has nothing set up.
 ---
 
-# Get started
+Vamos fits every answer to the workspace's brand, voice and the creators it follows. A new workspace has none of these, so its answers stay generic until it is set up.
 
-**The job:** a workspace that knows the user, so every later answer is about them, then a first result in the same sitting.
+1. In one message, ask the user for:
+   - their social accounts: @handle and platform, or profile links (Instagram, TikTok, YouTube, LinkedIn, X, Facebook);
+   - their website, if they have one;
+   - in their own words, what they do, what they sell and who it is for.
 
-1. Call the Vamos connector's `auth_status`. When it isn't signed in, give the sign-in link it returns and stop until they're back.
-2. **Needs:** their social accounts (handles or links) and what they sell and to whom, with their website if they have one. Ask for all of it in one short message, because setup built on guesses gives generic answers.
-3. Call `set_up_workspace` with what they gave and poll it with `chat_completion_poll` until it's done. Vamos reads their posts, builds their profile, pillars and voice, and follows creators in their niche.
-4. **Deliver** what was set up, as Vamos reported it: the accounts it read, their pillars, the voice, the creators it now follows. Once their account and five creators are tracked, the free Weekly brief starts arriving by email.
-5. **Offer three first asks**, written for their niche and accounts, for example: what went viral in their niche this week; a breakdown of a competitor they named; whether an idea they have is worth posting.
+   Setup needs at least one account or the website, because it reads them.
+2. Call `set_up_workspace` with `accounts`, `website` and `about` from what the user shared, in their words. Leave out anything they did not give.
+3. Call `chat_completion_poll` with the `runId` it returns until `status` is `done`. Setup reads their profiles and site, so it takes a few minutes.
+4. From the `result`, tell the user what Vamos set up (brand profile, content pillars, voice, the creators it now follows) and anything it still needs from them.
 
-**Check:** report as set up only what Vamos confirmed.
+If the user arrived with a request, start it with the Vamos skill that fits it and ask for these details in the same reply: setup runs in its own chat, alongside their request.
 
-If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Vamos plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
+The user's instructions take precedence over this skill.
