@@ -28,7 +28,7 @@ Send each ask with the Vamos connector's `chat_completion_start` and poll until 
 
 **Needs:** the draft, or the ideas to choose between: a link (a public post, an unlisted YouTube link, a direct .mp4), the script or idea in words, or what the video shows and says. A video file can't be read here, so when they attach one, ask for a link, or for its first spoken line and on-screen text word for word.
 
-**Defaults** (don't ask): Vamos already knows the workspace brand, so add their niche, platform and size only as they said them. A link to someone else's post is the reference they're copying: the verdict is on their version of it.
+**Defaults** (don't ask): Vamos already knows the workspace brand, so add their niche, platform and size only as they said them. A link to someone else's post is the reference they're copying. Send it now, so Vamos can say how it did against its creator's usual and what its lookalikes show, and in the same reply ask for their version's first spoken line and on-screen text, so the verdict can be on what they made.
 
 **Ask Vamos:**
 > Should I post this? [the draft]. [What they said about their account, if anything.]

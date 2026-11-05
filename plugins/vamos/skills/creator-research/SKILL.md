@@ -16,7 +16,7 @@ Send each ask with the Vamos connector's `chat_completion_start` and poll until 
 **Ask Vamos**, with `include_data: true`:
 > Find [UGC creators / influencers] for [brand, product] on [platform] who get views [under N followers], starting with people already posting about [brand], with their usual views, the contact in their bio and any brand deals.
 
-**Deliver:** every creator Vamos returned, not a sample, as a sheet, one row per creator: the creator (linked), followers, usual views, how often they beat it, contact from their bio, brand deals (rivals flagged), the verdict. Build it from the `include_data` rows, in Google Sheets when it's connected. Then the near misses, one line each with the bar they miss.
+**Deliver:** every creator Vamos returned, not a sample, as a sheet, one row per creator: the creator (linked), followers, usual views, how often they beat it, contact from their bio, brand deals (rivals flagged), the verdict. Build it from the `include_data` rows, in Google Sheets when it's connected, otherwise as a file, or as CSV in your reply when no file can be saved. Then the near misses, one line each with the bar they miss.
 
 **Check:**
 - Every creator is an account Vamos returned.
