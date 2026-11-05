@@ -4,13 +4,16 @@
   "longDescription": "Vamos is an AI agent for content research. Ask it what's going viral in your niche on TikTok, Instagram or YouTube, and it reads the posts, ranks each one against the creator's usual views, watches the ones that stand out and tells you why they worked.\n\nIt breaks down a competitor's best organic posts and the Meta ads they keep running, finds creators who get real views in your niche, decodes how a brand runs its creator program, and says whether a post or idea is worth posting, with the videos that prove it. It writes scripts, hooks and captions in your own voice, learned from your videos, and it can send you a weekly email of what to post next.\n\nPaste a link to any TikTok, Reel or Short and Vamos watches it, reads the comments and breaks it down.\n\nVamos reads public posts and Meta's Ad Library. It does not post for you, edit videos or run ads, and it can't see private analytics such as retention unless you paste them in. A free account works; requests use Vamos credits.",
   "developerName": "Vamos",
   "category": "Productivity",
-  "capabilities": ["Read", "Write"],
+  "capabilities": [
+    "Read",
+    "Write"
+  ],
   "websiteURL": "https://getvamos.ai",
   "privacyPolicyURL": "https://getvamos.ai/privacy",
   "termsOfServiceURL": "https://getvamos.ai/terms",
   "defaultPrompt": [
     "What's going viral in skincare on TikTok and Instagram this week, ranked against each creator's usual views?",
     "Should I post this idea? A 20-second reel: 3 mistakes that are killing your sourdough starter.",
-    "Break down Gymshark: their best posts this month, the Meta ads they keep running and the creators they pay."
+    "Break down Gymshark: their best posts this month, the Meta ads they keep running and the creators who post for them."
   ]
 }
