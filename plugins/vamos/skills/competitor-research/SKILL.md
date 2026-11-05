@@ -1,17 +1,17 @@
 ---
 name: competitor-research
-description: Tears down a competitor, brand or category: posts that beat their usual, the Meta ads they keep running, the creators they pay and how, and what to copy. Use for a brand's ads or creator program.
+description: Tears down a competitor, brand or category: posts that beat their usual, the Meta ads they keep running, the creators who post for them, and what to copy. Use for a brand's ads or creator program.
 ---
 # Competitor research
 
-**The job:** everything that works for a competitor, in one report: their posts that beat their usual on TikTok, Instagram and YouTube, the Meta ads they've kept running longest, the creators and partners they pay and how that program runs, what to copy and the gap they leave.
+**The job:** everything that works for a competitor, in one report: their posts that beat their usual on TikTok, Instagram and YouTube, the Meta ads they've kept running longest, the creators and partners who post for them and how that program runs, what to copy and the gap they leave.
 
 **Needs:** the competitor (a handle, a link or a brand name), several of them, or a category. "My competitors" needs a workspace brand; when there is none, ask which brands they mean in one short question, because Vamos can't ask once it's working. `create_chat` shows the brand their Vamos workspace holds; use it rather than asking, and name a different brand in the ask when theirs is about one.
 
-Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, since it's written for them.
+Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, every link and number in it, and its `answerUrl` so they can open all of it in Vamos.
 
 **Ask Vamos**, one message, for the whole teardown; when they ask about one part (their ads, their creators, what their audience asks in the comments), ask for that part alone, as fully:
-> Break down [competitor] as a competitor of [brand name]: their organic posts on TikTok, Instagram and YouTube that beat their usual, the Meta ads they keep running longest, the creators they pay and how that program works, and what I should copy.
+> Break down [competitor] as a competitor of [brand name]: their organic posts on TikTok, Instagram and YouTube that beat their usual, the Meta ads they keep running longest, the creators who post for them and how that program works, and what I should copy.
 
 With no competitor named: "Find my top competitors for [brand name] and break them down the same way."
 

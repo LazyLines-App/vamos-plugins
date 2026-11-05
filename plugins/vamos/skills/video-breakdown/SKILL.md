@@ -8,10 +8,10 @@ description: Watches any TikTok, Reel or Short and says why it worked: the hook,
 
 **Needs:** the link. A video file can't be watched here, so when they attach one, ask for its link, because Vamos can't ask once it's working.
 
-Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, since it's written for them.
+Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, every link and number in it, and its `answerUrl` so they can open all of it in Vamos.
 
 **Ask Vamos**, one message:
-> Watch this and break it down: [link]. Why did it work, how did it do against the creator's usual, what do the comments say, and how would I make my version [for my niche]?
+> Watch this and break it down: [link]. Why did it work, how did it do against the creator's usual, and what do the comments say? [How would I make my version for my niche?]
 
 **Check:** before you reply, make sure Vamos's answer covers each part of what they asked; ask for what's missing in the same chat.
 

@@ -36,7 +36,8 @@ for line in open(cases_path):
 
 def turn(cid, mode, server, prompt, session, i, d):
     mcp = json.dumps({'mcpServers': {server: {'type': 'http', 'url': URLS[server]}}})
-    tools = ['Skill', 'ToolSearch'] + [f'mcp__{server}__{t}' for t in VAMOS_TOOLS]
+    # Write and Read inside the run folder, so a skill that builds a sheet or file can, as it would for a real user.
+    tools = ['Skill', 'ToolSearch', 'Write', 'Read'] + [f'mcp__{server}__{t}' for t in VAMOS_TOOLS]
     cmd = ['claude', '-p', prompt, '--model', MODEL, '--setting-sources', 'project', '--mcp-config', mcp,
            '--strict-mcp-config', '--allowedTools', ','.join(tools), '--max-turns', '60',
            '--output-format', 'stream-json', '--verbose']

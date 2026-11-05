@@ -6,7 +6,7 @@ description: Use when they ask which idea to make, or whether a draft or reel is
 
 Three jobs: a plan for a period, an audit of their own posts, and a check on one piece, or a choice between ideas, before anything goes out.
 
-Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, since it's written for them.
+Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, every link and number in it, and its `answerUrl` so they can open all of it in Vamos.
 
 ## Plan
 

@@ -8,7 +8,7 @@ description: Finds what's going viral in a niche on TikTok, Instagram and YouTub
 
 **Needs:** the niche or topic. When neither the ask nor the workspace brand gives it, ask for it in one short question before you send, because Vamos can't ask once it's working. `create_chat` shows the brand their Vamos workspace holds; use it rather than asking, and name a different brand in the ask when theirs is about one.
 
-Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, since it's written for them.
+Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, every link and number in it, and its `answerUrl` so they can open all of it in Vamos.
 
 **1. Research.** Ask Vamos:
 > What's going viral in [niche] on [platforms] [this week]: the videos furthest past their creator's usual views, each with its hook, its format and why it worked.
