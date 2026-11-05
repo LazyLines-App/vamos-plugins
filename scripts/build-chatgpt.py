@@ -26,6 +26,10 @@ for src in (SRC, EXTRA):
         os.makedirs(os.path.join(OUT, 'skills', name))
         open(os.path.join(OUT, 'skills', name, 'SKILL.md'), 'w').write(body)
 
+ASSETS = os.path.join(ROOT, 'chatgpt', 'assets')
+if os.path.isdir(ASSETS):
+    shutil.copytree(ASSETS, os.path.join(OUT, 'assets'))
+
 manifest = {
     "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
     "name": "vamos",
