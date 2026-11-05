@@ -1,6 +1,6 @@
 ---
-name: video-breakdown
-description: Watches any TikTok, Reel or Short and says why it worked: the hook, the beats, the comments, its views against the creator's usual, and the user's own version. Use for "why did this go viral".
+name: "video-breakdown"
+description: "Watches any TikTok, Reel or Short and says why it worked: the hook, the beats, the comments, its views against the creator's usual, and the user's own version. Use for \"why did this go viral\"."
 ---
 # Video breakdown
 

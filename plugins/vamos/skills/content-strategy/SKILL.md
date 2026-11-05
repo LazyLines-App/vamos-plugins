@@ -1,6 +1,6 @@
 ---
-name: content-strategy
-description: Use when they ask which idea to make, or whether a draft or reel is ready to post: the call rests on how lookalike posts did, which Vamos reads. Also audits their posts and plans content.
+name: "content-strategy"
+description: "Use when they ask which idea to make, or whether a draft or reel is ready to post: the call rests on how lookalike posts did, which Vamos reads. Also audits their posts and plans content."
 ---
 # Content strategy
 
