@@ -22,3 +22,9 @@ In Claude Code: `/plugin marketplace add LazyLines-App/vamos-plugins`, then `/pl
 ## What it can't do
 
 Vamos reads public posts and Meta's Ad Library. It does not post, edit videos, contact creators or run ads, and it can't read private analytics such as retention or reach unless you paste them in.
+
+## Your data
+
+- **Where your requests go:** to the Vamos connector (`https://mcp.getvamos.ai/mcp`). Vamos keeps your chats, brand profile, voice and saved files in your Vamos workspace until you delete them, as [getvamos.ai/privacy-policy](https://getvamos.ai/privacy-policy) describes.
+- **Personal data it reads:** public posts and profiles. Creator research returns public creators' names, handles and the contact their bio shows.
+- **Google Sheets:** `viral-research` and `creator-research` build a sheet in Google Sheets only when you have connected Google Sheets in Claude yourself and ask for a sheet. Otherwise they make a file. No skill sends data anywhere else.
