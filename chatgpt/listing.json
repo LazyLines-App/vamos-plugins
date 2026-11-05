@@ -15,5 +15,8 @@
     "What's going viral in skincare on TikTok and Instagram this week, ranked against each creator's usual views?",
     "Should I post this idea? A 20-second reel: 3 mistakes that are killing your sourdough starter.",
     "Break down Gymshark: their best posts this month, the Meta ads they keep running and the creators who post for them."
-  ]
+  ],
+  "composerIcon": "./assets/logo.png",
+  "logo": "./assets/logo.png",
+  "brandColor": "#FF521D"
 }
