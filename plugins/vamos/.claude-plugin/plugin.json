@@ -1,0 +1,12 @@
+{
+  "name": "vamos",
+  "displayName": "Vamos",
+  "version": "0.1.0",
+  "description": "Content research for TikTok, Instagram and YouTube: what's working in any niche or account, whether a post is worth posting, and scripts in your voice.",
+  "author": {
+    "name": "Vamos",
+    "url": "https://getvamos.ai"
+  },
+  "homepage": "https://getvamos.ai",
+  "license": "MIT"
+}

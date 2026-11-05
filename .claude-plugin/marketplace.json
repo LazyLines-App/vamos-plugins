@@ -1,0 +1,15 @@
+{
+  "name": "vamos-plugins",
+  "owner": {
+    "name": "Vamos",
+    "url": "https://getvamos.ai"
+  },
+  "description": "Vamos for Claude: content research for TikTok, Instagram and YouTube.",
+  "plugins": [
+    {
+      "name": "vamos",
+      "source": "./plugins/vamos",
+      "description": "Content research for TikTok, Instagram and YouTube: what's working in any niche or account, whether a post is worth posting, and scripts in your voice."
+    }
+  ]
+}

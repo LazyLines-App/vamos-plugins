@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "vamos": {
+      "type": "http",
+      "url": "https://mcp.getvamos.ai/mcp"
+    }
+  }
+}
