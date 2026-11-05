@@ -1,6 +1,6 @@
 ---
-name: write-like-me
-description: Learns how the user talks from their own videos, then writes or rewrites scripts, hooks and captions in that voice, built on what's working. Use for "write like me", "make it sound less like AI".
+name: "write-like-me"
+description: "Learns how the user talks from their own videos, then writes or rewrites scripts, hooks and captions in that voice, built on what's working. Use for \"write like me\", \"make it sound less like AI\"."
 ---
 # Write like me
 

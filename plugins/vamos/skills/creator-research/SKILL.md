@@ -1,6 +1,6 @@
 ---
-name: creator-research
-description: Finds creators for a brand to work with: UGC creators or influencers who get views in its niche, and people already posting about it, ranked, with usual views, bio contact and brand deals.
+name: "creator-research"
+description: "Finds creators for a brand to work with: UGC creators or influencers who get views in its niche, and people already posting about it, ranked, with usual views, bio contact and brand deals."
 ---
 # Creator research
 
