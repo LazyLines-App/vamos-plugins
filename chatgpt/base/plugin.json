@@ -1,0 +1,105 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "vamos",
+  "version": "1.1.0",
+  "description": "Your AI social media strategist: finds the formats, hooks and topics working on Instagram, TikTok and YouTube and turns them into content in your brand's voice.",
+  "author": {
+    "name": "Vamos",
+    "email": "contact@getvamos.ai",
+    "url": "https://getvamos.ai"
+  },
+  "homepage": "https://getvamos.ai",
+  "keywords": [
+    "social media",
+    "content research",
+    "tiktok",
+    "instagram",
+    "youtube",
+    "scripts"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Vamos",
+        "shortDescription": "Your AI social strategist",
+        "longDescription": "Vamos is your AI social media strategist. Ask what's working in your niche and Vamos searches Instagram, TikTok and YouTube, watches the videos and reads the comments, and finds what's trending: the formats, hooks and topics behind the videos doing best. It studies your competitors the same way. Then it writes your version, in your brand's voice.\n\nAsk Vamos for the formats working in your niche right now, the hooks from this month's best videos, what your competitors post and why it works, why a video worked from its link, or the Meta ads that have run the longest and their hooks. It writes hooks, scripts, captions and content plans from what it finds.\n\nVamos keeps your brand, your voice and the creators you follow between chats, so every answer starts from your workspace. Research takes a few minutes, and ChatGPT checks back until the answer is ready. Vamos reads public posts and the Meta Ad Library; your private analytics, DMs and dashboards stay outside it.",
+        "developerName": "Vamos",
+        "category": "Business & Operations",
+        "capabilities": [
+          "Research trending formats",
+          "Analyze competitors",
+          "Write hooks and scripts"
+        ],
+        "websiteURL": "https://getvamos.ai",
+        "supportURL": "https://getvamos.ai/contact",
+        "privacyPolicyURL": "https://getvamos.ai/privacy-policy",
+        "termsOfServiceURL": "https://getvamos.ai/terms-conditions",
+        "defaultPrompt": [
+          "Show me five formats working in my niche right now and write my version of the best one, ready to film.",
+          "Pull the opening hooks from the best videos in my niche this month and write me ten in my voice.",
+          "Study my top competitors' posts this month. Tell me what's working and what I should make next."
+        ],
+        "brandColor": "#FF521D",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "onboardingSkill": "./skills/get-started/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Trending formats in a niche",
+              "prompt": "Show me the formats working for home workout videos on TikTok right now and why they work.",
+              "tools_triggered": "create_chat, chat_completion_start, chat_completion_poll",
+              "expected_behavior": "Starts a run, polls until done, and returns the formats behind the best recent home workout TikToks, each with example videos linked and why it works."
+            },
+            {
+              "description": "Break down one video",
+              "prompt": "Break down why this video worked: https://www.youtube.com/watch?v=v5trqTX1VHg",
+              "tools_triggered": "create_chat, chat_completion_start, chat_completion_poll",
+              "expected_behavior": "Watches the linked video and reads its comments, then explains the hook, structure and what viewers responded to."
+            },
+            {
+              "description": "Competitor research",
+              "prompt": "Study @gymshark's Instagram Reels from the last month. What worked best and why?",
+              "tools_triggered": "create_chat, chat_completion_start, chat_completion_poll",
+              "expected_behavior": "Returns the account's best-performing recent Reels against its usual views, with links and the patterns they share."
+            },
+            {
+              "description": "Ads research",
+              "prompt": "Find the Meta ads for protein bars that have run the longest and show me their hooks.",
+              "tools_triggered": "create_chat, chat_completion_start, chat_completion_poll",
+              "expected_behavior": "Searches the Meta Ad Library and returns long-running protein bar ads with their opening hooks and days running. Makes no claims about ROAS or sales."
+            },
+            {
+              "description": "Set up a new workspace",
+              "prompt": "Set up Vamos for me. My Instagram is @gymshark and my website is gymshark.com.",
+              "tools_triggered": "set_up_workspace, chat_completion_poll",
+              "expected_behavior": "Starts setup from the account and website, then reports the brand profile, content pillars, voice and creators it set up, and anything it still needs."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Private analytics",
+              "prompt": "What was my Instagram follower growth last month?"
+            },
+            {
+              "description": "Posting on the user's behalf",
+              "prompt": "Post this video to my TikTok account."
+            },
+            {
+              "description": "Unrelated task",
+              "prompt": "Write a Python script that renames files in a folder."
+            }
+          ]
+        },
+        "demo_recording_url": "https://drive.google.com/file/d/1qwXJ2pyOlngSvI349HRtB2N4aUv9ju8k/view?usp=sharing",
+        "commerce": false,
+        "commerce_description": "Vamos does not sell products or process payments in ChatGPT."
+      },
+      "publication": {
+        "release_notes": "Seven skills for the jobs people ask for most: what's going viral in a niche, competitor teardowns (posts, Meta ads and creator programs), finding creators, video breakdowns, should-I-post checks, content plans and audits, writing in your own voice, and a weekly content system. They replace the general research skill. Every answer now carries a link to the full answer in Vamos."
+      }
+    }
+  }
+}
