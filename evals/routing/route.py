@@ -4,7 +4,7 @@ plugin=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','plugin
 cases=[l.rstrip('\n').split('\t',1) for l in open(sys.argv[1]) if l.strip()]
 def run(c):
     exp,q=c
-    p=subprocess.run(['claude','-p',q,'--plugin-dir',plugin,'--setting-sources','project','--strict-mcp-config','--allowedTools','Skill','--max-turns','2','--output-format','stream-json','--verbose'],stdin=subprocess.DEVNULL,capture_output=True,text=True,timeout=400)
+    p=subprocess.run(['claude','-p',q,'--model',os.environ.get('MODEL','sonnet'),'--plugin-dir',plugin,'--setting-sources','project','--strict-mcp-config','--allowedTools','Skill','--max-turns','2','--output-format','stream-json','--verbose'],stdin=subprocess.DEVNULL,capture_output=True,text=True,timeout=400)
     got='-'; cost=0
     for line in p.stdout.splitlines():
         try: e=json.loads(line)

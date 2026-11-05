@@ -7,7 +7,9 @@ description: Learns how the user talks from their own videos, then writes or rew
 
 **The job:** copy that sounds like them. Vamos builds a voice guide from the videos where they talk, saves it, and writes in it from then on.
 
-**Inputs:** their handle, or two or three videos where they talk; what to write (a script on a topic, or a draft they paste to rewrite). Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Ask the user for a missing input before you send, because Vamos can't ask once it's working.
+**Needs:** what to write (a script on a topic, or a draft they paste to rewrite), and where their voice comes from: their handle, or two or three videos where they talk. When `create_chat` shows an empty workspace and they gave neither, ask for their handle in one short question before you send, because Vamos can't ask once it's working. A workspace that's set up may already hold their voice, so send the ask and let Vamos say if it doesn't. Rewriting a pasted draft "less like AI" needs only the draft.
+
+Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. The user sees only what you show them, so carry Vamos's answer over whole (every row, hook, script and link) rather than pointing them to the Vamos chat.
 
 **Ask Vamos**, one message:
 > Learn my voice from @handle, then [write a 30-second script about X / rewrite this so it sounds like me: …].
