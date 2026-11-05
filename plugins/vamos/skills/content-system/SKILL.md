@@ -16,7 +16,7 @@ Send each ask with the Vamos connector's `chat_completion_start` and poll until 
 1. Call the Vamos connector's `set_up_workspace` with their accounts, website and what they do, and poll it until done. Vamos reads their posts, builds their profile, pillars and voice, and follows creators in their niche. Once their account and five creators are tracked, the free Weekly brief starts.
 2. Ask Vamos:
    > Track [the competitors they named / my top competitors].
-3. Before scheduling, say what it costs: each weekly run spends Vamos credits (a research run is usually 20 to 60; `get_credit_usage` shows what they have), and Free allows one routine. Then ask Vamos:
+3. Before scheduling, say what it costs: each weekly run spends Vamos credits (a research run is usually 20 to 60; `get_credit_usage` shows what they have and their plan). Then ask Vamos:
    > Every [Monday at 8:00], send me what went viral in my niche and from my competitors that week, how my own posts did against my usual and why, and the three posts I should make next.
 
    Vamos saves it as a routine that emails each run.
