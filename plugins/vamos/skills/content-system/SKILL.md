@@ -7,17 +7,15 @@ description: Runs the user's content research every week while they sleep: sets 
 
 **The job:** a loop that gets better every week. Research what's working, analyze how their own posts did, create next week's content in their voice, and learn: save what worked so the next week starts from it.
 
-Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. The user sees only what you show them, so carry Vamos's answer over whole (every row, hook, script and link) rather than pointing them to the Vamos chat.
+Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat.
 
 ## Set it up (once)
 
 **Needs:** their accounts (handles or links) and what they sell and to whom. Ask for both in one short message before you start, with their website if they have one, because Vamos can't ask once it's working and setup built on guesses writes a generic week.
 
-**Defaults** (don't ask; say them when you confirm): the competitors Vamos finds, plus any they name; Monday at 8:00 in their timezone.
-
 1. Call the Vamos connector's `set_up_workspace` with their accounts, website and what they do, and poll it until done. Vamos reads their posts, builds their profile, pillars and voice, and follows creators in their niche. Once their account and five creators are tracked, the free Weekly brief starts.
 2. Ask Vamos:
-   > Track [these competitors / my top competitors].
+   > Track [the competitors they named / my top competitors].
 3. Before scheduling, say what it costs: each weekly run spends Vamos credits (a research run is usually 20 to 60; `get_credit_usage` shows what they have), and Free allows one routine. Then ask Vamos:
    > Every [Monday at 8:00], send me what went viral in my niche and from my competitors that week, how my own posts did against my usual and why, and the three posts I should make next.
 
