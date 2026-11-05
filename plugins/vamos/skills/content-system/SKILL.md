@@ -1,6 +1,6 @@
 ---
-name: content-system
-description: Runs the user's content research every week while they sleep: sets up voice and competitors, a Monday email of what to post, and a weekly review that writes next week's posts and learns from them.
+name: "content-system"
+description: "Runs the user's content research every week while they sleep: sets up voice and competitors, a Monday email of what to post, and a weekly review that writes next week's posts and learns from them."
 ---
 
 # Content system
