@@ -1,6 +1,6 @@
 ---
 name: viral-research
-description: Finds what's going viral in a niche on TikTok, Instagram and YouTube, ranked by how far each video beat its creator's usual views, then turns it into ideas and scripts in the user's voice.
+description: Finds what's going viral in a niche on TikTok, Instagram and YouTube, ranked by how far each beat its creator's usual views, then writes ideas and a week of scripts in the user's voice.
 ---
 
 # Viral research

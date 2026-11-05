@@ -1,0 +1,18 @@
+OK viral-research       -> vamos:viral-research         | What's going viral in skincare on TikTok this week?
+OK viral-research       -> vamos:viral-research         | Give me content ideas for my fitness Instagram
+OK viral-research       -> vamos:viral-research         | Write my week of reels for my skincare brand, I'm @glowbyamy
+OK competitor-research  -> vamos:competitor-research    | Show me every Meta ad Gymshark is running, longest-running first
+OK competitor-research  -> vamos:competitor-research    | How does Wispr Flow get its creators to post for them?
+OK creator-research     -> vamos:creator-research       | Find me UGC creators for my protein bar brand who actually get views, emails inc
+OK creator-research     -> vamos:creator-research       | Who's already posting about my brand Olipop on TikTok?
+OK write-like-me        -> vamos:write-like-me          | Write me a 30 second script in my voice about why I quit coffee. My TikTok is @d
+OK write-like-me        -> vamos:write-like-me          | Make this caption sound less like AI: Unlock your potential with our game-changi
+OK video-breakdown      -> vamos:video-breakdown        | Can you watch this reel and tell me why it went viral? https://www.instagram.com
+OK content-strategy     -> vamos:content-strategy       | We need our content strategy for Q1, we're a skincare brand on TikTok and Instag
+OK content-strategy     -> vamos:content-strategy       | i almost posted this reel, is it good? https://www.tiktok.com/@chloejp.yaps/vide
+OK content-system       -> vamos:content-system         | I want an email every Monday telling me what to post
+OK content-system       -> vamos:content-system         | Set up Claude to run my Instagram content research every week while I sleep
+OK viral-research       -> vamos:viral-research         | /viral-week skincare
+OK content-system       -> vamos:content-system         | Claude, I'm going to sleep, keep my content research running
+OK competitor-research  -> vamos:competitor-research    | Break down Gymshark for me
+ok 17 / 17 cost $1.05
