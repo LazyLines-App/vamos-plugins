@@ -9,5 +9,9 @@
   },
   "homepage": "https://getvamos.ai",
   "license": "MIT",
-  "privacyPolicyUrl": "https://getvamos.ai/privacy-policy"
+  "privacyPolicyUrl": "https://getvamos.ai/privacy-policy",
+  "repository": "https://github.com/LazyLines-App/vamos-plugins",
+  "documentationUrl": "https://docs.getvamos.ai/en/articles/17009913-inside-claude",
+  "supportUrl": "https://getvamos.ai/contact",
+  "termsOfServiceUrl": "https://getvamos.ai/terms-conditions"
 }
