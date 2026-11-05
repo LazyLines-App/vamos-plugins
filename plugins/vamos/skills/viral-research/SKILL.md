@@ -16,7 +16,7 @@ Send each ask with the Vamos connector's `chat_completion_start` and poll until 
 **1. Research.** Ask Vamos, with `include_data: true`:
 > What's going viral in [niche] on [platforms] [this week]: the videos furthest past their creator's usual views, each with its hook, its format and why it worked.
 
-Deliver a table, one row per video: the post (linked), creator, views, × usual, hook, format, why it worked. Numbers and links exactly as Vamos gave them; "why" from its answer. When they want a sheet, build it from the `include_data` rows plus the "why" column, in Google Sheets when it's connected, otherwise as a file.
+Deliver a table, one row per video: the post (linked), creator, views, × usual, hook, format, why it worked. Numbers and links exactly as Vamos gave them; "why" from its answer. When they want a sheet, build it from the `include_data` rows plus the "why" column, in Google Sheets when it's connected, otherwise as a file, or as CSV in your reply when no file can be saved.
 
 **2. Ideas.** Ask Vamos:
 > Turn this into [7] ideas for my [platform] account, each built on one of these videos, with its hook. [I'm @handle.]
