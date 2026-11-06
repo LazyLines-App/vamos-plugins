@@ -1,6 +1,6 @@
 # Vamos for Claude
 
-Vamos is an AI agent for content research. This plugin adds the Vamos connector to Claude and seven skills, one for each main job:
+Vamos is your AI content strategist. This plugin adds the Vamos connector to Claude and seven skills, one for each main job:
 
 - **viral-research**: what's going viral in your niche on TikTok, Instagram and YouTube, ranked against each creator's usual views, then ideas and scripts in your voice.
 - **competitor-research**: a competitor's best organic posts on every platform, the Meta ads they keep running, their creator program, and what to copy.
