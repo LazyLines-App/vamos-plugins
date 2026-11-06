@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "vamos",
-  "version": "1.1.0",
-  "description": "Your AI social media strategist: finds the formats, hooks and topics working on Instagram, TikTok and YouTube and turns them into content in your brand's voice.",
+  "version": "1.1.1",
+  "description": "Your AI content strategist: finds the formats, hooks and topics working on Instagram, TikTok and YouTube and turns them into content in your brand's voice.",
   "author": {
     "name": "Vamos",
     "email": "contact@getvamos.ai",
@@ -21,8 +21,8 @@
     "com.openai": {
       "interface": {
         "displayName": "Vamos",
-        "shortDescription": "Your AI social strategist",
-        "longDescription": "Vamos is your AI social media strategist. Ask what's working in your niche and Vamos searches Instagram, TikTok and YouTube, watches the videos and reads the comments, and finds what's trending: the formats, hooks and topics behind the videos doing best. It studies your competitors the same way. Then it writes your version, in your brand's voice.\n\nAsk Vamos for the formats working in your niche right now, the hooks from this month's best videos, what your competitors post and why it works, why a video worked from its link, or the Meta ads that have run the longest and their hooks. It writes hooks, scripts, captions and content plans from what it finds.\n\nVamos keeps your brand, your voice and the creators you follow between chats, so every answer starts from your workspace. Research takes a few minutes, and ChatGPT checks back until the answer is ready. Vamos reads public posts and the Meta Ad Library; your private analytics, DMs and dashboards stay outside it.",
+        "shortDescription": "Your AI content strategist",
+        "longDescription": "Vamos is your AI content strategist. Ask what's working in your niche and Vamos searches Instagram, TikTok and YouTube, watches the videos and reads the comments, and finds what's trending: the formats, hooks and topics behind the videos doing best. It studies your competitors the same way. Then it writes your version, in your brand's voice.\n\nAsk Vamos for the formats working in your niche right now, the hooks from this month's best videos, what your competitors post and why it works, why a video worked from its link, or the Meta ads that have run the longest and their hooks. It writes hooks, scripts, captions and content plans from what it finds.\n\nVamos keeps your brand, your voice and the creators you follow between chats, so every answer starts from your workspace. Research takes a few minutes, and ChatGPT checks back until the answer is ready. Vamos reads public posts and the Meta Ad Library; your private analytics, DMs and dashboards stay outside it.",
         "developerName": "Vamos",
         "category": "Business & Operations",
         "capabilities": [
