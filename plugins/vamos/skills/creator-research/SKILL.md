@@ -13,7 +13,7 @@ Send each ask with the Vamos connector's `chat_completion_start` and poll until 
 **Ask Vamos**, with `include_data: true`:
 > Find [UGC creators / influencers] for [brand, product] on [platform] who get views [under N followers], starting with people already posting about [brand], with their usual views, the contact in their bio and any brand deals.
 
-The list is the deliverable and runs long, so build it as a sheet from the rows, one per creator, in Google Sheets when it's connected, otherwise as a file, and say in your reply who stands out.
+The list is the deliverable and runs long, so build it as a sheet with a row for every creator in Vamos's answer, their contact included, and take numbers from the rows only where the answer lacks them; in Google Sheets when it's connected, otherwise as a file. Say in your reply who stands out.
 
 **Check:** before you reply, make sure Vamos's answer covers each part of what they asked; ask for what's missing in the same chat.
 
