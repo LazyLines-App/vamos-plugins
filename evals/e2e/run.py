@@ -1,6 +1,8 @@
 """End-to-end runner: each case runs headless in Claude Code, with the plugin or with only the connector.
 
-Cases are a TSV: id, mode (plugin|connector), server (vamos-mcp|vamos-new|vamos-staging), ask.
+Cases are a TSV: id, mode (plugin|connector), server, ask. Live runs spend real credits, so they go only through a
+demo connector: the server column is ignored, and every run uses VAMOS_CONNECTOR (default vamos-demo; vamos-demo2 is
+the fresh account). Any other name is refused, so a run can never reach a real user's workspace.
 An ask may hold follow-up turns separated by " ||| ": each later turn resumes the same session, the way a user
 answers the questions Claude asked. Outputs land in <out>/<id>/: stream.jsonl per turn and result.md.
 
@@ -11,11 +13,10 @@ from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PLUGIN = os.path.join(HERE, '..', '..', 'plugins', 'vamos')
-URLS = {
-    'vamos-mcp': 'https://mcp.getvamos.ai/mcp',
-    'vamos-new': 'https://mcp.getvamos.ai/mcp',
-    'vamos-staging': 'https://mcp-staging.lazylines.ai/mcp',
-}
+SERVER = os.environ.get('VAMOS_CONNECTOR', 'vamos-demo')
+if not re.fullmatch(r'vamos-demo\d*', SERVER):
+    sys.exit(f'VAMOS_CONNECTOR={SERVER}: live runs go only through a demo connector (vamos-demo, vamos-demo2, ...)')
+URLS = {SERVER: 'https://mcp.getvamos.ai/mcp'}
 VAMOS_TOOLS = ['chat_completion_start', 'chat_completion_poll', 'chat_completion_cancel', 'create_chat', 'get_messages',
                'list_chats', 'get_credit_usage', 'auth_status', 'set_up_workspace']
 
@@ -28,7 +29,8 @@ cases = []
 for line in open(cases_path):
     if not line.strip() or line.startswith('#'):
         continue
-    cid, mode, server, ask = line.rstrip('\n').split('\t', 3)
+    cid, mode, _server, ask = line.rstrip('\n').split('\t', 3)
+    server = SERVER
     if ONLY and cid not in ONLY.split(','):
         continue
     cases.append((cid, mode, server, [t.strip() for t in ask.split('|||')]))

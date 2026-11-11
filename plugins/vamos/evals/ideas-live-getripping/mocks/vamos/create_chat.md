@@ -1,0 +1,1 @@
+{"chatId":"bc4dc388-8c50-b8d3-5ef9-7ea14c97093f","title":null,"createdAt":"2026-11-11T10:39:52.659Z","brain":"RIP is an app that helps app founders make narrated, no-face motion-graphics short-form v… · niche: Apps & SaaS · instagram.com/getripping · pillars: Founder Lessons, AI Video Creation, App Growth"}

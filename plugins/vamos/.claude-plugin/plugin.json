@@ -1,8 +1,8 @@
 {
   "name": "vamos",
   "displayName": "Vamos",
-  "version": "0.1.1",
-  "description": "Your AI content strategist for TikTok, Instagram and YouTube: what's working in any niche or account, whether a post is worth posting, and scripts in your voice.",
+  "version": "0.2.0",
+  "description": "Your content system for TikTok, Instagram and YouTube: learns your voice and tracks your competitors, takes any brand apart, finds the formats, hooks and ideas working now, writes scripts in your voice, reviews your results and runs it all on a loop.",
   "author": {
     "name": "Vamos",
     "url": "https://getvamos.ai"

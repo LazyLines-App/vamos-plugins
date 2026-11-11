@@ -1,0 +1,8 @@
+---
+type: tool_used
+tool: mcp__plugin_vamos_vamos__chat_completion_start
+min: 1
+max: 2
+weight: 0.5
+# One worth-posting ask covers both ideas; at most one follow-up.
+---

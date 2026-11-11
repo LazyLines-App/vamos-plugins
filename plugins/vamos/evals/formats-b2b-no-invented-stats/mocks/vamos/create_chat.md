@@ -1,0 +1,1 @@
+{"chatId": "7d2f9c74-3e33-4a90-9b5e-2c3d4e5f6a73", "title": null, "createdAt": "2026-11-10T14:00:00.000Z", "brain": "Fieldnote (a test brand): a two-person studio that turns B2B software companies' customer calls into short-form video \u00b7 niche: Business & Marketing \u00b7 pillars: Objections from real calls, Sales-call teardowns, Operator notes"}

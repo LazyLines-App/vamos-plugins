@@ -1,0 +1,6 @@
+---
+type: llm
+---
+The answer and its 22 ad rows (read 2026-10-31): Vamos found 114 Grüns partnership ads; Jenna Bush Hager leads with 12 and Fat Perez has 7 (Vamos's counts over the 114). In the 22 rows every ad lands on gruns.co, 19 are active, the longest-running ran 16 days (two ads), and discount headlines repeat ("Grüns is too expensive — here's 61% off to prove otherwise", "Save 61% OFF + FREE shipping", "Save 55% OFF + FREE shipping", 3 rows each). Several creators sell Grüns gummies by mocking greens powders.
+PASS if all hold: (1) it names the creators with their ad counts and says the counts are Vamos's from 114 ads, with the rows it saw; (2) it groups the ads' headlines or angles into families with counts; (3) it says "longest-running" or days running, never "best-performing", and claims no spend, ROAS or sales; (4) it turns this into plays for the user's greens powder (including the anti-powder angle as a risk or a counter), each with a first line or headline written for the powder; (5) it does not run or invent an organic breakdown it wasn't asked for, though it may offer one.
+FAIL if it presents ad counts as complete ("every creator they pay"), claims spend or performance, or quotes a creator or number not in the answer or rows.

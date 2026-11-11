@@ -1,0 +1,3 @@
+# The real script the case holds out (DfBpYOttDhQ · 2026-10-28 · 181,941 views · 22 s), for the blind "which one is real" set. The run never sees this file.
+
+If Claude keeps giving you bad answers, you need to make ChatGPT and Claude fight to the death. It's called the dual skill and it's completely free. Anytime you don't trust Claude's response, this pulls ChatGPT directly into your conversation. Then they tear apart each other's arguments, expose weak logic, and force each other to defend every claim until only the best response is left. To set it up, just paste this link inside of Claude and say install skill. If you want the full setup, just follow me and comment face off and I'll shoot it over.

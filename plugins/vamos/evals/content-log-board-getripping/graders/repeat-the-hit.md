@@ -1,0 +1,8 @@
+---
+type: llm
+---
+The week's hit is "Claude can now post trial reels for you" (DfYTnaJFcMP, 393,629 views, about 13.5x the usual). Its spoken opening ran on ("... up to 10 times a day, basically forcing people to notice your product"). At 5x or more, the skill makes 3 to 5 new versions of it. Levi's rule: keep the hit's sentence, one clause, and swap only the job for one as big for the viewer, the size of "Claude can now run your Instagram for you".
+First find the versions: the new lines written for next week under Repeat as versions of this hit. The hit's own line, other posts on the Repeat list, and mentions of trial reels elsewhere in the reply are not versions.
+PASS if there are 3 to 5 versions and each is "Claude can now [job] for you", one clause ending at "for you", where the job is a whole job an app founder would hand off (like "run your Instagram", "find your first 100 users", "run your app's marketing"), not trial reels again. A separate next line after the sentence is fine.
+FAIL if there are no versions, fewer than 3 or more than 5, or any version keeps "trial reels", drops the sentence's shape, runs past "for you" (", basically ...", "... up to 10 a day", "... while you sleep"), or swaps in a narrow, multi-step task ("find the competitor Reels beating their usual and remake them for your app", "turn every customer complaint into a Reel opener").
+Give your reasons before your verdict: one line per version, the version and then good or bad and why in a few words, and use the words PASS and FAIL nowhere in those lines. End with the one word PASS or FAIL alone on the last line.

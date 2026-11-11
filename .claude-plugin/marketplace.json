@@ -9,7 +9,12 @@
     {
       "name": "vamos",
       "source": "./plugins/vamos",
-      "description": "Your AI content strategist for TikTok, Instagram and YouTube: what's working in any niche or account, whether a post is worth posting, and scripts in your voice."
+      "description": "Your content system for TikTok, Instagram and YouTube: learns your voice and tracks your competitors, takes any brand apart, finds the formats, hooks and ideas working now, writes scripts in your voice, reviews your results and runs it all on a loop."
+    },
+    {
+      "name": "cracked-marketer",
+      "source": "./plugins/cracked-marketer",
+      "description": "The marketing hire for your brand or startup, for TikTok, Instagram and YouTube: learns your brand and tracks your competitors, takes any brand apart, finds the formats, hooks and ideas working now, writes the scripts, logs what's working and runs it all on a loop. Includes everything in the Vamos plugin."
     }
   ]
 }

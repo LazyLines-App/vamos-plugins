@@ -1,0 +1,1 @@
+{"chatId": "5d0c6b1e-4b00-4a7e-9c1d-00000000a001", "title": null, "createdAt": "2026-11-11T10:00:00.000Z", "brain": "Floorwork (a test brand): 15-minute home Pilates for beginners \u00b7 niche: Fitness \u00b7 pillars: Form fixes, Short workouts, Beginner Pilates"}

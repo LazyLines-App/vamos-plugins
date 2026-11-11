@@ -1,0 +1,18 @@
+# The playbook
+
+The reply and the page follow these sections. The counting is in SKILL.md step 5.
+
+## The sections, in order
+
+0. **The strip:** posts read and their dates (the target's own apart from collaborators'), ads read ("114 of an unknown total"), credits per step.
+1. **Who they are and how they sell:** the offer path, free thing to paid, with the keywords and links that carry it, dated.
+2. **What wins, counted:** 3 to 5 traits, each with its count, its pair and the user's line.
+3. **Formats they repeat:** each with how many posts and its median multiple. A format posted often with a low median is volume, not the hit-maker: say so.
+4. **Hooks, word for word:** their top quarter's first lines, then 2 or 3 formulas with a real example each and the user's version.
+5. **Reach posts and lead posts** (a creator) or **the call to action** (a brand): which posts ask for something, what they ask, and what asking costs in reach ("asking out loud: 9× the comments per view, at 0.64× the reach").
+6. **Ads** (when asked): running and stopped, the three longest-running rows with days, headline and link, headline families with counts, landing pages, formats.
+7. **The creators they pay** (when asked): partnership ads with handles, "checked N of M", any pay terms with their source.
+8. **What they stopped, with dates:** ads, formats and keywords that ended within what was read.
+9. **Plays:** five, each with Seen, Work, Watch, Your first line and Paste; then Skip.
+10. **Your first week.**
+11. **What we couldn't see:** stopped ads outside the EU and UK, revenue and spend, private analytics, posts older than the read, the platforms not read.

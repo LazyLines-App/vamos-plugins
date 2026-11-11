@@ -1,0 +1,7 @@
+---
+type: regex
+target: last_message
+pattern: 'tiktok\.com/@[\w.]+/video/(?!(?:7684412123128106271|7684808028322860301|7685849785768643853|7686845532626603295|7687198277023862047|7689568936161004831|7690563630147849502|7692936166441536781|7694267245597314318|7696262973484092690|7698597295679442207|7702524326343445773|7702934431002103054|7703328985404427533|7704208391551405334|7704213819228310806|7704846334628564255|7705100368115420448)\b)\d+|instagram\.com/(?:p|reel)/(?!(?:Dd3rsewvIHc|Dd46Pe2COyK|Dd4dM1vBKAE|Dd68o5qC9bW|DdQGuYuuzyG|DdTBTn-zD8P|DdZn8pWSzhS|DdbjcX2z_qJ|DdeLvdVzB8o|DdgwELvompS|Ddh0YyTtxjg|Ddkb2CixzJO|DdrhsxqTwzB|De1cnuRPJ01|DeMp0yrhLtT|DeQeTsUzzc4|DeRDXyVMryT|DeS1NlSR2PY|DefdoMsx1wL|DehmvjWpJpW|DeiBXuFPdyP|DevD4BFxcyd|DewpIOhxXKZ|DffW4NPt8VW)(?![\w-]))[\w-]+'
+match: not_contains
+---
+# Every post link in the reply is one the Vamos answer or its rows returned (built from the mock's own links); a made-up link can't open.
