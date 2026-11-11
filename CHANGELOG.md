@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## vamos 0.2.1 (Content System)
+- hooks says the one thing once: no setup for the next words to knock down, and never the viewer's problem said back. A stunt or before-and-after you'll film needs no line from Things you've said.
+
+## cracked-marketer 0.1.1
+- hooks says the one thing once: no setup for the next words to knock down, and never the viewer's problem said back. A stunt or before-and-after you'll film needs no line from Things you've said. (the shared hooks skill)
+
 ## vamos 0.2.0 (Content System)
 - A session-start hook tells Claude to load the matching skill before calling a Vamos tool directly, so "what's going viral" and ad asks run through the skill (in Cracked marketer too).
 - content-log replaces results: every pattern counted against the misses, three lists (repeat, stop, turn into an ad), and private numbers only from Instagram Insights screenshots you paste.

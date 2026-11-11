@@ -71,7 +71,7 @@ Keep a hook only if, from the line alone:
 1. They want to know something specific: "oh, I want to see what this is".
 2. Something new exists, or something they didn't think possible. If one sentence typed into an AI would get it, it's out.
 3. Their audience, in any corner of the niche, wants this and understands every word.
-4. Read aloud, it sounds like someone reacting to a friend, not presenting results.
+4. Read aloud, it sounds like someone reacting to a friend, saying the thing once: no setup for the next words to knock down, no results lined up.
 5. It's one thought, and they can believe it.
 
 Lines led by a research fact or a statistic ("96% of…") rarely pass 1 and 4: lead with the thing and what they get.
