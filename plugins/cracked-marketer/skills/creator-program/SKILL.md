@@ -49,7 +49,7 @@ Then `python3 scripts/price.py floor <rows file> --fee <their ask> --handle <han
 
 **6. Write the program** in the order of [references/program.md](references/program.md), using its rules where they fit this brand. Run `python3 scripts/price.py table references/pay.md` and say a deal is old when it's flagged. For each named creator, end with the message the user sends from their own account: two or three sentences naming one real post of theirs, what [brand] is, your offer per video and how it's paid, and one question; then a shorter follow-up for day 4 with no reply. A draft earlier in this chat with another price comes again with this one.
 
-**7. Save** with `save_brain_file` a Brain file "Creator program: [brand]" with the creators and their offers, the pay model and its numbers, the accounts, the test grid and how results are read, so brief and content-log work from it.
+**7. Save** with `save_brain_file` a Brain file "Creator program: [brand]" with the creators and their offers, each one's videos and due dates, the rounds of notes agreed, the pay model and its numbers, the accounts, the test grid and how results are read, so brief, review-draft and content-log work from it.
 
 **Check before the recap:** every offer is per video and the month's money adds up within the budget (sum it in code); every outside number has whose and when; the 3-second opening, the paid-partnership label and the ad-use line are in; any message to a creator is a draft for the user. Next is `/cracked-marketer:find-creators` when there are no creators yet, else `/cracked-marketer:ideas` for the test's angles, then `/cracked-marketer:brief`.
 

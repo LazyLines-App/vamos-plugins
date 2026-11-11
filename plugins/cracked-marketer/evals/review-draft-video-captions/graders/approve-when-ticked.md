@@ -1,0 +1,6 @@
+---
+type: llm
+---
+The user needs the brief's must-haves ticked one by one before sending notes. The facts of this draft: the hook "My paycheck lands, and nine minutes later it's gone. On purpose." is said word for word from about 0.4 s and the same words are on screen from the first frame; the Potly app first shows at about 4.6 s (frames: the 3.0 s frame is still the kitchen, the 5.0 s frame shows the app), but the brief says the app is on screen by 3 s; the star line is said "Potly moves it the second I get paid, so the rest is mine" against the brief's "Potly moves it the second I'm paid, so the rest is mine to spend"; the caption she sent ("payday routine 💸 @potly") has no #ad, and the paid-partnership label can only be checked once posted; the app screen is readable.
+PASS if the reply's verdict is Fix (not Pass), and it lists the must-haves with: the hook met; the app by 3 s missed, with a time after 3 s; the star line missed, naming both changes ("I get paid" for "I'm paid", and "to spend" left out); the disclosure missed for the missing #ad, with the label left to check at posting.
+FAIL if the verdict is Pass, any of those four is marked wrong, or the star line's changes aren't named.
