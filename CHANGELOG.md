@@ -2,6 +2,13 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.0
+- New skill, review-draft: checks a creator's draft video against the brief they filmed from. Pass or fix; each fix a timestamped note to paste to the creator; the brief's must-haves ticked one by one (the hook word for word, the hook on screen, the product by 3 s, the ★ line as written, the disclosure) by `check_draft.py`, against the brief that video was filmed from when a creator has several (it picks by what was said, or `--brief`), with part 6's don'ts listed to look at and "not sponsored" never read as a disclosure; your own notes tagged "in the brief" or "new ask"; the revision round counted against the program's. In Claude Code it reads the video itself (`draft.py`: ffmpeg frames, and a transcript from the creator's captions file or whisper.cpp, free and local); on claude.ai it works from the transcript and screenshots you give. No Vamos credits.
+- content-log reads creators' results (below); brief points to review-draft next; creator-program saves each creator's videos, due dates and rounds of notes for them.
+
+## vamos 0.2.2 (Content System)
+- content-log: for creators you pay, each one's posts for the brand against the usual of the account they went up on (never counted in that usual, even when tagged paid), where a miss broke, cost per 1,000 views from the program's deal, posted against due, hooks pooled across creators with the dead ones, and who to double down on with each kept creator's next-brief change (`count.py --pay`, `references/creators.md`). Every linked post counts whatever the period, share links (`?igsh=…`) match their post, a link that matches no row is named, a program's bonus pool caps the bonuses in posting order, and hooks rank by how many tries beat their usual. Flags a post for the brand with no paid-partnership label or #ad.
+
 ## vamos 0.2.1 (Content System)
 - hooks says the one thing once: no setup for the next words to knock down, and never the viewer's problem said back. A stunt or before-and-after you'll film needs no line from Things you've said.
 

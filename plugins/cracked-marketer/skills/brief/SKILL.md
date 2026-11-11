@@ -48,6 +48,6 @@ It fails on length (300 to 500 words), a missing part, a hook of 12 words or mor
 
 **5. Hand it over.** Put the new briefs at the top of one briefs doc, newest first: a Google Doc called "Briefs" when Google Drive is connected, else a Notion page "Briefs" beside the board, else `vamos/briefs.md` in the project folder wherever you can write files, and a Brain file "Briefs" (one `save_brain_file` with the whole doc) only where you can't. Put each brief's link in its idea's Script column at Script ready. In the chat, per brief: its link, the slots to fill, and one line of proof for the user (the source, its views and Vamos's multiple). They share the doc with each creator themselves.
 
-**Check before the recap:** the checker passed or the hand-over says which brief didn't and why; every reference opens from the answer's links; no brief states a fact or result nobody gave you. Next is `/cracked-marketer:content-log` once the creators post.
+**Check before the recap:** the checker passed or the hand-over says which brief didn't and why; every reference opens from the answer's links; no brief states a fact or result nobody gave you. Next is `/cracked-marketer:review-draft` when a draft comes in, then `/cracked-marketer:content-log` once the creators post.
 
 If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

@@ -1,6 +1,7 @@
 import json, subprocess, sys, os
 from concurrent.futures import ThreadPoolExecutor
-plugin=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','plugins','vamos')
+plugin=os.environ.get('PLUGIN') or os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','plugins','vamos')
+prefix=os.environ.get('PREFIX','vamos')+':'  # PLUGIN=plugins/cracked-marketer PREFIX=cracked-marketer for its rows
 cases=[l.rstrip('\n').split('\t',1) for l in open(sys.argv[1]) if l.strip()]
 def run(c):
     exp,q=c
@@ -19,5 +20,5 @@ with ThreadPoolExecutor(7) as ex:
 tot=0
 for exp,got,q,cost in res:
     tot+=cost
-    print(('OK ' if got=='vamos:'+exp else 'XX ')+exp.ljust(20)+' -> '+got.ljust(28)+' | '+q[:80])
-print('ok',sum(1 for e,g,q,c in res if g=='vamos:'+e),'/',len(res),'cost $%.2f'%tot)
+    print(('OK ' if got==prefix+exp else 'XX ')+exp.ljust(20)+' -> '+got.ljust(28)+' | '+q[:80])
+print('ok',sum(1 for e,g,q,c in res if g==prefix+e),'/',len(res),'cost $%.2f'%tot)

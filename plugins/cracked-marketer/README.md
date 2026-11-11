@@ -1,6 +1,6 @@
 # Cracked marketer by Vamos
 
-The marketing hire a brand or startup would make, in Claude. It researches what's working on TikTok, Instagram and YouTube, plans and writes your content, logs what works and runs it all on a loop. It finds your creators, plans what to pay them, writes their briefs and makes the videos. Ad ideas from the ads that keep running come next.
+The marketing hire a brand or startup would make, in Claude. It researches what's working on TikTok, Instagram and YouTube, plans and writes your content, logs what works and runs it all on a loop. It finds your creators, plans what to pay them, writes their briefs, checks their drafts and makes the videos. Ad ideas from the ads that keep running come next.
 
 It includes everything in the Vamos plugin (Content System), so you never need both. Content System is for creators, coaches and service providers who film their own content. Cracked marketer is for a brand or startup that needs the whole marketing job done.
 
@@ -17,9 +17,10 @@ It includes everything in the Vamos plugin (Content System), so you never need b
 9. **brief**: turns an approved idea into a one-page brief each creator can film from on their phone: the hook word for word, three talking points, what to show and what to send.
 10. **script**: the full script for an approved idea, in your voice, on a structure that works.
 11. **make-video**: the finished video, static ad or carousel from an approved script, idea or reference, on your own tools, with every paid shot priced and asked first.
-12. **content-log**: your posts, and your creators' posts, against your usual: every pattern counted against the misses, and what to repeat, stop and turn into an ad.
-13. **loop**: runs ideas, scripts and the content log on a schedule, stopping where you choose for your yes.
-14. **analyze**: any time, breaks down a video you found, proves why it worked against the creator's own misses, and saves its structure for your scripts.
+12. **review-draft**: checks a creator's draft video against their brief before you send notes: pass or fix, timestamped notes to paste to them, the brief's must-haves ticked one by one, and your own notes tagged as in the brief or a new ask.
+13. **content-log**: your posts, and your creators' posts, against your usual: every pattern counted against the misses, and what to repeat, stop and turn into an ad. For creators, each one's posts against their usual, cost per 1,000 views, the hooks that won across creators, and who to double down on.
+14. **loop**: runs ideas, scripts and the content log on a schedule, stopping where you choose for your yes.
+15. **analyze**: any time, breaks down a video you found, proves why it worked against the creator's own misses, and saves its structure for your scripts.
 
 Each command reads `/cracked-marketer:<skill>`, for example `/cracked-marketer:setup`.
 

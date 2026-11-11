@@ -63,5 +63,111 @@ class CountDownload(unittest.TestCase):
         self.assertIn('curl -sL', out.stderr)
 
 
+def row(handle, i, day, views, likes=None, paid=False, caption='a post'):
+    return {'id': f'{handle}{i}', 'url': f'https://www.instagram.com/p/{handle}{i}/', 'platform': 'INSTAGRAM',
+            'creator': {'handle': handle}, 'views': views, 'likes': likes if likes is not None else views // 20,
+            'comments': 5, 'posted_at': f'2026-{day}T12:00:00Z', 'counts_as_of': '2026-11-11T12:00:00Z',
+            'paid_partnership': paid, 'caption_head': f'{caption} {i}', 'duration_seconds': 30 + i}
+
+
+class CreatorResults(unittest.TestCase):
+    """Creators the brand pays: their posts for the brand are judged against the account's own usual, never part of it."""
+
+    @classmethod
+    def setUpClass(cls):
+        import tempfile
+        d = tempfile.mkdtemp()
+        own = [row('maker', i, f'10-{10 + i:02d}', 1000 * (i + 1)) for i in range(11)]  # usual 6,000
+        brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # usual 20,000
+        ours = [row('maker', 20, '11-05', 30000, paid=True, caption='#ad trying Potly'),  # 5x, tagged paid
+                row('maker', 21, '11-06', 900, likes=2, paid=True, caption='#ad Potly'),  # under 1,000, likes 0.2%
+                row('maker', 22, '11-10', 4000, paid=True),                              # too early
+                row('brand', 23, '11-05', 10000, caption='no label')]                    # by @lee on the brand's account
+        tags = {'maker20': {'ours': True, 'creator': '@maker', 'hook': 'Payday in nine minutes'},
+                'maker21': {'ours': True, 'creator': '@maker', 'hook': 'Day ten and not broke'},
+                'maker22': {'ours': True, 'creator': '@maker', 'hook': 'Payday in nine minutes'},
+                'brand23': {'ours': True, 'creator': '@lee', 'hook': 'Payday in nine minutes', 'paid': 200}}
+        pay = {'@maker': {'base': 60, 'bonus': [[18000, 60], [60000, 120]], 'due': 4, 'sales': 6},
+               '@nobody': {'base': 50, 'due': 2}}
+        for name, blob in (('rows.json', {'data': {'videos': own + brand + ours}}), ('tags.json', tags), ('pay.json', pay)):
+            with open(os.path.join(d, name), 'w') as f:
+                json.dump(blob, f)
+        cls.out = subprocess.run([sys.executable, '-I', COUNT, os.path.join(d, 'rows.json'), '--since', '2026-11-01',
+                                  '--tags', os.path.join(d, 'tags.json'), '--pay', os.path.join(d, 'pay.json')],
+                                 capture_output=True, text=True, timeout=60)
+
+    def test_runs(self):
+        self.assertEqual(self.out.returncode, 0, self.out.stderr)
+
+    def test_usual_leaves_out_the_posts_for_the_brand(self):
+        self.assertIn('usual: 6,000 views, the median of 11 posts', self.out.stdout)
+        self.assertIn('usual: 20,000 views, the median of 10 posts', self.out.stdout)
+
+    def test_a_paid_post_for_the_brand_is_judged_not_set_aside(self):
+        self.assertRegex(self.out.stdout, r'maker20 on @maker: 30,000 views, 5\.0x the usual of 6,000')
+        self.assertNotIn('maker20 30,000 views, tagged paid', self.out.stdout)
+
+    def test_the_brand_account_post_is_against_the_brand_usual(self):
+        self.assertRegex(self.out.stdout, r'brand23 on @brand: 10,000 views, 0\.5x the usual of 20,000')
+        self.assertRegex(self.out.stdout, r'brand23[^\n]*no paid-partnership label in the row')
+
+    def test_cost_from_the_deal(self):
+        self.assertRegex(self.out.stdout, r'maker20[^\n]*paid \$120 \(\$60 base \+\$60 at 18,000\), \$4\.00 per 1,000')
+        self.assertRegex(self.out.stdout, r'brand23[^\n]*paid \$200 \(\$200 as tagged\)')
+
+    def test_where_a_miss_broke_and_a_boost(self):
+        self.assertRegex(self.out.stdout, r'maker21[^\n]*under 1,000: the opening failed[^\n]*likes under 0\.5%')
+
+    def test_scorecard(self):
+        self.assertRegex(self.out.stdout, r'scorecard: 3 posted of 4 due, 1 of 2 judged above usual[^\n]*paid \$240 for 34,900 views, \$6\.88 per 1,000; 6 sales from your numbers, \$40\.00 each')
+        self.assertIn('@nobody:\n    scorecard: 0 posted of 2 due', self.out.stdout)
+
+    def test_hooks_pooled_across_creators(self):
+        self.assertIn('"Payday in nine minutes": 3 tries by 2 creators, 1 above usual, 1 too early, best 30,000, 5.0x (@maker)', self.out.stdout)
+
+class CreatorEdges(unittest.TestCase):
+    """Share links, a post before --since, a capped bonus pool, an unmatched link, hooks ranked by multiple."""
+
+    @classmethod
+    def setUpClass(cls):
+        import tempfile
+        d = tempfile.mkdtemp()
+        own = [row('maker', i, f'10-{10 + i:02d}', 1000 * (i + 1)) for i in range(11)]  # usual 6,000
+        brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # usual 20,000
+        ours = [row('maker', 30, '10-25', 12000, caption='#ad'),                          # 2.0x, before --since
+                row('maker', 32, '11-04', 25000, caption='#ad'),                          # 4.2x
+                row('brand', 31, '11-05', 18000, caption='#ad')]                          # 0.9x on the brand's account
+        tags = {'https://www.instagram.com/p/maker30/?igsh=abc123': {'ours': True, 'creator': '@maker', 'hook': 'B'},
+                'maker32': {'ours': True, 'creator': '@maker', 'hook': 'C'},
+                'brand31': {'ours': True, 'creator': '@maker', 'hook': 'A'},
+                'https://vm.tiktok.com/ZMabc/': {'ours': True, 'creator': '@maker', 'hook': 'A'}}
+        pay = {'@maker': {'base': 60, 'bonus': [[10000, 100]], 'due': 4}, 'pool': 150}
+        for name, blob in (('rows.json', {'data': {'videos': own + brand + ours}}), ('tags.json', tags), ('pay.json', pay)):
+            with open(os.path.join(d, name), 'w') as f:
+                json.dump(blob, f)
+        cls.out = subprocess.run([sys.executable, '-I', COUNT, os.path.join(d, 'rows.json'), '--since', '2026-11-01',
+                                  '--tags', os.path.join(d, 'tags.json'), '--pay', os.path.join(d, 'pay.json')],
+                                 capture_output=True, text=True, timeout=60).stdout
+
+    def test_a_share_link_before_the_period_still_counts(self):
+        self.assertRegex(self.out, r'maker30 on @maker: 12,000 views, 2\.0x the usual of 6,000')
+        self.assertIn('usual: 6,000 views, the median of 11 posts', self.out)
+
+    def test_the_pool_caps_the_bonuses_in_posting_order(self):
+        self.assertIn('bonus pool $150: the tiers reached add $300, $150 past the pool', self.out)
+        self.assertRegex(self.out, r'maker30[^\n]*paid \$160 \(\$60 base \+\$100 at 10,000\)')
+        self.assertRegex(self.out, r'maker32[^\n]*paid \$110 \(\$60 base \+\$100 at 10,000 \(only \$50 left in the pool\)\)')
+        self.assertRegex(self.out, r'brand31[^\n]*paid \$60 \(\$60 base \+\$100 at 10,000 \(pool spent\)\)')
+
+    def test_a_link_that_matches_no_row_is_named(self):
+        self.assertIn('tags that match no row', self.out)
+        self.assertIn('ZMabc', self.out)
+
+    def test_hooks_rank_by_beating_the_usual_not_raw_views(self):
+        c, b, a = (self.out.index(f'    "{h}":') for h in 'CBA')
+        self.assertLess(c, b)
+        self.assertLess(b, a)
+
+
 if __name__ == '__main__':
     unittest.main()
