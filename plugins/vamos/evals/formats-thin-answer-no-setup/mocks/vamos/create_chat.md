@@ -1,0 +1,1 @@
+{"chatId":"3f1c9a52-7d0e-4b86-9a14-5e2b8c6d7f01","title":null,"createdAt":"2026-11-10T20:00:00.000Z","setup":"This Vamos workspace has nothing set up yet (no accounts, content pillars or followed creators), so answers are not tailored to the user. set_up_workspace sets it up from their social accounts, website and what they do."}

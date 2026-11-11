@@ -1,0 +1,1 @@
+{"title":"{{input.title}}","kind":"file","action":"created"}

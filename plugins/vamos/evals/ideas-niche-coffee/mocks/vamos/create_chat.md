@@ -1,0 +1,1 @@
+{"chatId":"ec7ee556-e8c4-70a7-7287-f86ed8f130d1","title":null,"createdAt":"2026-11-05T15:20:00.000Z","brain":"Slow Pour (a test brand): home coffee and pour-over for beginners · niche: Coffee · pillars: Pour-overs, Recipe tests, Morning coffee"}

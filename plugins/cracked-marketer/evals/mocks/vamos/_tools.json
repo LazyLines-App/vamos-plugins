@@ -1,0 +1,270 @@
+{
+ "tools": [
+  {
+   "name": "auth_status",
+   "description": "Whether this session is signed in to Vamos. When it is not, returns the sign-in link to give the user.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {}
+   }
+  },
+  {
+   "name": "get_workspace",
+   "description": "Free. What this workspace already has, so setup and tracking aren't redone: plan, Brain files and skills, voice guide, tracked accounts and the cap, routines. `file` returns one file's text or skill's instructions.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "file": {
+      "type": "string",
+      "description": "A title from `files` or `skills`."
+     }
+    }
+   }
+  },
+  {
+   "name": "save_brain_file",
+   "description": "Free. Saves one Brain file to this workspace, replacing the one with that title or creating it. With when_to_use, a skill instead.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "content": {
+      "type": "string",
+      "description": "The whole text, as Markdown."
+     },
+     "title": {
+      "type": "string"
+     },
+     "when_to_use": {
+      "type": "string",
+      "description": "Makes it a skill: the kind of task it is for."
+     }
+    },
+    "required": [
+     "title",
+     "content"
+    ]
+   }
+  },
+  {
+   "name": "set_up_workspace",
+   "description": "Set up the workspace this connection signed in to: from their social accounts, website and what they do, Vamos fills in their Brain (profile, pillars and voice) and follows creators in their niche. Ask them for these first. Returns a runId; poll it with chat_completion_poll.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "about": {
+      "type": "string",
+      "description": "What they do, what they sell and who it is for, in their words, if they said."
+     },
+     "accounts": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Their social accounts: @handle with the platform, or profile links (Instagram, TikTok, YouTube, LinkedIn, X, Facebook)."
+     },
+     "competitors": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Competitors' accounts or sites they named."
+     },
+     "track": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      },
+      "description": "Creators they named to track; else Vamos picks up to six."
+     },
+     "website": {
+      "type": "string",
+      "description": "Their website, if they have one."
+     }
+    }
+   }
+  },
+  {
+   "name": "get_credit_usage",
+   "description": "The workspace's plan and remaining Vamos credits. Free to call.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {}
+   }
+  },
+  {
+   "name": "list_chats",
+   "description": "The workspace's Vamos chats, most recent first, with titles. Continue the chat that matches the user's work; create_chat is for new work. Scheduled routine runs appear here too. A non-null cursor means more pages.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "cursor": {
+      "type": "string",
+      "description": "From the previous page."
+     },
+     "limit": {
+      "type": "integer",
+      "description": "Default 20, max 100.",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+     },
+     "workspace": {
+      "type": "string",
+      "description": "Another of the user's workspaces, by name. Default: the connected one."
+     }
+    }
+   }
+  },
+  {
+   "name": "get_messages",
+   "description": "A chat's messages, newest first. Free: use it to show or reuse an earlier answer, or after an error to see whether a turn landed. A non-null cursor means more pages.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "chatId": {
+      "type": "string",
+      "description": "From list_chats or create_chat."
+     },
+     "cursor": {
+      "type": "string",
+      "description": "From the previous page."
+     },
+     "include_data": {
+      "type": "boolean",
+      "description": "Only when the user wants an answer's videos, ads, creators and formats as rows: each answer gains them in `data`; limit defaults to 5, max 20."
+     },
+     "include_transcripts": {
+      "type": "boolean",
+      "description": "With include_data: add transcripts, up to 10."
+     },
+     "limit": {
+      "type": "number",
+      "description": "Default 50, max 100."
+     }
+    },
+    "required": [
+     "chatId"
+    ]
+   }
+  },
+  {
+   "name": "create_chat",
+   "description": "Start a new Vamos chat for new work and get its chatId. Every later message in the chat builds on the ones before it.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "prompt": {
+      "type": "string",
+      "description": "A short name for the chat, not the request: send that with the first message."
+     },
+     "workspace": {
+      "type": "string",
+      "description": "Another of the user's workspaces, by name. Default: the connected one."
+     }
+    },
+    "required": [
+     "prompt"
+    ]
+   }
+  },
+  {
+   "name": "chat_completion_start",
+   "description": "Ask Vamos to research or write social media content: what is working on TikTok, Instagram or YouTube (trending formats, hooks and topics in a niche, content ideas, a creator's or competitor's best posts, creators to work with), a post's hook, comments or video, whether a post or idea is worth posting, a brand's Meta ads and creator program, a content strategy, and posts, hooks, scripts or captions in their brand voice; or to keep what the user asks it to (a brand fact, a voice rule, creators to track, a routine).\n\nReturns a runId at once while Vamos works: seconds for a rewrite, 2-8 minutes for research. Call chat_completion_poll with the runId until it is done; the answer is its `result`. Send the next message in a chat after that: one sent while a run works starts a second run.\n\nCredits bill when the run completes, at most 60 a run, even if you stop polling; chat_completion_cancel stops it.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "chatId": {
+      "type": "string",
+      "description": "From list_chats or create_chat."
+     },
+     "client_context": {
+      "type": "object",
+      "description": "Tracking only: the plugin (name@version) and skill sending this.",
+      "properties": {
+       "plugin": {
+        "type": "string"
+       },
+       "skill": {
+        "type": "string"
+       }
+      }
+     },
+     "content": {
+      "type": "string",
+      "description": "The user's whole request in their own words, as one message even when it has several parts, with the details it depends on (their niche, platform, offer, handles or links; for a video they attached, what it shows, its first spoken line and on-screen text word for word). One exception: send something to save as its own message, since a run that researches may not save it. Vamos plans its own research and has this chat's history and the workspace brand, so add no plan or format of your own; pass on figures the user gave or their other tools returned, such as their ad results. Examples: \"break down @vanessalau.co's last 30 days\", \"tighten hook 2, add a stronger CTA\"."
+     },
+     "data_format": {
+      "type": "string",
+      "enum": [
+       "file",
+       "inline"
+      ],
+      "description": "Default: links. \"inline\": the rows in `data` instead, for a small set or a host that cannot fetch."
+     },
+     "data_scope": {
+      "type": "string",
+      "enum": [
+       "answer",
+       "turn"
+      ],
+      "description": "With include_data. \"turn\": every post, ad, creator and format the research read, each with `cited`. Default: the answer's."
+     },
+     "include_data": {
+      "type": "boolean",
+      "description": "Only when the user wants the answer's videos, ads, creators and formats as rows (a sheet, board, file or pipeline); they are long. Adds `data`: row counts and 24h links to JSON and CSV. No extra credits."
+     },
+     "include_transcripts": {
+      "type": "boolean",
+      "description": "With include_data: add transcripts, up to 10."
+     }
+    },
+    "required": [
+     "chatId",
+     "content"
+    ]
+   }
+  },
+  {
+   "name": "chat_completion_poll",
+   "description": "Wait for a chat_completion_start run. The server holds each call up to 50s and returns as soon as the status changes.\n\n`working`: call again at once, with no sleep and nothing written to the user in between. `done`: `result` is the answer; give it to the user with its links and details intact, since the links are its sources, and `answerUrl`, the full answer. `incomplete`: the same, but cut off before it finished; say so. `failed`: `error` says why. `cancelled`: stopped by chat_completion_cancel.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "runId": {
+      "type": "string",
+      "description": "From chat_completion_start."
+     }
+    },
+    "required": [
+     "runId"
+    ]
+   }
+  },
+  {
+   "name": "chat_completion_cancel",
+   "description": "Stop a chat_completion_start run, e.g. when the user changes their mind or sent the wrong message. Credits cover only the work done so far. Safe to repeat.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "runId": {
+      "type": "string",
+      "description": "From chat_completion_start."
+     }
+    },
+    "required": [
+     "runId"
+    ]
+   }
+  }
+ ]
+}

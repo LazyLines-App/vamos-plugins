@@ -1,5 +1,6 @@
 """Build the ChatGPT plugin package: the reviewed base (chatgpt/base/plugin.json, chatgpt/assets, chatgpt/skills)
-plus the Claude plugin's job skills, so the skills stay one source.
+and only ChatGPT's own skills (get-started). The Claude job skills stay out until a ChatGPT test shows it runs their scripts and pages
+(Levi, 11-11, item 6 call 4).
 
   python3 scripts/build-chatgpt.py   ->  dist/chatgpt/vamos/ and dist/vamos-chatgpt.zip
 
@@ -16,13 +17,14 @@ CHATGPT_LINE = "If no Vamos tool is connected, say this needs the Vamos plugin: 
 
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(os.path.join(OUT, 'skills'))
-for src in (JOB_SKILLS, OWN_SKILLS):
+for src in (OWN_SKILLS,):  # job skills: see the docstring
     for name in sorted(os.listdir(src)):
-        body = open(os.path.join(src, name, 'SKILL.md')).read()
-        body = CLAUDE_LINE.sub(CHATGPT_LINE, body)
-        body = body.replace('as a Claude scheduled task on a paid plan', 'as a scheduled task where their plan has them')
-        os.makedirs(os.path.join(OUT, 'skills', name), exist_ok=True)
-        open(os.path.join(OUT, 'skills', name, 'SKILL.md'), 'w').write(body)
+        if 'disable-model-invocation: true' in open(os.path.join(src, name, 'SKILL.md')).read():
+            continue  # an old command name kept for one release; ChatGPT has no slash commands
+        shutil.copytree(os.path.join(src, name), os.path.join(OUT, 'skills', name))
+        path = os.path.join(OUT, 'skills', name, 'SKILL.md')
+        body = CLAUDE_LINE.sub(CHATGPT_LINE, open(path).read())
+        open(path, 'w').write(body)
 shutil.copytree(os.path.join(ROOT, 'chatgpt', 'assets'), os.path.join(OUT, 'assets'))
 
 manifest = json.load(open(os.path.join(ROOT, 'chatgpt', 'base', 'plugin.json')))

@@ -1,0 +1,1 @@
+{"chatId":"f14650bd-727c-d4d4-8a15-6c6408b5492b","title":null,"createdAt":"2026-11-05T15:50:00.000Z","brain":"Hollow Peak Active (a test brand): a small activewear brand selling squat-proof leggings and matching sets · niche: Fitness apparel · pillars: Try-ons, Gym fits, Behind the brand"}

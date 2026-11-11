@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: content-log-week-opusjake-link
+context:
+  scaffold_script: fixture.sh

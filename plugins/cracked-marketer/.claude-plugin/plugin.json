@@ -1,0 +1,17 @@
+{
+  "name": "cracked-marketer",
+  "displayName": "Cracked marketer by Vamos",
+  "version": "0.1.0",
+  "description": "The marketing hire for your brand or startup, for TikTok, Instagram and YouTube: learns your brand and tracks your competitors, takes any brand apart, finds the formats, hooks and ideas working now, writes the scripts, logs what's working and runs it all on a loop. Includes everything in the Vamos plugin.",
+  "author": {
+    "name": "Vamos",
+    "url": "https://getvamos.ai"
+  },
+  "homepage": "https://getvamos.ai",
+  "license": "MIT",
+  "privacyPolicyUrl": "https://getvamos.ai/privacy-policy",
+  "repository": "https://github.com/LazyLines-App/vamos-plugins",
+  "documentationUrl": "https://docs.getvamos.ai/en/articles/17009913-inside-claude",
+  "supportUrl": "https://getvamos.ai/contact",
+  "termsOfServiceUrl": "https://getvamos.ai/terms-conditions"
+}

@@ -1,1 +1,6 @@
 dist/
+src/page-kit/shots/
+__pycache__/
+src/page-kit/samples/
+plugins/vamos/evals/results/
+plugins/cracked-marketer/evals/results/

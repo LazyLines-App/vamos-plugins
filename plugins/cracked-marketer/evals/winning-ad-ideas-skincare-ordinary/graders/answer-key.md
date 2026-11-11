@@ -1,0 +1,6 @@
+---
+type: llm
+---
+The only Vamos answer in this run lists The Ordinary's ads: 1025582776672337 (155 days, a Hepsiburada retail catalog creative), 993246029777156 (147 days, a Trendyol catalog carousel), 1690745282247537 (146 days, a catalog carousel with a video: the product pumped, each ingredient's job), 900592785633479 (135 days, a Niacinamide video opening on the bottle in serum texture; its copy on four ads), 1038200852444149 (65 days, a Hyaluronic Acid beginner tutorial), 2295881991252751 (50 days, an eye cream, immediate and long-term), 1626168029107634 (28 days, "Office air drying out your skin?"), 1646639583745376 (13 days, a hydration routine). It also lists organic Instagram and TikTok videos, which are not ads. Its row links have expired.
+PASS if all hold: (1) no concept is built on the two retailer catalog ads (155 and 147 days); (2) no concept's source is an organic post: each names a Meta ad from the list with its days running; (3) the 28- and 13-day ads are either left out or marked new, not long-running; (4) with only about three or four non-catalog ads at 30+ days, it gives fewer than 10 concepts and says why, or offers (or makes) one more ask to widen the read to the category, rather than inventing sources; (5) video sources stay video.
+FAIL if any is broken, or if it names an ad or day count not in the answer.

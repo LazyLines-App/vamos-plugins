@@ -1,0 +1,52 @@
+# 2026-11-10, Sonnet, after the cold review's fixes: all 42
+XX ideas                -> -                            | What's going viral in skincare on TikTok this week?
+OK ideas                -> vamos:ideas                  | Give me content ideas for my fitness Instagram
+XX ideas                -> vamos:setup                  | Write my week of reels for my skincare brand, I'm @glowbyamy
+OK playbook             -> vamos:playbook               | Show me every Meta ad Gymshark is running, longest-running first
+XX playbook             -> -                            | How does Wispr Flow get its creators to post for them?
+OK creator-research     -> vamos:creator-research       | Find me UGC creators for my protein bar brand who actually get views, emails inc
+OK creator-research     -> vamos:creator-research       | Who's already posting about my brand Olipop on TikTok?
+OK script               -> vamos:script                 | Write me a 30 second script in my voice about why I quit coffee. My TikTok is @d
+XX script               -> -                            | Make this caption sound less like AI: Unlock your potential with our game-changi
+OK analyze              -> vamos:analyze                | Can you watch this reel and tell me why it went viral? https://www.instagram.com
+OK setup                -> vamos:setup                  | We need our content strategy for Q1, we're a skincare brand on TikTok and Instag
+OK analyze              -> vamos:analyze                | i almost posted this reel, is it good? https://www.tiktok.com/@chloejp.yaps/vide
+OK loop                 -> vamos:loop                   | I want an email every Monday telling me what to post
+OK loop                 -> vamos:loop                   | Set up Claude to run my Instagram content research every week while I sleep
+OK ideas                -> vamos:ideas                  | /viral-week skincare
+OK loop                 -> vamos:loop                   | Claude, I'm going to sleep, keep my content research running
+OK playbook             -> vamos:playbook               | Break down Gymshark for me
+OK ideas                -> vamos:ideas                  | Show me the viral reels in my niche this week
+OK ideas                -> vamos:ideas                  | Should I post this? My idea: a 20-second reel, "3 mistakes killing your sourdoug
+OK analyze              -> vamos:analyze                | I filmed my version of this, should I post it? https://www.instagram.com/p/DfNvg
+OK playbook             -> vamos:playbook               | Which creators is Grüns paying to post for them?
+OK playbook             -> vamos:playbook               | pull every meta ad grüns is running in the US right now, sorted by how long each
+OK creator-research     -> vamos:creator-research       | Our best creator is @jeffnippard. Find ten more like him under 50K followers
+OK analyze              -> vamos:analyze                | Break down this TikTok and turn it into a brief for our creator: https://www.tik
+OK setup                -> vamos:setup                  | Learn my voice and build my voice guide.
+XX ideas                -> -                            | Which of these is worth making this week for my plant shop's TikTok? 1) repottin
+OK analyze              -> vamos:analyze                | Grade my reel before I post it. I'll drop the video in here.
+OK ideas                -> vamos:ideas                  | Claude, scroll Instagram for me
+OK ideas                -> vamos:ideas                  | /scroll-for-me fitness
+XX ideas                -> -                            | /go-viral
+OK ideas                -> vamos:ideas                  | Read the comments on my competitor's top videos and tell me what my audience kee
+OK ideas                -> vamos:ideas                  | Read the comments on Gymshark's viral videos and tell me what their audience kee
+OK results              -> vamos:results                | Audit my Instagram @glowbyamy: which posts worked, which didn't, and why
+OK results              -> vamos:results                | Why are my reels flopping? I'm @glowbyamy on Instagram
+OK results              -> vamos:results                | Which of my last 10 TikToks should I make again?
+OK setup                -> vamos:setup                  | Set up Vamos for my brand: I'm @brewandbloom on Instagram and TikTok, brewandblo
+OK playbook             -> vamos:playbook               | Take Hormozi apart for me. What does he do that works, and what should I steal?
+OK formats              -> vamos:formats                | What video formats should I try next for my coffee brand?
+OK formats              -> vamos:formats                | What formats are blowing up outside my niche that I could use?
+OK hooks                -> vamos:hooks                  | Write me 10 hooks for a reel about meal prep for busy nurses
+OK hooks                -> vamos:hooks                  | Give me a better opening line for this video: "Today I want to talk about why yo
+OK results              -> vamos:results                | How did my posts do this week?
+ok 36 / 42 cost $1.96
+
+# Then the ideas and playbook descriptions were sharpened, and the misses rerun
+OK ideas -> vamos:ideas | What's going viral in skincare on TikTok this week? (2 of 2)
+OK ideas -> vamos:ideas | Which of these is worth making this week for my plant shop's TikTok? (2 of 2)
+OK script -> vamos:script | Make this caption sound less like AI (2 of 2)
+OK playbook -> vamos:playbook | How does Wispr Flow get its creators to post for them? (2 of 2, plus the three ads cases)
+~~ ideas -> ideas, script or setup | Write my week of reels for my skincare brand (each defensible)
+XX ideas -> - | /go-viral (not a command the plugin ships)

@@ -1,0 +1,1 @@
+{"chatId":"0d3f6a1e-8b2c-4c5d-9e7f-1a2b3c4d5e6f","title":null,"createdAt":"2026-11-11T09:10:00.000Z","brain":"RIP is an app that helps app founders make narrated, no-face motion-graphics short-form v\u2026 \u00b7 niche: Apps & SaaS \u00b7 instagram.com/getripping \u00b7 pillars: Founder Lessons, AI Video Creation, App Growth"}

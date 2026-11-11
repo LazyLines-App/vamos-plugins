@@ -1,0 +1,6 @@
+---
+type: llm
+---
+The user is RIP (@getripping), an app that makes narrated motion-graphics videos for app founders. Vamos's answer groups the comment asks on their last 20 posts and marks each against their own hooks and captions: access to RIP and the admin-panel prompt are answered by captions; how the videos are made is answered in part (a caption says "the app made this video too"); the defensibility question is answered by the copycats post's caption; "Can I use it with Codex?" (2 comments), "Do you also have that for ChatGPT?", "How did you decide which [features] to cut first?" is not made yet; the broken done-for-you link is a site fix (Vamos says to check it), so flagging it to fix is as right as "not made yet"; "why we all commenting same time" and the singularity remark are chatter.
+PASS if the reply marks each ask it lists as made (with the user's post that answers it, linked) or not made yet, in line with that answer; its ideas answer asks that are not made yet (or the how-it's-made ask with a new angle), in the askers' own words; and it makes no idea from the chatter.
+FAIL if it lists asks without saying which are made, calls the Codex or ChatGPT ask made, calls an ask made without linking a post, or builds an idea on an ask the user's posts already answer with nothing new.

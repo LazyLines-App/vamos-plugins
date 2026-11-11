@@ -1,0 +1,1 @@
+{"runId":"aa6b65ae-fdd3-4fbd-97f4-924337fa60ef","chatId":"9d66bcaa-3dd0-6915-f0c9-8b2d1b536d05","status":"working","estimatedDurationSec":300,"nextStep":"Call chat_completion_poll with runId=\"aa6b65ae-fdd3-4fbd-97f4-924337fa60ef\" in a tight loop — the server long-polls and enforces cadence. Stop once status is anything but \"working\"."}
