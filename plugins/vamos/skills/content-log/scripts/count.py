@@ -198,13 +198,19 @@ def cost(r, deal, tag, pool):
     return total, ' '.join(parts)
 
 
-def creators(rows, tags, pay, since):
+def handle_of(r, default='?'):
+    """The account a row is from: its handle, or its creator's (a dict or a plain handle)."""
+    c = r.get('creator')
+    return r.get('handle') or (c.get('handle') if isinstance(c, dict) else c) or default
+
+
+def creators(rows, tags, pay):
     """Every post tagged ours, whatever --since says: the program's period is the user's links."""
     ours = sorted((r for r in rows if r.get('_ours')), key=lambda r: r['posted_at'])
     if not ours:
         print('creators: no post is tagged ours')
         return
-    who = lambda r: (tag_of(tags, r).get('creator') or '@' + (r.get('handle') or (r.get('creator') or {}).get('handle', '?'))).lower()
+    who = lambda r: (tag_of(tags, r).get('creator') or '@' + handle_of(r)).lower()
     deals = {k.lower(): v for k, v in (pay or {}).items() if isinstance(v, dict)}
     print("creators: the posts made for the brand, each against the usual of the account it posted on;"
           " bonuses are worked out from the views at the read, so for a post past 7 days check its day-7 views")
@@ -242,7 +248,7 @@ def creators(rows, tags, pay, since):
             label = '' if (r.get('paid_partnership') or PAID.search(r.get('caption_head') or '')) else ', no paid-partnership label in the row and no #ad in the caption read: check the post'
             sofar = ' so far' if r['_aside'] else ''
             per = f", ${paid / r['views'] * 1000:,.2f} per 1,000{sofar}" if paid is not None and r['views'] else ''
-            acct = r.get('handle') or (r.get('creator') or {}).get('handle', '?')
+            acct = handle_of(r)
             print(f"    {r['posted_at'][:10]} {r['id']} on @{acct}: {num(r['views'])} views, {state}, {r['_age']:.1f} days old{boost}{label}; "
                   f"paid {('$' + num(paid) + sofar + ' (' + how + ')') if paid is not None else how}{per} | hook: {t.get('hook') or '?'}")
         xs = [r['views'] / r['_usual'] for r in judged]
@@ -299,7 +305,7 @@ def main():
     since = ts(a.since + 'T00:00:00+00:00') if a.since else read - timedelta(days=7)
     by = {}
     for r in rows:
-        by.setdefault((r.get('platform', ''), r.get('handle') or (r.get('creator') or {}).get('handle', '')), []).append(r)
+        by.setdefault((r.get('platform', ''), handle_of(r, '')), []).append(r)
     for (platform, handle), posts in by.items():
         print(f"@{handle} on {NAMES.get(platform.lower(), platform.title())}, {len(posts)} posts read")
         account(posts, tags, since, a.ads)
@@ -308,7 +314,7 @@ def main():
     if lost:
         print('tags that match no row (check the link; a short link like vm.tiktok.com needs the full one): ' + ', '.join(lost))
     if any(t.get('ours') for t in tags.values()):
-        creators(rows, tags, json.load(open(a.pay, encoding='utf-8')) if a.pay else {}, since)
+        creators(rows, tags, json.load(open(a.pay, encoding='utf-8')) if a.pay else {})
     elif a.pay:
         print('creators: no post is tagged ours, so there is nothing to cost: tag each post made for the brand {"ours": true, "creator": "@handle", "hook": "..."} in --tags')
 
