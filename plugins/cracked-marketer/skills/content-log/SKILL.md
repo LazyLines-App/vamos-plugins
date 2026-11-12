@@ -56,6 +56,6 @@ python3 <this skill's folder>/scripts/count.py "<the poll's data.json_url>" --si
 
 **6. The page.** Fill [assets/page.html](assets/page.html) as the `content-log` page ([assets/PAGE.md](assets/PAGE.md)): the finding as the lede, the three lists in `lists`, the post chart, the lessons. Add its link to Vamos settings with `save_brain_file`.
 
-**Check before the recap:** every × came from `count.py` or your shown counts, with the read date; with creators, every cost, scorecard and hook count came from its `creators:` block; each private number names its screenshot; every list item and lesson shows how many posts it rests on; nothing is on Stop or Confirmed on fewer than 3 posts from different weeks. Next is `/cracked-marketer:ideas`, which now starts from these lessons.
+**Check before the recap:** every × came from `count.py` or your shown counts, with the read date; with creators, every cost, scorecard and hook count came from its `creators:` block, and each winner on a creator's own account has its code ask written out; each private number names its screenshot; every list item and lesson shows how many posts it rests on; nothing is on Stop or Confirmed on fewer than 3 posts from different weeks. Next is `/cracked-marketer:ideas`, which now starts from these lessons.
 
 If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

@@ -1,6 +1,6 @@
 ---
 name: "loop"
-description: "Runs your content system on a schedule, even with your laptop closed: ideas on the days you pick, scripts for the ones you approve, a weekly content log, stopping where you want to say yes. Use to automate your content, get it every week, keep research running while you sleep, check that a scheduled run worked, or change, pause or stop the schedule."
+description: "Runs your content system on a schedule, even with your laptop closed: ideas on the days you pick, scripts for the ones you approve, a weekly content log, stopping where you want to say yes. Use when an ask says every Monday, every week or while I sleep: to automate your content, keep research running, check that a scheduled run worked, or change, pause or stop the schedule."
 ---
 
 # Loop
@@ -36,7 +36,9 @@ description: "Runs your content system on a schedule, even with your laptop clos
 >
 > Which days for ideas (default Monday and Thursday), and which day for the content log (default Monday)?
 
-**2. Price it** from `get_credit_usage`: an ideas run is about 50 credits, a content log about 15; saves are free. Say the week's total against what's left (Free's 200 don't renew). When it doesn't fit, offer fewer ideas days and set nothing up until they choose.
+With a "Creator program: [brand]" in the Brain and the brief skill in this plugin, add that the content log's day is also the creators' week ([references/creators.md](references/creators.md)): their results, each one's next brief, and the code asks, chases and payout list, all drafted for them to send.
+
+**2. Price it** from `get_credit_usage`: an ideas run is about 50 credits, a content log about 15 (about 20 with creators, plus up to 45 for their briefs' research turn: 42 for three creators on 2026-11-12); saves are free. Say the week's total against what's left (Free's 200 don't renew). When it doesn't fit, offer fewer ideas days and set nothing up until they choose.
 
 **3. Move a local board** off the laptop: to Notion or a Google Sheet when the host has one, else with `save_brain_file` as the Brain file Vamos board, the board word for word.
 
@@ -60,7 +62,7 @@ The content log's task says `run content-log`. With no scheduler, they run `/vam
 A fresh session knows only Vamos settings (`get_workspace` with `file`, free) and the board. Nobody is there to answer, so where a skill would ask, take its default and say so in the digest.
 
 - **ideas:** `/vamos:script` for the rows they set to Approved, then `/vamos:ideas`, whose new ideas wait at To review. On "run everything", run `/vamos:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets), then `/vamos:script` for the Picked rows.
-- **content-log:** `/vamos:content-log` on public numbers, then the `brief` skill for next week's briefs when the plugin has one.
+- **content-log:** `/vamos:content-log` on public numbers. First check the Brain for a "Creator program: [brand]" (`get_workspace`, free): when there is one and this plugin has the brief skill, read [references/creators.md](references/creators.md) before anything else and run all four of its steps, so content-log is its first step and the digest is the one there.
 
 Anything that spends outside Vamos credits, posts, emails, pays or messages someone waits for their yes. A run that finds nothing new says so in one line and spends nothing more.
 

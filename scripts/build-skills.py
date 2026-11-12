@@ -75,6 +75,9 @@ CM_REWRITE = [('/vamos:', '/cracked-marketer:'),
 CM_SETUP_ORDER = ('the skills in run order: playbook, formats, hooks, ideas, script, content-log, loop, and analyze any time.',
                   'the skills in run order: find-creators, creator-program, playbook, formats, hooks, ideas, winning-ad-ideas, '
                   'brief, script, make-video, review-draft, content-log, loop, and analyze any time.')
+# Loop's description names the creators' week only where there is a creator program to run (Cracked marketer).
+CM_LOOP_DESC = [('a weekly content log, stopping', "a weekly content log with your paid creators' results, stopping"),
+                ('to automate your content, keep research running', "to automate your content, run a creator program's week by itself, keep research running")]
 SKIP = {'__pycache__', '.DS_Store'}
 
 def want_bytes(path, data):
@@ -110,6 +113,11 @@ for name in CM_SHARED:
                 if CM_SETUP_ORDER[0] not in text:
                     problems.append("setup/SKILL.md lost its run-order line: update CM_SETUP_ORDER in build-skills.py")
                 text = text.replace(*CM_SETUP_ORDER)
+            if (name, rel) == ('loop', 'SKILL.md'):
+                for pair in CM_LOOP_DESC:
+                    if pair[0] not in text:
+                        problems.append("loop/SKILL.md's description changed: update CM_LOOP_DESC in build-skills.py")
+                    text = text.replace(*pair)
             data = text.encode('utf-8')
         except UnicodeDecodeError:
             pass

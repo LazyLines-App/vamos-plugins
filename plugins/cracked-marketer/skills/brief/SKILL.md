@@ -30,7 +30,7 @@ description: "Turns an approved idea into a one-page brief each UGC creator can 
 
 **1. What to brief.** The board's Approved rows, or the idea or video they give you, and the creators they name for it. With no creator named, write one brief for `[creator]`. Read Vamos settings, the Marketing plan and any "Creator program: [brand]" free with `get_workspace` and `file`: what they sell, its facts and rules, where it's bought, and each creator's pay and terms, which go in their brief.
 
-**2. One research turn** for every brief in the run (about 5 to 30 credits; say so first), with `include_data: true`, `data_scope: "turn"` and `include_transcripts: true`:
+**2. One research turn** for every brief in the run (up to 60 credits, about 40 for three creators; say so first), with `include_data: true`, `data_scope: "turn"` and `include_transcripts: true`:
 > For [brand] ([what it sells]) in [niche], on [platforms]: give the beats of [each source link] with timings: what's said, what's on screen and when the product first shows. For each, find 2 more videos in the same format in [niche] from the last 30 days that did well above their creator's usual, with links. [For @creator1, @creator2: each one's most-viewed recent post.] Research only; save nothing.
 
 That one turn covers the run: use the references it returns, leaving out any it calls seeded, boosted or partner-tagged, and say in the hand-over how many it found.

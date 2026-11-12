@@ -25,8 +25,20 @@ One row per creator, Main list first, best fit first, then Near miss. In Google 
 
 ## The first message
 
-Two or three sentences the user sends from their own account. It names something real from this creator's posts in Vamos's answer (a series, a video and its date), says what the brand is and the pay per video (a `[$ per video]` slot when the user hasn't said), and asks one question. No link: it goes in after they reply. Email when there's one; else an Instagram DM, after checking the Instagram profile is the same person, since a matching handle is often someone else; a TikTok DM last, a few a day.
+Two or three sentences the user sends from their own account. It names something real from this creator's posts in Vamos's answer (a series, a video and its date), says what the brand is, the pay per video, how many videos and by when (`[$ per video]`, `[N] videos by [date]` slots when the user hasn't said), and asks one question. No link: it goes in after they reply. Email when there's one; else an Instagram DM, after checking the Instagram profile is the same person, since a matching handle is often someone else; a TikTok DM last, a few a day.
 
-> Hi Ana, your Sunday starter-feeding videos are exactly how people use our kit. We're Crumb, a sourdough starter kit for first-time bakers, and we'd pay [$ per video] for short videos of you baking with it. Open to a paid test?
+> Hi Ana, your Sunday starter-feeding videos are exactly how people use our kit. We're Crumb, a sourdough starter kit for first-time bakers, and we'd pay [$ per video] for [N] short videos of you baking with it, by [date]. Open to a paid test?
 
-> Hey Theo, your "loaf 1 vs loaf 30" series is the job our kit does. We're Crumb (a starter kit for beginners) and pay [$ per video] for creator videos. Want the details?
+> Hey Theo, your "loaf 1 vs loaf 30" series is the job our kit does. We're Crumb (a starter kit for beginners) and pay [$ per video] for [N] creator videos by [date]. Want the details?
+
+## Two follow-ups, for the whole sheet
+
+When there's no reply, the user sends a follow-up in the same thread on day 4 and a last one on day 10. Each is one line, and the first adds one thing the first message didn't have. Put both in the hand-over once, with `[name]` slots.
+
+> Hi [name], following up on the paid test: 2 videos by [date], [$ per video] each, paid when they're posted. Want the brief?
+
+> Last note from me, [name]: if paid videos aren't for you right now, no problem. Thanks for the [their series] videos either way.
+
+## How many to message
+
+Plan on about 30 messages for each creator they want filming: 4 filming is about 120. That's our planning number, and it's rough. Cal AI got about 10 replies per 100 cold emails and signed about 1 in 100 (Superwall podcast, Aug 2026). Mass DMs got 3-4% replies on Instagram and about 2% on TikTok (Locked, Superwall podcast, 2026-06-11). Wispr Flow sent "100 to 200 DMs a week" to start its first 4 or 5 creators (as retold, Oct 2026). A personal message that names the pay to a creator who fits should do better than mass outreach. So the sheet is the first wave: the user sends it with the follow-ups, and on day 11 their replies and yeses size the next wave (creators still needed ÷ their yes rate). Keep our 1 in 30 until a wave of 25 or more has 2 yeses or more. Say how sure the number is whenever you give it, and what the rest of the names cost at this run's credits per creator who fits.

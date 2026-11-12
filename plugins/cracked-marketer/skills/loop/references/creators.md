@@ -1,0 +1,15 @@
+# The creators' week
+
+This applies when the Brain has a "Creator program: [brand]" and this plugin has the brief skill. Then the weekly content-log run is also the creators' week. Every week the user needs to know who won and what each video cost. They also need next week's brief for each creator, and every message and payment drafted for them to send. Nothing goes out from here.
+
+1. **Results.** Run `/cracked-marketer:content-log` with its Creators section. When the program's Results already hold a read from the last 2 days and no post links were added since, use it and spend nothing here. The posts made for the brand are the ones the program or the briefs doc links, the paid partnerships with the brand, and posts whose caption tags it. Nobody is there to answer, so list any post you couldn't place in the digest, for the user to say.
+2. **Next briefs.** Run the brief skill once for the round (its one research turn is up to about 45 credits), with one brief for each creator the program still has, built on their next-brief change in this week's Results. A winner goes to every creator with only its subject swapped; a miss changes the part its band names. The briefs go at the top of the briefs doc, newest first, and wait there for the user to share them. Keep or stop is the user's call at day 14, so nobody is left out of the round.
+3. **Drafts, in the digest,** each one for the user to send or pay:
+   - **Code asks:** content-log's code ask for each winner, word for word.
+   - **Chases:** a two-line nudge for each creator behind on videos due (count.py's posted against due), naming the video and the day it was due, to send once that day has passed. Hold a creator's chase while one of their posts is unplaced: it may be the missing video.
+   - **The payout list:** each creator's posts since the last payout in the program's Results, each with its link and what the deal pays for it, from count.py's creators block (when step 1 spent nothing, from the Results' table, with the program's bonus pool paid in posting order, in code). Add each code asked this week at its agreed fee, as its own line. Sum the total in code, and say what's left of the month's bonus pool. A bonus on a post under 7 days old is marked "so far", and one read after day 7 says it's on the views at the read.
+   - **Codes ending:** each code asked in the program whose window ends within 5 days, counted from the day it was asked unless the user gave the day it came: renew it or stop the ad.
+4. **Record.** Add this week's payout list (each post's link and amount), the codes asked and the briefs' links to the program's Results with `save_brain_file`, the whole file, so next week's payout starts after it.
+
+The digest opens on what waits for them:
+> **Waiting for you:** 3 briefs to share (Dana, Lee, Ria) · 1 Spark code ask (Dana's paycheck video) · 1 chase (Ria, 2 of 4 due) · payout $650 (count.py, summed in code) · **Credits:** 28 used, 1,178 left · **Board:** [link] · **Next:** Monday 10:00. Nothing was sent or paid: share the briefs and send each message yourself.
