@@ -23,7 +23,7 @@ Tag every post on its hook shape ("Claude just killed [X]", a number first, a qu
 3. **The three lists** (SKILL.md step 4).
 4. **Each post:** thumbnail, ×, views with its age when read, its job's number, then **Seen** (the hook, first frame, length, format, what the comments asked) beside **Guess** (why, marked as a guess). Posts too early to judge are listed as such.
 5. **Competitors:** their posts at 2× or more in the period, and what they share.
-6. **Ads** (when ads are on): what tracked brands started, kept and stopped in the Meta Ad Library.
+6. **Ads** (when ads are on): with an export, their account's week first, from `ads.py`: spend, CPA and ROAS against last week, the top ads, risers and fallers, the words in their ad names that win on spend and CPA, and each concept that ran with its CPA against the median. Then what tracked brands started, kept and stopped in the Meta Ad Library.
 7. **Lessons:** new and changed, each with its status.
 8. **Next:** what the next ideas run makes more of, stops and tests, and the predictions for next time.
 

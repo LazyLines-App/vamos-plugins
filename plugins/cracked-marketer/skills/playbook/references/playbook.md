@@ -12,7 +12,8 @@ The reply and the page follow these sections. The counting is in SKILL.md step 5
 5. **Reach posts and lead posts** (a creator) or **the call to action** (a brand): which posts ask for something, what they ask, and what asking costs in reach ("asking out loud: 9× the comments per view, at 0.64× the reach").
 6. **Ads** (when asked): running and stopped, the three longest-running rows with days, headline and link, headline families with counts, landing pages, formats.
 7. **The creators they pay** (when asked): partnership ads with handles, "checked N of M", any pay terms with their source.
-8. **What they stopped, with dates:** ads, formats and keywords that ended within what was read.
-9. **Plays:** five, each with Seen, Work, Watch, Your first line and Paste; then Skip.
-10. **Your first week.**
-11. **What we couldn't see:** stopped ads outside the EU and UK, revenue and spend, private analytics, posts older than the read, the platforms not read.
+8. **What customers say** (when asked): each group with its count, its sources and two lines word for word, linked, biggest first; then the three hooks and the switch idea.
+9. **What they stopped, with dates:** ads, formats and keywords that ended within what was read.
+10. **Plays:** five, each with Seen, Work, Watch, Your first line and Paste; then Skip.
+11. **Your first week.**
+12. **What we couldn't see:** stopped ads outside the EU and UK, revenue and spend, private analytics, posts older than the read, the platforms not read.

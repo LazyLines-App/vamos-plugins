@@ -2,6 +2,18 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.6
+- The four Content System changes below (content-log's ad account, playbook's customer read, ideas' dates, loop's exports).
+- winning-ad-ideas reads your neighbours' running ads beside your competitors', lists what each brand launched this week, and has three blind judges score its concepts: your account's track record, your customers' own words, and an assassin who looks for the reason each fails. A judge without evidence sits out, and a judge sitting alone kills nothing. Every kept concept gets a code (`WA-1112-1`) to put in the ad's name, so the content log finds it in your Ads Manager export.
+- loop can run a Monday research pack: playbook's customer read when the last one is missing or over 28 days old, then winning-ad-ideas, opening on the ad account's week.
+- loop sends each Approved row by who makes it: brief when a creator films it, script for the rest, and a Meta static is named for make-video.
+
+## vamos 0.2.8 (Content System)
+- content-log reads two ad-level Ads Manager exports beside your posts, never instead of them: the account's week against last week (spend, CPA or cost per lead, ROAS), risers, fallers and stopped ads, the words in your ad names that win, and which ad concepts ran, by the code in the ad name (`scripts/ads.py`). Vamos sees no spend, so every spend figure comes from your export.
+- playbook's read of what customers say covers comments, reviews and Reddit (through a web search), plus a survey CSV when you give one. It counts the lines into groups in code and writes hooks from the biggest group.
+- ideas pins the dates coming up in the next six weeks to this run's ideas when a web search is available. A date alone never makes an idea.
+- loop's content log uses the Ads Manager exports in the project folder when ads are on.
+
 ## cracked-marketer 0.2.5
 - formats ranks the Meta ad formats your category keeps paying to run 30+ days, statics included: a format ranks only when 2 or more advertisers have run it that long, and every card says its job (reach, trust or buy) and who makes it (your creators or your team).
 - setup works when nobody talks on camera: it asks who does, and when nobody does it writes the brand voice from the site, captions and Meta ad copy, then tests it against a real caption it held back.

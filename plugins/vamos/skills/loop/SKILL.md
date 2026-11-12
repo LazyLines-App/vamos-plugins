@@ -62,7 +62,7 @@ The content log's task says `run content-log`. With no scheduler, they run `/vam
 A fresh session knows only Vamos settings (`get_workspace` with `file`, free) and the board. Nobody is there to answer, so where a skill would ask, take its default and say so in the digest.
 
 - **ideas:** `/vamos:script` for the rows they set to Approved, then `/vamos:ideas`, whose new ideas wait at To review. On "run everything", run `/vamos:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets), then `/vamos:script` for the Picked rows.
-- **content-log:** `/vamos:content-log` on public numbers. First check the Brain for a "Creator program: [brand]" (`get_workspace`, free): when there is one and this plugin has the brief skill, read [references/creators.md](references/creators.md) before anything else and run all four of its steps, so content-log is its first step and the digest is the one there.
+- **content-log:** `/vamos:content-log` on public numbers, with the Ads Manager exports in the project folder when ads are on. First check the Brain for a "Creator program: [brand]" (`get_workspace`, free): when there is one and this plugin has the brief skill, read [references/creators.md](references/creators.md) before anything else and run all four of its steps, so content-log is its first step and the digest is the one there.
 
 Anything that spends outside Vamos credits, posts, emails, pays or messages someone waits for their yes. A run that finds nothing new says so in one line and spends nothing more.
 
