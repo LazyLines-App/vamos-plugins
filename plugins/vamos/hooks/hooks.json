@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '%s\\n' 'The vamos plugin is installed. For TikTok, Instagram, YouTube or Meta ads work (what’s going viral, ideas, hooks, scripts, a brand’s ads or creators, results, a content plan), load the matching vamos skill first: it calls the Vamos tools itself and saves what the next run needs. Call a Vamos tool directly only when no skill fits the ask.'"
+            "command": "printf '%s\\n' 'The vamos plugin is installed. For TikTok, Instagram, YouTube or Meta ads work (what’s going viral, formats, ideas, hooks, scripts, a video or profile breakdown, a brand’s ads or creators, results, a content plan), load the matching vamos skill first: it calls the Vamos tools itself and saves what the next run needs. Call a Vamos tool directly only when no skill fits the ask.'"
           }
         ]
       }

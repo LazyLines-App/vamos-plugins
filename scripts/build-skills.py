@@ -71,6 +71,10 @@ CM_SKILLS = os.path.join(ROOT, 'plugins', 'cracked-marketer', 'skills')
 CM_SHARED = ['setup', 'playbook', 'formats', 'hooks', 'ideas', 'script', 'content-log', 'loop', 'analyze']
 CM_REWRITE = [('/vamos:', '/cracked-marketer:'),
               ('the Connectors tab of the Vamos plugin', 'the Connectors tab of the Cracked marketer plugin')]
+# Setup's home page lists the skills in run order; Cracked marketer's order holds its own skills too (its README).
+CM_SETUP_ORDER = ('the skills in run order: playbook, formats, hooks, ideas, script, content-log, loop, and analyze any time.',
+                  'the skills in run order: find-creators, creator-program, playbook, formats, hooks, ideas, winning-ad-ideas, '
+                  'brief, script, make-video, review-draft, content-log, loop, and analyze any time.')
 SKIP = {'__pycache__', '.DS_Store'}
 
 def want_bytes(path, data):
@@ -102,6 +106,10 @@ for name in CM_SHARED:
             text = data.decode('utf-8')
             for old, new in CM_REWRITE:
                 text = text.replace(old, new)
+            if (name, rel) == ('setup', 'SKILL.md'):
+                if CM_SETUP_ORDER[0] not in text:
+                    problems.append("setup/SKILL.md lost its run-order line: update CM_SETUP_ORDER in build-skills.py")
+                text = text.replace(*CM_SETUP_ORDER)
             data = text.encode('utf-8')
         except UnicodeDecodeError:
             pass
