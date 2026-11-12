@@ -27,7 +27,7 @@ Prints, per account: the usual and what was set aside, each post since --since
 rate, each tag counted against the misses, and with --ads the posts that pass
 the ad rule.
 """
-import argparse, json, os, re, statistics as st, sys
+import argparse, json, math, os, re, statistics as st, sys
 from datetime import datetime, timedelta, timezone
 from urllib.request import Request, urlopen
 
@@ -165,8 +165,19 @@ def account(posts, tags, since, ads):
             print(f"    {v}: {len(up)} of {len(rs)} above usual, median {st.median(r['_x'] for r in rs):.1f}x, from {weeks} week{'s' if weeks > 1 else ''}"
                   + ('' if len(rs) >= 3 else ' (a Hunch: under 3 posts)'))
     if ads:
-        hits = [r for r in judged if ts(r['posted_at']) >= since and r['_x'] >= 5 and r['views'] >= 10000 and cpk(r) >= usual_cpk]
-        print('  turn into an ad (5x or more, 10,000+ views, comments per 1,000 at or above usual): ' + (', '.join(f"{r['id']} ({r['_x']:.1f}x, {num(r['views'])} views, {cpk(r):.1f} per 1,000)" for r in hits) or 'none'))
+        # Comments per 1,000 views fall as views grow (on 9 brand accounts, 11-12, a 5x post sat near 0.6x the usual rate),
+        # so a breakout is held to the rate this account's posts of its size get: the line through log rate on log views.
+        fit = [(math.log(r['views']), math.log(cpk(r))) for r in judged if r['views'] and cpk(r) > 0]
+        mx, my = (st.mean(x for x, _ in fit), st.mean(y for _, y in fit)) if fit else (0, 0)
+        sxx = sum((x - mx) ** 2 for x, _ in fit)
+        if len(fit) >= 10 and sxx:
+            slope = sum((x - mx) * (y - my) for x, y in fit) / sxx
+            expect, against = (lambda r: math.exp(my + slope * (math.log(r['views']) - mx))), 'what their posts that size get'
+        else:
+            expect, against = (lambda r: usual_cpk), 'usual (under 10 posts with comments, too few to read by size)'
+        hits = [r for r in judged if ts(r['posted_at']) >= since and r['_x'] >= 5 and r['views'] >= 10000 and cpk(r) >= expect(r)]
+        print(f'  turn into an ad (5x or more, 10,000+ views, comments per 1,000 at or above {against}): '
+              + (', '.join(f"{r['id']} ({r['_x']:.1f}x, {num(r['views'])} views, {cpk(r):.1f} per 1,000 against {expect(r):.1f})" for r in hits) or 'none'))
 
 
 def band(r):

@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.3
+- content-log's Turn into an ad holds a breakout to the keyword comments per 1,000 views that the account's posts of its size get, not its plain usual: that rate falls as views grow, so the old test passed 14 breakouts on 10 brand accounts and this one 32 (`count.py --ads`).
+
+## vamos 0.2.5 (Content System)
+- content-log's Turn into an ad holds a breakout to the keyword comments per 1,000 views that the account's posts of its size get, not its plain usual: that rate falls as views grow, so the old test passed 14 breakouts on 10 brand accounts and this one 32 (`count.py --ads`).
+
 ## cracked-marketer 0.2.2
 - creator-program says how many creators to message for the number you want filming (about 30 each, marked rough, with dated reply and sign rates and how sure each is), sends them in waves with follow-ups on day 4 and day 10, and sizes the next wave on your own rate. find-creators treats its sheet as the first wave, drafts the two follow-ups, prices the rest of the names, and its first message gives the pay, the number of videos and by when.
 - creator-program writes the ad-use terms before anyone films (run their posts as Spark or partnership ads through a per-post code: 60 days, 30% of the base, our proposal beside dated published ranges; terms already agreed stand) and the code ask a creator can follow and trust. content-log writes that ask out for each creator's winner, with the agreed fee or a slot, whatever the ads setting.
