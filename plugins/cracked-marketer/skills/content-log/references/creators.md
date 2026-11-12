@@ -41,4 +41,4 @@ Drop or keep is the user's call: give the number behind it. One post never drops
 
 ## Record
 
-Each hook's tries go on its Hooks row (creator, views, ×, age when read). Add a dated "Results" part to "Creator program: [brand]" with the call, each creator's line, each kept creator's next-brief change and each code asked (the creator, the video, Spark or partnership, the window, the day asked), saved whole with `save_brain_file`, so the next brief starts from it.
+Each hook's tries go on its Hooks row (creator, views, ×, age when read). Add a dated "Results" part to "Creator program: [brand]" with the call, its cohort grid (when it has one) brought up to date on posted, best video and stage, each creator's line, each kept creator's next-brief change and each code asked (the creator, the video, Spark or partnership, the window, the day asked), saved whole with `save_brain_file`, so the next brief starts from it.
