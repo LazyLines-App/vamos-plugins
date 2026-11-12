@@ -1,6 +1,6 @@
 # The voice
 
-A voice is built from how someone talks on camera, so it reads their own talking videos: 30 to 40 from the last 6 months, partner posts and reposts left out. A website or captions describe the brand; they don't say how the person speaks.
+A voice is built from how someone talks on camera, so it reads their own talking videos: 30 to 40 from the last 6 months, partner posts and reposts left out. A brand nobody talks for on camera has a written voice instead, from its site, captions and ads: [written-voice.md](written-voice.md).
 
 ## What the guide holds
 

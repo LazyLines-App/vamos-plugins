@@ -5,7 +5,7 @@
 A format is ranked only when all of these hold; the rest go under More, each with its reason in a few words.
 - **Proof:** 3 or more unrelated creators at 5× their usual in 60 days, or its `status` is early or trending.
 - **Examples that open:** at least one example links a post. A profile link is not an example.
-- **No hard clash with their limits:** a format filmed on a face for someone who never shows one, before-and-after for someone who rules it out. A soft clash (a face format that also works with hands and product) ranks, with how to make it their way.
+- **No hard clash with their limits:** before-and-after for a brand that rules it out. A face limit in Vamos settings is the team's: their creators show their own faces, so a face format ranks as one their creators film. A soft clash (a face format that also works with hands and product) ranks, with how to make it their way.
 - **Not marked Not for me or done** in Vamos settings.
 - **Two angles**, both passing the check (SKILL step 5) where it runs.
 
@@ -42,4 +42,13 @@ Each angle carries its **first line** (the words said or on screen in the first 
 
 ## The card
 
-Rank, name, definition, badge, stage (`status`), date read. Uses in their niche (`niche_examples`, or "not counted"). Why this one, for them, now, in a sentence ("Worked for 49 creators in 11 niches; used once in yours; you can film it alone"). Up to three examples that open the post, one from their niche when there is one; the first plays from its row's `video_url`. The range in their niche (best and median). The beats. What it takes, with any clash flagged. The angles. One honest risk. Actions: put on the board, write the script, not for me.
+Rank, name, definition, badge, stage (`status`), date read. Uses in their niche (`niche_examples`, or "not counted"). Why this one, for them, now, in a sentence ("Worked for 49 creators in 11 niches; used once in yours; you can film it alone"). Up to three examples that open the post, one from their niche when there is one; the first plays from its row's `video_url`. The range in their niche (best and median). The beats. What it takes, with any clash flagged. The angles. One honest risk. Actions: put on the board, brief a creator or write the script, not for me.
+
+Every card, ad or video, names its job and who makes it. Its `where_label` starts with the job its beats do ("Trust · Next door", "Buy · Meta ads"):
+- **Reach:** stops a stranger.
+- **Trust:** proof, a demo, a how-to, a customer.
+- **Buy:** the product working, an objection answered, the offer.
+
+Its `film` opens with who makes it:
+- **"Your creators can film it":** one person with a phone, the product and their own place, face included. Name the creators a "Creator program: [brand]" lists.
+- **"Your team makes it":** a static, a carousel, a screen recording, animation, anything built rather than filmed.

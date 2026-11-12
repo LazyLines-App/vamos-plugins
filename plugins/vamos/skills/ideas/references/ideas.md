@@ -40,7 +40,7 @@ Tell each one around the viewer: the original creator drops out, and the viewer 
 
 A comment ask is a find when it passes the five tests like any find: a specific want nobody has answered on camera, or a free thing people ask for. The idea answers it in the askers' own words; its source is the post, linked, with the likes Vamos gave. Each ask is "made", with their own post whose hook or caption answers it linked, or "not made yet"; ideas answer the ones not made yet. A question any newcomer asks ("how do I start?", "when does it start?") is never a find, however many ask it or whatever post it sits under.
 
-Asks to buy (where to get it, the price, the link, a restock) make a buy-stage idea for their own product, even on a rival's post. Give how many asked per 1,000 views only when Vamos counted them, worked out in code.
+Asks to buy (where to get it, the price, the link, a restock) make a buy-stage idea for their own product, even on a competitor's post. Give how many asked per 1,000 views only when Vamos counted them, worked out in code.
 
 ## Ads
 

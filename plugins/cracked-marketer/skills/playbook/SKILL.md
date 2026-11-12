@@ -1,6 +1,6 @@
 ---
 name: "playbook"
-description: "Takes a brand, competitor or creator apart into a playbook for your account: what works for them, counted against their misses, their hooks, how they sell, their Meta ads and paid creators when you ask, and five plays for your brand. Use for \"break down [brand]\", a rival's strategy, ads, paid creators or unhappy customers, or what to steal from a creator like Hormozi."
+description: "Takes a brand, competitor or creator apart into a playbook for your account: what works for them, counted against their misses, their hooks, how they sell, their Meta ads and paid creators when you ask, and five plays for your brand. Use for \"break down [brand]\", a competitor's strategy, ads, paid creators or unhappy customers, or what to steal from a creator like Hormozi."
 ---
 
 # Playbook
@@ -30,7 +30,7 @@ description: "Takes a brand, competitor or creator apart into a playbook for you
 
 **1. The target and the user.** Get the target's handle on each platform and its site; ask only when two different accounts could be meant. A person selling their own thing is a creator; otherwise a brand. The user's own product comes from their ask, else from `get_workspace`; when neither says what they sell, ask in one line before spending, because every play is written for it.
 
-**2. Read what they asked for.** A breakdown, a rival, a creator or "what should I steal" is the organic turn alone (about 50 to 60 credits). Ads and paid creators (about 15 to 60) and unhappy customers (about 20 to 40) run when the ask names them; organic joins them only when they asked for everything. Say in one line what you'll read and its cost, then go. Offer the rest at the end with its price.
+**2. Read what they asked for.** A breakdown, a competitor, a creator or "what should I steal" is the organic turn alone (about 50 to 60 credits). Ads and paid creators (about 15 to 60) and unhappy customers (about 20 to 40) run when the ask names them; organic joins them only when they asked for everything. Say in one line what you'll read and its cost, then go. Offer the rest at the end with its price.
 
 **3. The organic turn,** one ask for the platforms they named, else every platform the target posts on, with `include_data: true` and `data_scope: "turn"`:
 > For [user's brand], I'm studying [target] ([handle on each platform], [site]). Read their last 40 posts on [platforms] and say how each one was made: its format, its opening hook word for word, and whether it asks for a comment keyword out loud. Then what they sell and the path from a free thing to a paid one.

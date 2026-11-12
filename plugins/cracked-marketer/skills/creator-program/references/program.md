@@ -8,7 +8,7 @@ Notes from people who run creator programs and from our read of 134 short app de
 - **Budget under about 10 videos** at the rate you'd pay: the team films the 6 cells from scripts on the brand's own accounts, and creators come in on the winners.
 - **A post has already won:** skip the test. 3 or 4 creators each make their own version of it, with one thing changed.
 - **How many to message:** about 30 for each creator you want filming, in waves, with two follow-ups ([outreach.md](outreach.md); our planning number, rough until their own first wave replaces it).
-- **Who:** 3 or 4 creators who belong to the niche, each with a post of their own that went well past their usual. Name the brands each one already posts for (the rows' paid-partnership flag); one who posts for a rival may be tied to it. Add more once a format works; the return per creator falls past about 30 (@maubaron, app program, Nov 2026).
+- **Who:** 3 or 4 creators who belong to the niche, each with a post of their own that went well past their usual. Name the brands each one already posts for (the rows' paid-partnership flag); one who posts for a competitor may be tied to it. Add more once a format works; the return per creator falls past about 30 (@maubaron, app program, Nov 2026).
 - **Sold online:** hire more low-cost creators than you need and drop the ones who haven't delivered by week 2. Hit rates are close across tiers, so more faces beat bigger faces (Sweat Equity, DTC plan, Nov 2026, not launched yet).
 
 ## Whose account
@@ -48,7 +48,7 @@ Day 30: the money check. Add creators only where a format won.
 
 ## What to agree before anyone films
 
-The fee per video, the bonus thresholds and cap, the pay day; deliverables, due dates and one round of notes; the account and the posting days; the paid-partnership label on every post; ad use, by [ads.md](ads.md)'s default unless they set their own (any video can run as a Spark or partnership ad from their handle for 60 days from its code, at 30% of its base, paid when you ask for the code); whether they're tied to a rival brand; raw files; no AI version of their face or voice without their yes. List these for the user to agree; their own lawyer or template writes the contract.
+The fee per video, the bonus thresholds and cap, the pay day; deliverables, due dates and one round of notes; the account and the posting days; the paid-partnership label on every post; ad use, by [ads.md](ads.md)'s default unless they set their own (any video can run as a Spark or partnership ad from their handle for 60 days from its code, at 30% of its base, paid when you ask for the code); whether they're tied to a competitor; raw files; no AI version of their face or voice without their yes. List these for the user to agree; their own lawyer or template writes the contract.
 
 ## The answer, in order
 
