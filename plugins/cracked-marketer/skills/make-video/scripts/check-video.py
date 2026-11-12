@@ -152,6 +152,8 @@ def check_beats(video, beats, timed, words, cs, defects, flags):
                                    f'but the screen then doesn\'t ({", ".join(missing[:6])} not on it); move that moment under the line')
         tiles.append((pngs[shown], f'{ts[shown]:.1f}s  {line}'))
     sheet = os.path.splitext(video)[0] + '-beats.png'
+    if os.path.exists(sheet):
+        os.remove(sheet)
     make_sheet(tiles, sheet, tmp)
     shutil.rmtree(tmp, ignore_errors=True)
     if os.path.exists(sheet):
