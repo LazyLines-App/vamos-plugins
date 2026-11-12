@@ -2,6 +2,15 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.2
+- creator-program says how many creators to message for the number you want filming (about 30 each, marked rough, with dated reply and sign rates and how sure each is), sends them in waves with follow-ups on day 4 and day 10, and sizes the next wave on your own rate. find-creators treats its sheet as the first wave, drafts the two follow-ups, prices the rest of the names, and its first message gives the pay, the number of videos and by when.
+- creator-program writes the ad-use terms before anyone films (run their posts as Spark or partnership ads through a per-post code: 60 days, 30% of the base, our proposal beside dated published ranges; terms already agreed stand) and the code ask a creator can follow and trust. content-log writes that ask out for each creator's winner, with the agreed fee or a slot, whatever the ads setting.
+- loop: on the content-log day, a creator program gets the creators' week: results (a read under 2 days old is reused for free), one brief per creator, and drafts of the code asks, chases for videos past due, the payout list (bonus pool paid in order, each code's fee, summed in code) and codes ending within 5 days. Nothing is sent or paid. Its description names the creators' week and "every Monday".
+- brief prices its research turn at what it cost live: up to 60 credits, about 40 for three creators.
+
+## vamos 0.2.4 (Content System)
+- loop's description routes "every Monday" and "every week" asks; each run reads a creator program first when there is one (none in Content System), so nothing changes in a Content System run.
+
 ## vamos 0.2.3 (Content System)
 - The six old command names (competitor-research, content-strategy, content-system, video-breakdown, viral-research, write-like-me) are gone, as 0.2.0 said they would be.
 - The shared Vamos block is about 120 tokens shorter: what the connector's own tools now say (polling, the 60-credit cap, a save as its own message, the row switches, which reads are free) is no longer repeated.
