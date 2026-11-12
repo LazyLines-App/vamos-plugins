@@ -56,4 +56,4 @@ A lesson moves up only when a new post backs it. One flop makes a Hunch, never a
 
 ## Reviews
 
-One row a week from `/cracked-marketer:content-log` (a second run that week updates it): the date and period, the usual, the hit rate (share of the last 20 posts above 1× and above 2×) and the median ×, the predictions made for next time, and the ad ids seen per tracked brand.
+One row a week from `/cracked-marketer:content-log` (a second run that week updates it): the date and period, the usual, the hit rate (share of the last 20 posts above 1× and above 2×) and the median ×, the predictions made for next time, the ad ids seen per tracked brand, and, with an Ads Manager export, the Ad week: spend, CPA and ROAS, and each concept code that ran with its CPA.
