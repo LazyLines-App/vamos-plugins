@@ -90,6 +90,14 @@ class Ads(unittest.TestCase):
         self.assertNotEqual(res.returncode, 0)
         self.assertIn('needs the Ad name', res.stderr)
 
+    def test_empty_export(self):
+        d = tempfile.mkdtemp()
+        p = os.path.join(d, 'empty.csv')
+        open(p, 'w').write('Ad name,Amount spent (USD),Purchases\n')
+        res = subprocess.run([sys.executable, ADS, p], capture_output=True, text=True)
+        self.assertNotEqual(res.returncode, 0)
+        self.assertIn('has no ad rows', res.stderr)
+
     def test_no_summary_row(self):
         """A winner that spent what the rest did together stays an ad when the export has no total row."""
         d = tempfile.mkdtemp()

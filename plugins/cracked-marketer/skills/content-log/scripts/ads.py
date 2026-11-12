@@ -51,7 +51,7 @@ def read(path):
     with open(path, newline='', encoding='utf-8-sig') as f:
         rows = list(csv.DictReader(f))
     if not rows:
-        return {}, {}
+        sys.exit(f'{path} has no ad rows. Export at the ad level, Last 7 days, with Amount spent and Purchases (or Leads).')
     h = [x for x in rows[0] if x]  # a row longer than the header puts its extra cells under None
     exact = lambda want: next((x for x in h if x.strip().lower() == want), None)
     name = col(h, 'ad name')
