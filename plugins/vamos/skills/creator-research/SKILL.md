@@ -8,8 +8,6 @@ description: "Finds creators for a brand to work with: UGC creators or influence
 
 **Needs:** what the brand sells ("protein bars" is enough). When neither the ask nor the workspace brand gives it, ask for it in one short question before you send, because Vamos can't ask once it's working. `create_chat` shows the brand their Vamos workspace holds; use it rather than asking, and name a different brand in the ask when theirs is about one.
 
-Send each ask with the Vamos connector's `chat_completion_start` and poll until it's done; follow-ups go in the same Vamos chat. Give them Vamos's answer as it came, every link and number in it, and its `answerUrl` so they can open all of it in Vamos.
-
 **Ask Vamos**, with `include_data: true`:
 > Find [UGC creators / influencers] for [brand, product] on [platform] who get views [under N followers], starting with people already posting about [brand], with their usual views, the contact in their bio and any brand deals.
 

@@ -12,3 +12,10 @@ playbook	Show me every Meta ad Gymshark is running, longest-running first
 formats	What video formats should I try next for my coffee brand?
 make-video	I have one screen recording of my app. Make 10 videos from it, each with a different hook, so I can see which one works.
 make-video	Test hooks on the same demo: I filmed three reaction clips of me at my laptop and one recording of the app doing its thing
+make-video	Make a narrated motion graphics video for my startup Hookline (hookline.app) from this script, in Hookline's brand colours and fonts. - The real screens: ~/Desktop/hookline-recording.mp4 (the Hookline app finding skincare hooks; the top one, "Stop washing your face twice a day" by a skincare creator, did 30.4x its creator's usual). - Voice: my ElevenLabs voice (eleven_v3). Key in ~/.config/elevenlabs/.env as ELEVENLABS_API_KEY. - No music. My disk has about 4 GB free. Script: "Most hooks you scroll past are guesses. The ones that work can be measured. Hookline compares each video's views with its creator's usual. This skincare hook did thirty times her usual: 'Stop washing your face twice a day.' It's a line that tells you you're wrong, and it's a shape you can reuse. Ask Claude for the hooks beating their usual in your niche this week. It shows the number on each one, then writes yours. Comment HOOKS and I'll send you the setup."
+make-video	Can you make an animated explainer video for our budgeting app? About 40 seconds, my ElevenLabs voice over it.
+make-video	Turn this script into a narrated video with our app screens and animated text: "You don't need another to-do app. You need one that says no. Ours lets you pick three things a day and hides the rest until tomorrow."
+make-video	Make a product demo video with a voiceover from my screen recording of the app
+make-video	Make a motion graphics reel that explains our pricing in 30 seconds
+script	Write the script for a 30 second explainer video about our invoicing app
+formats	Should our next videos be motion graphics explainers or talking heads? We sell a meal-planning app.

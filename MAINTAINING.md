@@ -2,7 +2,7 @@
 
 This repo is one marketplace, `vamos-plugins`, with two plugins:
 - `vamos` (Content System): for creators, coaches and service providers who film their own content. It is the one in Claude's plugin directory.
-- `cracked-marketer` (Cracked marketer by Vamos): the marketing hire for a brand or startup. It holds every Content System skill plus its own, and installs from this marketplace only.
+- `cracked-marketer` (Cracked marketer by Vamos): the marketing hire for a brand or startup. It holds the nine shared Content System skills plus its own, and installs from this marketplace only.
 
 ## Making a change
 

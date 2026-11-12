@@ -2,6 +2,23 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## vamos 0.2.3 (Content System)
+- The six old command names (competitor-research, content-strategy, content-system, video-breakdown, viral-research, write-like-me) are gone, as 0.2.0 said they would be.
+- The shared Vamos block is about 120 tokens shorter: what the connector's own tools now say (polling, the 60-credit cap, a save as its own message, the row switches, which reads are free) is no longer repeated.
+- setup no longer says setting up again re-reads every account or rewrites the voice (a repeat only adds), and says the free first chat turn is an account's first ever.
+- Hooks and scripts need setup only while there is no voice guide; with a voice and no board, hooks keep the hooks in the chat, as before.
+- The start hook routes formats and breakdowns to their skills.
+
+## cracked-marketer 0.2.1
+- make-video loads for a plain ask for narrated motion graphics, an animated explainer, a narrated video or a demo with a voiceover; before, a detailed motion-graphics brief went straight to building, with no plan, price, stills or checks.
+- make-video's check-video.py hears the finished video's own audio against the script (a take or a fix that changes a word fails), fails a first frame of one flat colour (the feed's cover), and with `--beats` reads the screen at the word each line names its thing, writing a beats sheet for the look and the fresh reviewer. Every check runs again after each fix.
+- make-video breaks captions at phrases with `scripts/captions.py` (never after "are", "their", "can", running a caption long rather than break there) and spells them as the script does where the transcriber mishears a name; check-video.py fails a caption that ends on a word that needs the next one.
+- make-video checks each generated take with `scripts/check-take.py`: its sound must still be the read it was given (a re-voiced take is redone alone, never patched), its words match the line (a word the transcriber mishears in your read too is only flagged), and its eyes are open over the part used and on the cut frame.
+- make-video shows the stills before any cut is built, and asks the paid takes' yes with the cut they go into (built with the voice and a still of the face), not with the plan; models.md gives the step-by-step hand-off for a founder who submits takes by hand (omni reference, the voice video in the video reference slot, audio on, the credits on the button as the price) and the Seedance prompts that worked, with what each got right and missed.
+- winning-ad-ideas judges look-alikes on the user's remakes, not the source ads: two sources only count as one picture when their headline and body match word for word or the answer shows the same person or thing in the same setting, and each picture is named as the user will shoot it ("your pharmacist at the counter"), the source's who played by theirs.
+- The shared Vamos block is about 120 tokens shorter: what the connector's own tools now say (polling, the 60-credit cap, a save as its own message, the row switches, which reads are free) is no longer repeated. setup no longer says setting up again re-reads every account or rewrites the voice (a repeat only adds), and says the free first chat turn is an account's first ever. Hooks and scripts need setup only while there is no voice guide.
+- setup's home page lists Cracked marketer's own run order, from find-creators to analyze. The start hook routes creators to find, pay or brief, ad ideas, formats, breakdowns and making the video to their skills; the description and README name every job.
+
 ## cracked-marketer 0.2.0
 - New skill, review-draft: checks a creator's draft video against the brief they filmed from. Pass or fix; each fix a timestamped note to paste to the creator; the brief's must-haves ticked one by one (the hook word for word, the hook on screen, the product by 3 s, the ★ line as written, the disclosure) by `check_draft.py`, against the brief that video was filmed from when a creator has several (it picks by what was said, or `--brief`), with part 6's don'ts listed to look at and "not sponsored" never read as a disclosure; your own notes tagged "in the brief" or "new ask"; the revision round counted against the program's. In Claude Code it reads the video itself (`draft.py`: ffmpeg frames, and a transcript from the creator's captions file or whisper.cpp, free and local); on claude.ai it works from the transcript and screenshots you give. No Vamos credits.
 - content-log reads creators' results (below); brief points to review-draft next; creator-program saves each creator's videos, due dates and rounds of notes for them.
