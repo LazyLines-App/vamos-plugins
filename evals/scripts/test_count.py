@@ -169,5 +169,36 @@ class CreatorEdges(unittest.TestCase):
         self.assertLess(b, a)
 
 
+class AdRule(unittest.TestCase):
+    """--ads holds a breakout to the comment rate of the account's posts its size, since that rate falls as views grow.
+    On 10 brand accounts (11-12) the old test, the account's plain usual rate, passed 14 breakouts and the new one 32."""
+
+    def rows(self, path):
+        rows = []
+        for i in range(20):  # 1,000 to 20,000 views, comments per 1,000 falling from about 10 to 2
+            v = 1000 * (i + 1)
+            rows.append({'id': f'p{i}', 'platform': 'instagram', 'handle': 'brand', 'posted_at': f'2026-10-{i + 1:02d}T12:00:00+00:00',
+                         'views': v, 'likes': v // 20, 'comments': round(v * 10 / 1000 * (v / 1000) ** -0.5)})
+        last = {'platform': 'instagram', 'handle': 'brand', 'likes': 30000}
+        rows.append(dict(last, id='sells', posted_at='2026-11-05T12:00:00+00:00', views=100000, comments=200))  # 2.0 per 1,000
+        rows.append(dict(last, id='only-reach', posted_at='2026-11-06T12:00:00+00:00', views=100000, comments=50))  # 0.5 per 1,000
+        for r in rows:
+            r['counts_as_of'] = '2026-11-12T12:00:00+00:00'
+        with open(path, 'w') as f:
+            json.dump(rows, f)
+
+    def test_a_breakout_is_judged_against_posts_its_size(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, 'rows.json')
+            self.rows(path)
+            out = subprocess.run([sys.executable, '-I', COUNT, path, '--since', '2026-11-01', '--ads'],
+                                 capture_output=True, text=True, timeout=60).stdout
+        line = next(l for l in out.splitlines() if 'turn into an ad' in l)
+        self.assertIn('what their posts that size get', line)
+        self.assertIn('sells (', line)  # 2.0 per 1,000: under the usual 3.1, above the 1.2 its size gets
+        self.assertNotIn('only-reach', line)
+
+
 if __name__ == '__main__':
     unittest.main()
