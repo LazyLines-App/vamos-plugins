@@ -1,6 +1,6 @@
 ---
 name: "loop"
-description: "Runs your content system on a schedule, even with your laptop closed: ideas on the days you pick, scripts for the ones you approve, a weekly content log with your paid creators' results, stopping where you want to say yes. Use when an ask says every Monday, every week or while I sleep: to automate your content, run a creator program's week by itself, keep research running, check that a scheduled run worked, or change, pause or stop the schedule."
+description: "Runs your content system on a schedule, even with your laptop closed: ideas on the days you pick, scripts for the ones you approve, a weekly content log, stopping where you want to say yes. Use when an ask says every Monday, every week or while I sleep: to automate your content, keep research running, check that a scheduled run worked, or change, pause or stop the schedule."
 ---
 
 # Loop
