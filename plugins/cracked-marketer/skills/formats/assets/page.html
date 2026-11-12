@@ -345,6 +345,8 @@ function $(s, r) { return (r || document).querySelector(s); }
 function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 function num(v, d) { return Number(v).toLocaleString('en-US', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
+// a handle as shown: one @, whether the run wrote it with one or not (a rival written "@clickup" printed "@@clickup", 11-12)
+function at(h) { return '@' + esc(String(h == null ? '' : h).replace(/^@+/, '')); }
 function cx(n) { n = Number(n) || 0; if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, '') + 'M'; if (n >= 1e4) return Math.round(n / 1e3) + 'K'; if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K'; return String(n); }
 function X(x) { return num(x, x < .095 ? 2 : 1) + '<span class="xs">×</span>'; }
 var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -364,7 +366,7 @@ function thumb(p, noBadge) {
 }
 function post(p, anim) {
   return '<a class="pc"' + link(p.url) + (anim ? ' data-a="card"' : '') + '>' + thumb(p) +
-    '<span class="who">' + img(p.avatar, 'av') + '<span class="hd">@' + esc(p.handle) + '</span></span>' +
+    '<span class="who">' + img(p.avatar, 'av') + '<span class="hd">' + at(p.handle) + '</span></span>' +
     '<span class="meta">' + (p.views != null ? '<span class="px">' + cx(p.views) + '</span> views' : '') + (p.date ? ' · ' + dt(p.date) : '') + '</span></a>';
 }
 function grid(posts) {
@@ -377,7 +379,7 @@ function example(e, lead) {
   if (lead && e.video) media = '<span class="th" data-hook="' + esc(hook) + '"><video muted loop playsinline preload="none"' + (e.thumbnail ? ' poster="' + esc(e.thumbnail) + '"' : '') + ' data-src="' + esc(e.video) + '" data-plat="' + esc(plat(e.platform)) + '"></video>' + badge(e.x) + '</span>';
   else media = thumb(e);
   var watch = lead && !e.video ? '<span class="watch">Watch on ' + plat(e.platform) + ' ↗</span>' : '';
-  return '<a class="pc"' + link(e.url) + '>' + media + watch + '<span class="who">' + img(e.avatar, 'av') + '<span class="hd">@' + esc(e.handle) + '</span></span><span class="meta"><span class="px">' + cx(e.views) + '</span> views</span></a>';
+  return '<a class="pc"' + link(e.url) + '>' + media + watch + '<span class="who">' + img(e.avatar, 'av') + '<span class="hd">' + at(e.handle) + '</span></span><span class="meta"><span class="px">' + cx(e.views) + '</span> views</span></a>';
 }
 function fcard(f, i) {
   var where = f.where_label || (f.where === 'next_door' ? 'Next door' : 'In your niche');
@@ -397,7 +399,7 @@ function fcard(f, i) {
 function hooks(list) {
   return '<div class="hhead"><span></span><span>Hook</span><span>Their post</span><span>Your version</span></div>' + list.map(function (h) {
     var p = h.post || {};
-    return '<div class="hr" data-a="card"><a class="hr-th"' + link(p.url) + '>' + img(p.thumbnail) + '</a><div><p class="q">' + esc(h.hook) + '</p><p class="shape">' + esc(h.shape) + (p.handle ? ' · @' + esc(p.handle) : '') + '</p></div>' +
+    return '<div class="hr" data-a="card"><a class="hr-th"' + link(p.url) + '>' + img(p.thumbnail) + '</a><div><p class="q">' + esc(h.hook) + '</p><p class="shape">' + esc(h.shape) + (p.handle ? ' · ' + at(p.handle) : '') + '</p></div>' +
       '<div class="hr-num">' + badge(p.x, 'inl') + (p.views != null ? '<span><span class="px">' + cx(p.views) + '</span> views</span>' : '') + '</div>' +
       '<div class="hr-you"><span class="lab">Your version</span><p>' + esc(h.yours) + '</p></div></div>';
   }).join('');
@@ -431,7 +433,7 @@ var heroExtra = '', pageAnim = null, after = null;
 var P = {};
 P.setup = function () {
   var s1 = '<div class="setg">' + (D.set || []).map(function (c, i) {
-    var acc = c.accounts ? '<div class="avs">' + c.accounts.map(function (a) { return '<a' + link(a.url) + '>' + img(a.avatar, 'av') + '@' + esc(String(a.handle).replace(/^@/, '')) + (a.followers ? ' <span class="f"><span class="px">' + (isNaN(a.followers) ? esc(a.followers) : cx(a.followers)) + '</span></span>' : '') + '</a>'; }).join('') + '</div>' : '';
+    var acc = c.accounts ? '<div class="avs">' + c.accounts.map(function (a) { return '<a' + link(a.url) + '>' + img(a.avatar, 'av') + at(a.handle) + (a.followers ? ' <span class="f"><span class="px">' + (isNaN(a.followers) ? esc(a.followers) : cx(a.followers)) + '</span></span>' : '') + '</a>'; }).join('') + '</div>' : '';
     var lines = (c.lines || []).map(function (l) { return '<blockquote>' + esc(l) + '</blockquote>'; }).join('');
     return '<div class="sc" data-a="card"><div class="sc-h"><span class="k">' + (i + 1) + '</span>' + esc(c.title) + '</div>' + (c.value ? '<p class="v">' + esc(c.value) + '</p>' : '') +
       (c.detail ? '<p class="dt">' + esc(c.detail) + '</p>' : '') + acc + lines + (c.link ? '<a class="lk"' + link(c.link.url) + '>' + esc(c.link.label) + ' ↗</a>' : '') +
@@ -493,7 +495,7 @@ P.ideas = function () {
     var html = '<div class="find">' + post(f.post || {}, true) + '<div>' + (f.why ? '<p class="why">' + esc(f.why) + '</p>' : '') +
       '<ol class="angles">' + (f.angles || []).slice(0, 5).map(function (a) { a = typeof a === 'string' ? { line: a } : (a || {}); return '<li data-a="card"><span>' + esc(a.line) + (a.stage ? ' <span class="stg">' + esc(a.stage) + '</span>' : '') + '</span></li>'; }).join('') + '</ol>' +
       '<p class="status">' + (f.status ? '<span>Status: <b>' + esc(f.status) + '</b></span>' : '') + (f.board_url ? '<a' + link(f.board_url) + '>' + esc(f.board_label || 'Approve in Notion') + ' ↗</a>' : '') + '</p></div></div>';
-    return { key: 'f' + i, title: f.title || '@' + esc((f.post || {}).handle), html: html, navl: f.nav || '@' + ((f.post || {}).handle || '') };
+    return { key: 'f' + i, title: f.title || at((f.post || {}).handle), html: html, navl: f.nav || '@' + String((f.post || {}).handle || '').replace(/^@+/, '') };
   });
 };
 P.analyze = function () {
@@ -503,7 +505,7 @@ P.analyze = function () {
   var uNote = U.views ? 'Usual ' + num(U.views) + ': ' + (U.rule || 'the median views of the account’s posts at least 3 days old') + (U.posts ? ', over ' + U.posts + ' posts' : '') + '.' + (U.aside && U.aside.length ? ' Set aside: ' + U.aside.join('; ') + '.' : '') : null;
   var mx = function (p) { return p.x != null ? p.x : (base && p.views != null ? p.views / base : null); };
   var nums = function (p) { var x = mx(p); return x != null ? '<span class="nums"><span class="px">' + X(x) + '</span> the usual</span>' : ''; };
-  var bare = function (p) { var h = first(p.hook || p.caption || ''); return '<a class="pc bare"' + link(p.url) + '>' + (h ? '<span class="hk">“' + esc(h) + '”</span>' : '') + '<span class="who">' + img(p.avatar, 'av') + '<span class="hd">@' + esc(p.handle) + '</span></span><span class="meta">' + (p.views != null ? '<span class="px">' + cx(p.views) + '</span> views' : '') + (p.date ? ' · ' + dt(p.date) : '') + '</span></a>'; };
+  var bare = function (p) { var h = first(p.hook || p.caption || ''); return '<a class="pc bare"' + link(p.url) + '>' + (h ? '<span class="hk">“' + esc(h) + '”</span>' : '') + '<span class="who">' + img(p.avatar, 'av') + '<span class="hd">' + at(p.handle) + '</span></span><span class="meta">' + (p.views != null ? '<span class="px">' + cx(p.views) + '</span> views' : '') + (p.date ? ' · ' + dt(p.date) : '') + '</span></a>'; };
   var side = function (p, lab, cls) { return '<div class="side ' + cls + '" data-a="card"><span class="lb">' + esc(lab) + '</span>' + (p ? (p.thumbnail ? post(p) : bare(p)) + nums(p) : '<span class="gone' + (pairsBare ? ' bare' : '') + '">No post made the same way did a third as well</span>') + '</div>'; };
   var cell = function (b, h, lab) {
     if (!b) return '<div class="c"><span class="ml">' + esc(lab) + '</span><span class="sh">Not in it</span></div>';

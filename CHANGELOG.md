@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.4
+- Every skill page shows a handle with one @, whether the run wrote it with one or not: a setup page listed its rivals as "@@clickup".
+
+## vamos 0.2.6 (Content System)
+- Every skill page shows a handle with one @, whether the run wrote it with one or not: a setup page listed its rivals as "@@clickup".
+
 ## cracked-marketer 0.2.3
 - content-log's Turn into an ad holds a breakout to the keyword comments per 1,000 views that the account's posts of its size get, not its plain usual: that rate falls as views grow, so the old test passed 14 breakouts on 10 brand accounts and this one 32 (`count.py --ads`).
 
