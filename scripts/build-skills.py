@@ -6,7 +6,8 @@
 One source each: src/shared/working-with-vamos.md (injected between the markers in SKILL.md),
 src/shared/board.md, src/shared/textstats.py, and the page kit in src/page-kit/.
 The skills both plugins hold have one source too, plugins/vamos/skills/<name>: they are copied whole
-into plugins/cracked-marketer/skills/<name> (CM_SHARED). Edit them only in plugins/vamos.
+into plugins/cracked-marketer/skills/<name> (CM_SHARED). Edit them only in plugins/vamos. Where a brand's job
+differs, src/cracked-marketer/<name>/ holds Cracked marketer's own words (EDITS.md) and files.
 """
 import os, re, sys
 
@@ -71,14 +72,24 @@ CM_SKILLS = os.path.join(ROOT, 'plugins', 'cracked-marketer', 'skills')
 CM_SHARED = ['setup', 'playbook', 'formats', 'hooks', 'ideas', 'script', 'content-log', 'loop', 'analyze']
 CM_REWRITE = [('/vamos:', '/cracked-marketer:'),
               ('the Connectors tab of the Vamos plugin', 'the Connectors tab of the Cracked marketer plugin')]
-# Setup's home page lists the skills in run order; Cracked marketer's order holds its own skills too (its README).
-CM_SETUP_ORDER = ('the skills in run order: playbook, formats, hooks, ideas, script, content-log, loop, and analyze any time.',
-                  'the skills in run order: find-creators, creator-program, playbook, formats, hooks, ideas, winning-ad-ideas, '
-                  'brief, script, make-video, review-draft, content-log, loop, and analyze any time.')
-# Loop's description names the creators' week only where there is a creator program to run (Cracked marketer).
-CM_LOOP_DESC = [('a weekly content log, stopping', "a weekly content log with your paid creators' results, stopping"),
-                ('to automate your content, keep research running', "to automate your content, run a creator program's week by itself, keep research running")]
+# Where a shared skill's job differs for a brand, Cracked marketer's copy has its own words and files:
+# src/cracked-marketer/<skill>/EDITS.md holds each edit (Content System's words, then Cracked marketer's),
+# and every other file in that folder is added to Cracked marketer's copy only.
+CM_ONLY = os.path.join(ROOT, 'src', 'cracked-marketer')
+EDIT = re.compile(r'^~~~old (\S+)\n(.*?)\n~~~\n+~~~new\n(.*?)\n~~~$', re.S | re.M)
 SKIP = {'__pycache__', '.DS_Store'}
+
+def cm_edits(name):
+    path = os.path.join(CM_ONLY, name, 'EDITS.md')
+    edits = {}
+    if os.path.exists(path):
+        body = open(path).read()
+        found = EDIT.findall(body)
+        if len(found) != len(re.findall(r'^~~~old ', body, re.M)):
+            problems.append(f'src/cracked-marketer/{name}/EDITS.md: an edit block is malformed (~~~old <file>, the words, ~~~, then ~~~new, the words, ~~~)')
+        for rel, old, new in found:
+            edits.setdefault(rel, []).append((old, new))
+    return edits
 
 def want_bytes(path, data):
     old = open(path, 'rb').read() if os.path.exists(path) else None
@@ -103,26 +114,34 @@ for name in CM_SHARED:
         problems.append(f'missing shared skill: plugins/vamos/skills/{name}')
         continue
     have = files(src)
-    for rel in sorted(have):
-        data = open(os.path.join(src, rel), 'rb').read()
+    edits = cm_edits(name)
+    extra_dir = os.path.join(CM_ONLY, name)
+    extra = files(extra_dir) - {'EDITS.md'} if os.path.isdir(extra_dir) else set()
+    for rel in sorted(set(edits) - have):
+        problems.append(f'src/cracked-marketer/{name}/EDITS.md edits {rel}, which plugins/vamos/skills/{name} lacks')
+    for rel in sorted(extra & have):
+        problems.append(f'src/cracked-marketer/{name}/{rel} would replace the shared file: edit it in EDITS.md instead')
+    skill_md = ''
+    for rel in sorted(have | extra):
+        data = open(os.path.join(src if rel in have else extra_dir, rel), 'rb').read()
         try:
             text = data.decode('utf-8')
+            for old, new in edits.get(rel, []):
+                if text.count(old) != 1:
+                    problems.append(f'src/cracked-marketer/{name}/EDITS.md: {rel} holds "{old[:60]}…" {text.count(old)} times, not once')
+                text = text.replace(old, new)
             for old, new in CM_REWRITE:
                 text = text.replace(old, new)
-            if (name, rel) == ('setup', 'SKILL.md'):
-                if CM_SETUP_ORDER[0] not in text:
-                    problems.append("setup/SKILL.md lost its run-order line: update CM_SETUP_ORDER in build-skills.py")
-                text = text.replace(*CM_SETUP_ORDER)
-            if (name, rel) == ('loop', 'SKILL.md'):
-                for pair in CM_LOOP_DESC:
-                    if pair[0] not in text:
-                        problems.append("loop/SKILL.md's description changed: update CM_LOOP_DESC in build-skills.py")
-                    text = text.replace(*pair)
             data = text.encode('utf-8')
+            if rel == 'SKILL.md':
+                skill_md = text
         except UnicodeDecodeError:
             pass
         want_bytes(os.path.join(dst, rel), data)
-    for rel in sorted(files(dst) - have) if os.path.isdir(dst) else []:
+    for link in re.findall(r'\]\(((?:references|assets|scripts)/[^)]+)\)', skill_md):
+        if link not in have | extra:
+            problems.append(f'cracked-marketer/{name}: broken link {link}')
+    for rel in sorted(files(dst) - have - extra) if os.path.isdir(dst) else []:
         if check:
             problems.append(f'stale: {os.path.relpath(os.path.join(dst, rel), ROOT)} (not in plugins/vamos)')
         else:

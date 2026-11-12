@@ -1,6 +1,6 @@
 ---
 name: "ideas"
-description: "Finds what's going viral in your niche, with your competitors, in their comments and in a rival's running ads on TikTok, Instagram and YouTube, and turns what you can make yours into ideas backed by the post, on your board. Also says whether your own idea is worth making, from lookalikes that hit and missed. Use for \"what's going viral\", \"content ideas\", \"scroll for me\", \"what should I post\", \"turn their ads into ideas\", \"which of these should I make\", \"is this worth making\", \"what my followers keep asking for\"."
+description: "Finds what's going viral in your niche, with your competitors, in their comments and in a competitor's running ads on TikTok, Instagram and YouTube, and turns what you can make yours into ideas backed by the post, on your board. Also says whether your own idea is worth making, from lookalikes that hit and missed. Use for \"what's going viral\", \"content ideas\", \"scroll for me\", \"what should I post\", \"turn their ads into ideas\", \"which of these should I make\", \"is this worth making\", \"what my followers keep asking for\"."
 ---
 
 # Ideas
@@ -37,7 +37,7 @@ description: "Finds what's going viral in your niche, with your competitors, in 
 > 3. What people ask in the comments on my last 20 posts and my tracked competitors' best posts this month, word for word, with likes, grouped by ask; for each ask, my post whose hook or caption already answers it, linked, or "not made yet"; and for each post how many comments want to buy (where to get it, the price, the link).
 > Give each post: link, creator, views, multiple, date, length, format, the hook word for word, and whether it's an ad or paid.
 
-When they ask about one rival's comments or ads, send only that, naming the rival. When they ask what their followers keep asking for, send only part 3, for their own posts.
+When they ask about one competitor's comments or ads, send only that, naming the competitor. When they ask what their followers keep asking for, send only part 3, for their own posts.
 
 **3. Filter in code, then judge.** Save the rows (`data` when it holds them, else curl its `json_url`) and the board as text, and run `python3 scripts/filter.py rows.json --board board.txt` (no `--board` when there's none; `--min-views 2000` in a small niche); it prints what's kept, with labels, and what's dropped and why. Comment asks and ads skip it. Judge what's left on the five tests in [references/ideas.md](references/ideas.md), group the same promise, and pick. Watch only the picks whose video carried them and whose beats the answer doesn't already give, in one turn: "Watch these [N] posts and give each one's beats, what's said and what's on screen." Only on a host with no shell, make the same cuts by hand and say so.
 

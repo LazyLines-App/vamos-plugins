@@ -345,14 +345,14 @@ function $(s, r) { return (r || document).querySelector(s); }
 function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 function num(v, d) { return Number(v).toLocaleString('en-US', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
-// a handle as shown: one @, whether the run wrote it with one or not (a rival written "@clickup" printed "@@clickup", 11-12)
+// a handle as shown: one @, whether the run wrote it with one or not (a competitor written "@clickup" printed "@@clickup", 11-12)
 function at(h) { return '@' + esc(String(h == null ? '' : h).replace(/^@+/, '')); }
 function cx(n) { n = Number(n) || 0; if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, '') + 'M'; if (n >= 1e4) return Math.round(n / 1e3) + 'K'; if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K'; return String(n); }
 function X(x) { return num(x, x < .095 ? 2 : 1) + '<span class="xs">×</span>'; }
 var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 function dt(s, yr) { if (!s) return ''; var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return esc(s); return (+m[3]) + '\u00a0' + MON[+m[2] - 1] + (yr ? '\u00a0' + m[1] : ''); }
 function first(s) { return String(s || '').split('\n')[0]; }
-function plat(p) { return ({ instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube' })[String(p || '').toLowerCase()] || 'the post'; }
+function plat(p) { return ({ instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', facebook_ad: 'the Ad Library' })[String(p || '').toLowerCase()] || 'the post'; }
 function T(k, d) { return (D.titles && D.titles[k]) || d; }
 function badge(x, cls) { if (x == null || x < 2) return ''; return '<span class="bx' + (x >= 5 ? ' win' : '') + (cls ? ' ' + cls : '') + '">' + X(x) + '</span>'; }
 function link(u) { return u ? ' href="' + esc(u) + '" target="_blank" rel="noopener"' : ''; }
@@ -379,14 +379,16 @@ function example(e, lead) {
   if (lead && e.video) media = '<span class="th" data-hook="' + esc(hook) + '"><video muted loop playsinline preload="none"' + (e.thumbnail ? ' poster="' + esc(e.thumbnail) + '"' : '') + ' data-src="' + esc(e.video) + '" data-plat="' + esc(plat(e.platform)) + '"></video>' + badge(e.x) + '</span>';
   else media = thumb(e);
   var watch = lead && !e.video ? '<span class="watch">Watch on ' + plat(e.platform) + ' ↗</span>' : '';
-  return '<a class="pc"' + link(e.url) + '>' + media + watch + '<span class="who">' + img(e.avatar, 'av') + '<span class="hd">' + at(e.handle) + '</span></span><span class="meta"><span class="px">' + cx(e.views) + '</span> views</span></a>';
+  var meta = e.meta ? esc(e.meta) : '<span class="px">' + cx(e.views) + '</span> views';
+  return '<a class="pc"' + link(e.url) + '>' + media + watch + '<span class="who">' + img(e.avatar, 'av') + '<span class="hd">' + at(e.handle) + '</span></span><span class="meta">' + meta + '</span></a>';
 }
 function fcard(f, i) {
   var where = f.where_label || (f.where === 'next_door' ? 'Next door' : 'In your niche');
   var stage = f.stage ? '<span class="stg' + (/^(early|trending)$/i.test(f.stage) ? ' up' : '') + '">' + esc(f.stage.charAt(0).toUpperCase() + f.stage.slice(1)) + '</span>' : '';
   var wins = num(f.creators_5x) + '</span>creators at 5<span class="xs">×</span> or more';
   var med = f.median_x ? 'Median <span class="px">' + X(f.median_x) + '</span> across ' + (f.examples_total ? num(f.examples_total) + ' examples in the library' : 'the library') : '';
-  var stat = !('niche_uses' in f) ? '<p class="stat"><span class="px n">' + wins + '</p>' + (med ? '<p class="lib">' + med + '</p>' : '')
+  var stat = f.stat ? '<p class="stat">' + esc(f.stat) + '</p>'
+    : !('niche_uses' in f) ? '<p class="stat"><span class="px n">' + wins + '</p>' + (med ? '<p class="lib">' + med + '</p>' : '')
     : (f.niche_uses == null ? '<p class="stat">Uses in your niche: not counted</p>' : '<p class="stat"><span class="px n">' + num(f.niche_uses) + '</span>' + (f.niche_uses == 1 ? 'post in your niche uses it' : 'posts in your niche use it') + '</p>') +
       '<p class="lib"><span class="px">' + wins.replace('</span>', '</span> ') + (med ? ' · ' + med : '') + '</p>';
   return '<article class="fc" data-a="card"><div class="fc-main"><div class="fc-top"><span class="rank">' + (i + 1) + '</span><span>' + esc(where) + '</span>' + stage + '</div>' +

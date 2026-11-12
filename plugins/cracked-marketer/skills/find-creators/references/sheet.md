@@ -18,7 +18,7 @@ One row per creator, Main list first, best fit first, then Near miss. In Google 
 | contact | the bio email exactly as Vamos gave it; else the link in bio; else DM |
 | contact source | bio, link in bio, contact button (Apify), or none |
 | outreach | Email, Instagram DM, or DM first (EU and UK creators, since cold email to a personal address is weak ground under GDPR) |
-| found as | posting about the brand, posted for a rival, works with 2+ brands, breakout, or lookalike |
+| found as | posting about the brand, posted for a competitor, works with 2+ brands, breakout, or lookalike |
 | why they fit | Vamos's reason, short |
 | first message | below |
 | read | the date of the Vamos answer |

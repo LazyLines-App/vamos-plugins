@@ -31,7 +31,7 @@ How a stranger becomes a buyer, so every idea knows its job.
 
 ## Vamos settings
 
-- Setup date, and the voice's state (built from N talking videos, or thin).
+- Setup date, and the voice's state (built from N talking videos, written from the site and N captions and ads, or thin).
 - Voice numbers: the JSON `textstats.py profile` printed, on one line.
 - The board's link and kind (Notion, Sheet, local or this file).
 - Approval: Ask me after ideas (the default until `/cracked-marketer:loop` asks).

@@ -29,14 +29,14 @@ description: "Start here. Sets Vamos up for your brand in one sitting: reads you
 ## Steps
 
 **0. Check, free.** Call `get_workspace` and `get_credit_usage`. The workspace is one of three:
-- **Set up here before:** `files` has Vamos settings. Read it with `get_workspace` (`file: "Vamos settings"`) and go to step 7. Competitors they name now go in one ask: "For [brand], track these competitors' accounts alongside the ones I already track: [handles]. Change nothing else." Check `tracking.following` against `cap` first, and price it as one turn.
+- **Set up here before:** `files` has Vamos settings. Read it with `get_workspace` (`file: "Vamos settings"`) and go to step 7. Competitors they name now go in one ask: "For [brand], track these competitors' accounts alongside the ones I already track: [handles]. Change nothing else." Check `tracking.following` against `cap` first, and price it as one turn. A voice they ask to rebuild is step 3's part 1 alone in the Setup chat, its rebuild sentence included, priced as one turn, then steps 4 to 7 for the voice.
 - **Set up elsewhere** (the Vamos app, the sign-in page, an older run): `voice` is true, `tracking.following` is above 0, or `brain` lists pillars. Skip step 2 and keep the voice, Brain and tracked accounts it has; steps 3 to 5 add what's missing (competitors, the Marketing plan, Vamos settings). Say why in one line, at the start and again in the final message: "Vamos already knows your brand, so I'll keep it and add what's missing."
 - **Fresh:** none of those. Run every step, with step 2 once.
 
 Before the first billed step, say what's coming against their balance: the workspace's first `set_up_workspace` and the saves are free, and Vamos waives an account's first chat turn ever, so on a new account the research turn is free. Every later run bills: the voice guide message, each voice correction, any follow-up, and `set_up_workspace` or the research turn sent again.
 
 **1. Ask once,** in one short numbered message, before any research. Vamos can't ask questions once it's working, so a guess here becomes a generic voice.
-1. Each social account (handle and platform), the one they talk on most, and the website.
+1. Each social account (handle and platform), the website, and who talks on camera for the brand: the founder on their own account, someone on the brand's, or nobody.
 2. What they sell and who it's for, in a line.
 3. Competitors they already know, and creators they work with.
 4. Will they show their face, use their voice, film alone?
@@ -47,7 +47,7 @@ Leave out what their message or `get_workspace` already answers, and say "skip a
 
 **2. Set up the workspace,** fresh workspaces only. `set_up_workspace` with up to 8 accounts, the website, their line as `about`, the competitors they named as `competitors` and the creators they work with as `track`: named accounts are tracked for free there. It takes about 3 minutes. With no `track`, it also follows up to 6 niche creators.
 
-**3. One research turn,** in the chat setup returned (on a workspace set up before this run, `create_chat` "Setup"), with `include_data: true` and `include_transcripts: true`. Fill in [ ]. Drop part 3's Meta pages when ads are off, and the [fresh only] sentences on a workspace set up before this run, so the voice and tracked accounts it has stay:
+**3. One research turn,** in the chat setup returned (on a workspace set up before this run, `create_chat` "Setup"), with `include_data: true` and `include_transcripts: true`. Fill in [ ]. Drop part 3's Meta pages when ads are off, and the [fresh only] sentences on a workspace set up before this run, so the voice and tracked accounts it has stay. When nobody talks on camera, parts 1 and 4 and the voice work in steps 4 to 6 follow [references/written-voice.md](references/written-voice.md):
 > For [brand], [their line], on [platforms]:
 > 1. Read my last 40 videos on [the account they talk on] where I talk, from the last 6 months, leaving out partner posts and reposts. [fresh only: Rebuild my voice guide from how I really talk, quoting my real opening lines, closers and phrases.]
 > 2. Give each of those posts as a row: link, date, views, likes, comments, length, format, the hook word for word, and the caption's call to action.
@@ -61,7 +61,7 @@ When the answer leaves parts out, carry on with what it gave and offer, in the r
 - compute their usual and each post's multiple from their own rows;
 - run `python3 scripts/textstats.py profile` on the transcripts (up to 10 come back) for the voice numbers;
 - from those transcripts, pick the 5 Voice examples and one held-out video for the test;
-- keep each fact from part 4 you can find in a transcript you hold, and mark the rest "check with them";
+- keep each fact from part 4 you can find in a transcript, caption, ad or page you hold, and mark the rest "check with them";
 - label each of their posts reach, trust or buy by what it does and asks for, and count each stage's posts and median multiple;
 - draft the Brain files: Tracked accounts, Things you've said, What works for me, Marketing plan, Vamos settings.
 
@@ -78,6 +78,6 @@ When the answer leaves parts out, carry on with what it gave and offer, in the r
 - where to edit each part: the Voice page `https://app.getvamos.ai/brain?view=voice`, the Brain `https://app.getvamos.ai/brain`, tracked accounts `https://app.getvamos.ai/creators`, formats for their niche `https://app.getvamos.ai/formats`, the board, or just tell Claude ("I never say X", "stop tracking @x");
 - the skills in run order: find-creators, creator-program, playbook, formats, hooks, ideas, winning-ad-ideas, brief, script, make-video, review-draft, content-log, loop, and analyze any time.
 
-**Check before the recap:** every account they gave appears on the page or is named as not read; every quoted line is theirs, from a transcript. Next is `/cracked-marketer:ideas`, the cheapest way to their first posts; with credits to spare, `/cracked-marketer:playbook` on their top competitor.
+**Check before the recap:** every account they gave appears on the page or is named as not read; every quoted line is theirs, from a transcript, a caption, an ad or their site. Next is `/cracked-marketer:ideas`, the cheapest way to their first posts; with credits to spare, `/cracked-marketer:playbook` on their top competitor.
 
 If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

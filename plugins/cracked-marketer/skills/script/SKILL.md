@@ -48,6 +48,6 @@ Leave out `--sources` with no find and `--profile` with no numbers; the tells st
 
 **A rewrite** of their draft (a script, hook or caption) needs only step 2: keep their facts, order and length and add no claim of your own, take out the tells they never use, turn a question they answer themselves into a plain line that still names what's coming, run step 6, and show the new version in full.
 
-Next is filming it, then `/cracked-marketer:content-log` a week after it posts.
+Next is filming it, or `/cracked-marketer:make-video` when the team makes it, then `/cracked-marketer:content-log` a week after it posts.
 
 If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

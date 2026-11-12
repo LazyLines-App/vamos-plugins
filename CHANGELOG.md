@@ -2,6 +2,17 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.5
+- formats ranks the Meta ad formats your category keeps paying to run 30+ days, statics included: a format ranks only when 2 or more advertisers have run it that long, and every card says its job (reach, trust or buy) and who makes it (your creators or your team).
+- setup works when nobody talks on camera: it asks who does, and when nobody does it writes the brand voice from the site, captions and Meta ad copy, then tests it against a real caption it held back.
+- hooks reads the opening lines of the category's long-running Meta ads beside the posts that beat their creators' usual. A line read from the ad itself is a proven hook, ranked by days running; one from the ad's copy only is marked "ad copy".
+- ideas, analyze, hooks and formats name the next step by who makes it: brief when a creator films it, script or make-video when your team does.
+- "competitor" instead of "rival" throughout, README included.
+
+## vamos 0.2.7 (Content System)
+- A skill page's card can carry a stat and an example's meta line; pages without them are unchanged. check.py accepts Ad Library links.
+- "competitor" instead of "rival" in ideas and playbook.
+
 ## cracked-marketer 0.2.4
 - Every skill page shows a handle with one @, whether the run wrote it with one or not: a setup page listed its rivals as "@@clickup".
 

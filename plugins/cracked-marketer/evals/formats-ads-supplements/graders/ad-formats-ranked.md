@@ -1,0 +1,6 @@
+---
+type: llm
+---
+The Vamos answer groups 90+ day supplement ads by format. Advertisers per format: expert talking-head explainers 4 (Avantera Elevate 790 days, Quality of Life 556 and 374, Nuora 279, Micro Ingredients 265); creator routines, unboxing and interviews 4 (We Heart Nutrition 297, Dose 254, Tradesman Nutrition 120, Momentous 108); statics 3 (Avantera 252, Remade 189, Sandhu 169); product demos and montages 2 (Florastor 226, Perelel 120); founder story 2 (Plants Basically 205, Robert Love 201); the creator photo carousel 1 (We Heart Nutrition 252); catalog carousels 4 (Vegetology 832, Snap 500, Micro Ingredients 332, iHerb 304), which are product feeds, not one creative.
+PASS if (1) the expert talking-head format is ranked first or second, or set aside because its angles need a credentialed expert the brand hasn't got (the skill drops a format whose angles fail the check); (2) no catalog carousel is ranked as a format to make, and 832 or 500 days is not given as a format's longest run; (3) the creator photo carousel is not ranked as a format of its own, or is marked as one advertiser's; (4) every days-running number the reply gives matches the list above.
+FAIL if any of these is broken.

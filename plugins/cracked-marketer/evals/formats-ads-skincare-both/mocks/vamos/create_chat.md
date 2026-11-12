@@ -1,0 +1,1 @@
+{"chatId": "6c1e8b63-2d22-4f8f-8a4d-1b2c3d4e5f62", "title": null, "createdAt": "2026-11-10T14:00:00.000Z", "brain": "Plain Barrier (a test brand): a small skincare brand with four products, competing on ingredient honesty, for people with reactive skin \u00b7 niche: Skincare \u00b7 pillars: Ingredient explainers, Routine building, What we do not sell"}

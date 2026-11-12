@@ -1,6 +1,6 @@
 ---
 name: "ideas"
-description: "Finds what's going viral in your niche, with your competitors, in their comments and in a rival's running ads on TikTok, Instagram and YouTube, and turns what you can make yours into ideas backed by the post, on your board. Also says whether your own idea is worth making, from lookalikes that hit and missed. Use for \"what's going viral\", \"content ideas\", \"scroll for me\", \"what should I post\", \"turn their ads into ideas\", \"which of these should I make\", \"is this worth making\", \"what my followers keep asking for\"."
+description: "Finds what's going viral in your niche, with your competitors, in their comments and in a competitor's running ads on TikTok, Instagram and YouTube, and turns what you can make yours into ideas backed by the post, on your board. Also says whether your own idea is worth making, from lookalikes that hit and missed. Use for \"what's going viral\", \"content ideas\", \"scroll for me\", \"what should I post\", \"turn their ads into ideas\", \"which of these should I make\", \"is this worth making\", \"what my followers keep asking for\"."
 ---
 
 # Ideas
@@ -37,7 +37,7 @@ description: "Finds what's going viral in your niche, with your competitors, in 
 > 3. What people ask in the comments on my last 20 posts and my tracked competitors' best posts this month, word for word, with likes, grouped by ask; for each ask, my post whose hook or caption already answers it, linked, or "not made yet"; and for each post how many comments want to buy (where to get it, the price, the link).
 > Give each post: link, creator, views, multiple, date, length, format, the hook word for word, and whether it's an ad or paid.
 
-When they ask about one rival's comments or ads, send only that, naming the rival. When they ask what their followers keep asking for, send only part 3, for their own posts.
+When they ask about one competitor's comments or ads, send only that, naming the competitor. When they ask what their followers keep asking for, send only part 3, for their own posts.
 
 **3. Filter in code, then judge.** Save the rows (`data` when it holds them, else curl its `json_url`) and the board as text, and run `python3 scripts/filter.py rows.json --board board.txt` (no `--board` when there's none; `--min-views 2000` in a small niche); it prints what's kept, with labels, and what's dropped and why. Comment asks and ads skip it. Judge what's left on the five tests in [references/ideas.md](references/ideas.md), group the same promise, and pick. Watch only the picks whose video carried them and whose beats the answer doesn't already give, in one turn: "Watch these [N] posts and give each one's beats, what's said and what's on screen." Only on a host with no shell, make the same cuts by hand and say so.
 
@@ -55,8 +55,8 @@ Each idea gets a verdict from both sides, in Vamos's own counts, and "too few to
 
 Then check it against the bar in [references/ideas.md](references/ideas.md), their calls and the board, say plainly which is worth making and why, and give the best ways to make it theirs.
 
-**7. Tell them how to approve:** set a row to Approved on the board (or reply "approve 1, 3" in Claude Code), and `/cracked-marketer:script` writes those.
+**7. Tell them how to approve:** set a row to Approved on the board (or reply "approve 1, 3" in Claude Code), and `/cracked-marketer:brief` briefs the ones a creator will film, or `/cracked-marketer:script` writes the ones the team makes.
 
-**Check before the recap:** the page is built; each find has three to five ideas and every idea links its find; no idea repeats a promise on the board or does what a call's reason in Vamos settings rules out; the page and the reply count as on the board only the rows Vamos or the board confirmed. Next is `/cracked-marketer:script` for the approved ones.
+**Check before the recap:** the page is built; each find has three to five ideas and every idea links its find; no idea repeats a promise on the board or does what a call's reason in Vamos settings rules out; the page and the reply count as on the board only the rows Vamos or the board confirmed. Next is `/cracked-marketer:brief` for the approved ones a creator will film, or `/cracked-marketer:script` for the ones the team makes.
 
 If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

@@ -4,7 +4,7 @@
   python3 scripts/check.py kept.json source.txt
 
 kept.json: a list of {"said", "on_screen", "shown", "source"}. "said" is "none" on a silent format;
-"source" is the proven post's link, "hooks.md @handle" for a proven hook from references/hooks.md,
+"source" is the proven post's or ad's link, "hooks.md @handle" for a proven hook from references/hooks.md,
 or "their line" for a hook built from the user's own line.
 source.txt: the Vamos answer or the Hooks tab the proven hooks came from (any text holding their links).
 
@@ -13,7 +13,7 @@ Prints "ok", or one line per problem and exits 1.
 import json, os, re, sys
 
 REFERENCE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "references", "hooks.md")).read()
-LINK = re.compile(r"(?:tiktok\.com/@[\w.]+/video/\d+|instagram\.com/(?:p|reel)/[\w-]+|youtube\.com/(?:watch\?v=|shorts/)[\w-]{11}|youtu\.be/[\w-]{11})")
+LINK = re.compile(r"(?:tiktok\.com/@[\w.]+/video/\d+|instagram\.com/(?:p|reel)/[\w-]+|youtube\.com/(?:watch\?v=|shorts/)[\w-]{11}|youtu\.be/[\w-]{11}|facebook\.com/ads/library/\?id=\d+)")
 
 
 def words(text):
@@ -30,7 +30,7 @@ def grams(hook, n=4):
 
 
 def key(link):
-    return re.sub(r"^.*?(?=tiktok|instagram|youtube|youtu\.be)", "", link).replace("/reel/", "/p/").rstrip("/")
+    return re.sub(r"^.*?(?=tiktok|instagram|youtube|youtu\.be|facebook)", "", link).replace("/reel/", "/p/").rstrip("/")
 
 
 def main(kept_path, source_path):

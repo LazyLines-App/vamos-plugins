@@ -57,6 +57,6 @@ A profile opens on its strongest pattern, counted, as in structure.md. Then:
 
 When it's their own video, say the lesson in one line; `/cracked-marketer:content-log` weighs it against their other posts.
 
-**Check before the recap:** every number is in a row or is your arithmetic on the rows; each link is one Vamos returned; the miss is from the same account (or the niche, when said) and is not a repost of the hit; "holds" only with two pairs, or one pair and the medians. Next is `/cracked-marketer:script` on an approved idea with this structure.
+**Check before the recap:** every number is in a row or is your arithmetic on the rows; each link is one Vamos returned; the miss is from the same account (or the niche, when said) and is not a repost of the hit; "holds" only with two pairs, or one pair and the medians. Next is `/cracked-marketer:brief` on an approved idea with this structure for a creator to film, or `/cracked-marketer:script` for one the team makes.
 
 If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
