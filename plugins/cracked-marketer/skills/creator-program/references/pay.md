@@ -28,4 +28,4 @@ Published deals, each with whose it is and when. They're their claims, not facts
 | % of ad spend + a floor (Wispr) | A brand already spending on creator ads | Pays on spend, not results | Partnership or Spark ad access |
 | Product for content | A first post from fans or users | Thin output | The paid-partnership label still applies; ask for one honest post, never a positive one |
 
-Ad use is always its own line: the term (say 90 days), the fee, and the access code (Spark or partnership ads) agreed on day one.
+Ad use is always its own line, agreed on day one: the window, the fee and the code, by [ads.md](ads.md).

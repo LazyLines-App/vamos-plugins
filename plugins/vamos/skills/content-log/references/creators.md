@@ -31,10 +31,14 @@ Sales, signups and revenue come only from the user's own numbers, with where the
 2. **Each creator:** each post's views against the usual with its age when read, where a miss broke, what it cost per 1,000 views; then posted against due, revision rounds from the briefs doc, and paid against views.
 3. **Hooks:** the top three across creators with their numbers, the dead ones, and the rest still being tried.
 4. **Next brief, per creator kept:** the one thing it changes, and why in a line. A winner (5× its account's usual, or comments asking where to get it) goes to every kept creator, with only its subject swapped, as on the Repeat list. A miss changes only the part its band names: a new opening under 1,000, the product earlier at 1,000 to 10,000.
-5. **Labels to fix**, if any: the creator and the post, for the user to ask them.
+5. **The code ask, written out in full,** for each winner on a creator's own account, whether or not ads are on in Vamos settings (that setting is for the Meta Ad Library read and the Turn into an ad list; this message is part of paying creators): the message the user sends so it runs as a Spark ad (TikTok) or a partnership ad (Instagram) from the creator's handle, with the steps and why it's safe, for the window and fee the program agreed. When it agreed none, write it anyway with a `[$ for 60 days]` slot and say ad use isn't in their terms yet. They paste the code in their own Ads Manager.
+   > Hi Dana, your paycheck video is our best yet, so we'd like to run it as a Spark ad from your account for 60 days, for the $22.50 we agreed. On that video: tap ⋯, then Ad settings, agree to the terms, turn on Ad authorization, choose 60 days, tap Generate and send me the code. It covers that one video only. We get no login and can't post, edit or message from your account, the ad shows your handle and TikTok marks it Sponsored, and it ends by itself after 60 days.
+
+   On Instagram the steps are: on that reel, tap ⋯, then Partnership label & ads, turn on Get partnership ad code, tap Copy and send it. Its code has no end date, so the line becomes "we'll stop it on day 60". A window TikTok doesn't offer (90 days, say) asks for 365 days and says "we'll stop it on day 90". A winner on the brand's own account needs no code.
+6. **Labels to fix**, if any: the creator and the post, for the user to ask them.
 
 Drop or keep is the user's call: give the number behind it. One post never drops a creator; the program reads reliability and drafts at day 14.
 
 ## Record
 
-Each hook's tries go on its Hooks row (creator, views, ×, age when read). Add a dated "Results" part to "Creator program: [brand]" with the call, each creator's line and each kept creator's next-brief change, saved whole with `save_brain_file`, so the next brief starts from it.
+Each hook's tries go on its Hooks row (creator, views, ×, age when read). Add a dated "Results" part to "Creator program: [brand]" with the call, each creator's line, each kept creator's next-brief change and each code asked (the creator, the video, Spark or partnership, the window, the day asked), saved whole with `save_brain_file`, so the next brief starts from it.
