@@ -2,6 +2,17 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.7
+- The Content System changes below (playbook's stopped ads and slots, content-log's cohort grid).
+- ideas leaves competitors' running Meta ads to winning-ad-ideas.
+- find-creators looks for creators who film the formats the category's long-running Meta ads use and the brand's own ads don't, and the sheet adds each creator's best recent post with its multiple and date.
+- creator-program tracks each wave of creators on one cohort grid: Test and Core stages, counted 30 days after a creator's first video (our proposal), who moves up, who stops and who gets a raise.
+
+## vamos 0.2.9 (Content System)
+- playbook's ads read asks for each stopped ad's end date. Meta shows stopped ads only for ads that ran in the EU or UK. Where they come back, it counts what the ads running 30+ days share against stopped ads that ran 14 days or less. With none back, it says stopped ads aren't visible and ranks on days running alone.
+- playbook writes a product fact you didn't give as a slot (`[your price]`) instead of making one up.
+- content-log's creator record keeps the creator program's cohort grid up to date.
+
 ## cracked-marketer 0.2.6
 - The four Content System changes below (content-log's ad account, playbook's customer read, ideas' dates, loop's exports).
 - winning-ad-ideas reads your neighbours' running ads beside your competitors', lists what each brand launched this week, and has three blind judges score its concepts: your account's track record, your customers' own words, and an assassin who looks for the reason each fails. A judge without evidence sits out, and a judge sitting alone kills nothing. Every kept concept gets a code (`WA-1112-1`) to put in the ad's name, so the content log finds it in your Ads Manager export.

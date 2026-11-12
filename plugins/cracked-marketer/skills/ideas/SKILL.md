@@ -1,6 +1,6 @@
 ---
 name: "ideas"
-description: "Finds what's going viral in your niche, with your competitors, in their comments and in a competitor's running ads on TikTok, Instagram and YouTube, and turns what you can make yours into ideas backed by the post, on your board. Also says whether your own idea is worth making, from lookalikes that hit and missed. Use for \"what's going viral\", \"content ideas\", \"scroll for me\", \"what should I post\", \"turn their ads into ideas\", \"which of these should I make\", \"is this worth making\", \"what my followers keep asking for\"."
+description: "Finds what's going viral in your niche, with your competitors, in their comments on TikTok, Instagram and YouTube, and turns what you can make yours into ideas backed by the post, on your board. Also says whether your own idea is worth making, from lookalikes that hit and missed. Use for \"what's going viral\", \"content ideas\", \"scroll for me\", \"what should I post\", \"which of these should I make\", \"is this worth making\", \"what my followers keep asking for\". Meta ad concepts from the ads that keep running are winning-ad-ideas."
 ---
 
 # Ideas

@@ -21,6 +21,7 @@ Creators post on an account they own in the niche, so every video gets reach. In
 - **Price each creator off their floor:** the median of the 10 worst of their last 30 posts, and what the fee costs per 1,000 views at that level (@maubaron's method; `scripts/price.py floor`).
 - **Sold online, with a code or link per creator:** add commission. Commission alone gets turned down.
 - Pay weekly for posted videos. Every offer reads per video; a monthly deal is shown as its per-video price.
+- **Stages, 30 days after a creator's first video posts:** every creator starts on Test. The one whose video became a proven winner (below) moves to Core: first pick of the briefs and a raise the user sets. One with no video at their own usual by then stops. Our proposal: say so.
 
 ## The first 30 days
 
@@ -32,6 +33,8 @@ Creators post on an account they own in the niche, so every video gets reach. In
 | 4 | Each week from now: 80% of videos repeat what's proven, 20% test something new (@maubaron). Winners go to every creator. Keep or stop each creator at day 14 on reliability and draft quality |
 
 Day 30: the money check. Add creators only where a format won.
+
+Each wave of creators is a cohort. The cohort grid is one row per creator: their wave, the week they started, videos due and posted, their best video against their usual, their stage (Test or Core) and keep or stop, in the program's Brain file and in Google Sheets when it's connected (else `creator-program-[brand].csv`), so the user sees which wave and which creator to keep. Each week's content log fills its posted, best-video and stage columns.
 
 ## Reading results
 
@@ -53,7 +56,7 @@ The fee per video, the bonus thresholds and cap, the pay day; deliverables, due 
 ## The answer, in order
 
 1. **The plan on one screen:** creators and how many to message for them, videos, money per video and in total for the month (with the ad-use reserve), what a win looks like by day 30.
-2. **The test** (or the winner to spread): the grid, who films what, the weeks.
+2. **The test** (or the winner to spread): the grid, who films what, the weeks, and the cohort grid.
 3. **Pay:** the model and why, each creator's offer per video, then the published deals beside it, each with whose and when. Mark every number as theirs or our proposal.
 4. **Whose accounts and the warm-up.**
 5. **Reading results and spreading a winner.**
