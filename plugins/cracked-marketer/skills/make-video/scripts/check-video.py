@@ -154,7 +154,10 @@ def check_beats(video, beats, timed, words, cs, defects, flags):
     sheet = os.path.splitext(video)[0] + '-beats.png'
     make_sheet(tiles, sheet, tmp)
     shutil.rmtree(tmp, ignore_errors=True)
-    print(f'SHEET {sheet}: each beat at its moment, with its line; look at it full size')
+    if os.path.exists(sheet):
+        print(f'SHEET {sheet}: each beat at its moment, with its line; look at it full size')
+    else:
+        flags.append('no beats sheet: no beat had a still to show; fix the beats above and run again')
 
 
 def make_sheet(tiles, out, tmp):
