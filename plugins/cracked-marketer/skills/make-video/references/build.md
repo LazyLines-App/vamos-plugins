@@ -3,6 +3,7 @@
 ## Tools
 
 - **HyperFrames** (HTML rendered to video, Apache-2.0): `npx skills add heygen-com/hyperframes` for its skills, then the CLI: `npx hyperframes init <dir>`, `lint`, `check --json` (layout and contrast), `snapshot --at <t,…>` (stills), `transcribe` (word times), `render --quality delivery --output final.mp4`. Write the version into the project and keep it for the whole video. Node 22+ and FFmpeg. Its hosted `compose` and `render_video` tools don't run from Claude Code; use the CLI.
+- **The check scripts** in `scripts/` need Python 3 and FFmpeg; the beat check reads the screen with Tesseract (`brew install tesseract` or `apt install tesseract-ocr`), and the take check reads eyes on macOS.
 - **Fonts** from Google Fonts (Inter, Geist, TikTok Sans are open-licensed) or the user's brand fonts. Never bundle a font file you can't share.
 - **The user's brand:** their colours, type and logo, read from their site or Brain. Never Vamos's or anyone else's look.
 - **Statics and carousels:** the same HTML, rendered to PNG with `snapshot` (or a headless browser): statics at 1080 × 1350 and 1080 × 1920, carousels at 1080 × 1350.
@@ -13,11 +14,12 @@ Every screen is captured from the real product (screenshots at native 2×, light
 
 ## Key frames (the user's gate)
 
-Build the HTML, snapshot one still per beat at its key moment (with its caption and the line it sits on), and show them in order. One round of the user's notes; fix what has a right answer, list the taste for them. Render only frames they passed.
+Build the HTML, snapshot one still per beat at the word where its line names its thing (with its caption and the line it sits on), and show them in order before any cut is built. A recording that shows the payoff for under 1.5 s gets an ask for one that holds it, here. One round of the user's notes; fix what has a right answer, list the taste for them. Render only frames they passed.
 
 ## Captions and words
 
 - Every spoken word is captioned exactly as said, showing at its midpoint; keep the word times even when the screen groups words.
+- Break them with `python3 scripts/captions.py words.json --script script.txt > captions.json` (`--max-words 3` over a demo): a caption ends at a mark or a pause, and never on a little word that needs the next one ("scroll past are", "times their").
 - One style throughout. Never the spoken line twice on screen (a title on screen is the caption).
 - Contrast 4.5:1 (3:1 at 58 px and up); a boxed caption fixes a busy ground.
 - 48 px of ground inside any card around text.
@@ -33,9 +35,11 @@ Build the HTML, snapshot one still per beat at its key moment (with its caption 
 ## Checks before anyone watches it
 
 1. `npx hyperframes check --json`: fix every error (layout, overlap, contrast).
-2. `python3 scripts/check-video.py final.mp4 --format <format> --voice voice.wav --words words.json --captions captions.srt --caption-text caption.txt`: size, length cap, loudness, true peak, the lead-in, the tail, every word captioned, no link in the caption, frozen stretches. Fix every DEFECT; FLAGs are for a look.
-3. Look at it yourself: a 4 fps strip around every cut (`ffmpeg -ss <t> -t 2 -i final.mp4 -vf "fps=4,scale=270:-1,tile=8x1" -frames:v 1 strip-<t>.png`), full size. A defect seen at one moment gets looked for across the whole video.
-4. A fresh subagent that didn't build it, shown the strips and the script, not your notes: does each beat show what its line says, and does anything read as drawn or fake? Where the host has no subagents, skip it and say so.
+2. `python3 scripts/check-video.py final.mp4 --format <format> --voice voice.wav --words words.json --captions captions.json --caption-text caption.txt --script script.txt --beats beats.json`: size, length cap, loudness, true peak, the lead-in, the tail, frame 0 as a cover, every word captioned and each caption ending on a whole phrase, no link in the caption, frozen stretches; the final's own audio heard against the script, word for word; and each beat's screen at the word that names its thing. `beats.json` is the plan's Seen column, a row a line: `{"line": "It shows the number on each one, then writes yours.", "at": "yours", "shows": "Do you still think a better prompt will make AI sound like you?"}`, where `shows` is words on screen at that moment and `at` the word that names it (the line's last word when left out; `{"t": 0, "shows": "…"}` for the cover). The caption's own words never count as the screen showing them. Fix every DEFECT; FLAGs are for a look.
+3. Look at it yourself: the beats sheet the check writes, and a 4 fps strip around every cut (`ffmpeg -ss <t> -t 2 -i final.mp4 -vf "fps=4,scale=270:-1,tile=8x1" -frames:v 1 strip-<t>.png`), full size. A defect seen at one moment gets looked for across the whole video.
+4. A fresh subagent that didn't build it, shown the beats sheet, the strips and the script, not your notes: does each frame show what its line names, does frame 0 work as the cover, does any face read asleep or as the wrong feeling, and does anything read as drawn or fake? Where the host has no subagents, skip it and say so.
+
+After any fix, run 1 to 4 again on the new file: a fix to one beat can break another, and the ending most of all.
 
 ## Deliver
 

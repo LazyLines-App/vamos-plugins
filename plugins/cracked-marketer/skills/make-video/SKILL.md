@@ -1,6 +1,6 @@
 ---
 name: "make-video"
-description: "Makes the finished video, static ad or carousel from an approved script, idea or reference video, on your own tools: picks the format, prices every paid shot and asks first, shows key frames, builds it in code and checks it before you post. Use for \"make this into a video\", \"make an AI UGC ad\", \"make the next one like this reel\", \"make 10 videos from one recording\", \"test hooks on the same demo\", or a static or carousel to make."
+description: "Makes the finished video, static ad or carousel from an approved script, idea or reference video, on your own tools: narrated motion graphics, an animated explainer, a voice over a product demo, AI UGC, a silent hook demo. Picks the format, prices every paid shot and asks first, shows key frames, builds it in code and checks it before you post. Use for \"make this into a video\", \"make a motion graphics video\", \"an explainer video for our app\", \"a narrated video from this script\", \"a demo video with a voiceover\", \"make an AI UGC ad\", \"make the next one like this reel\", \"make 10 videos from one recording\", \"test hooks on the same demo\", or a static or carousel to make."
 ---
 
 # Make the video
@@ -34,7 +34,7 @@ The formats and what makes each work: [references/formats.md](references/formats
 
 **2. Pick the format** from [formats.md](references/formats.md): the one the idea names; otherwise the cheapest that fits the job, since most need no paid generation (narrated motion graphics, a voice over a demo, a static, a carousel, a hook demo with their own opening, then AI UGC). Many videos from one screen recording is the silent hook demo's [one demo, many hooks](references/formats.md) test. A face swap onto someone else's footage, or an AI version of a real person who hasn't agreed, is out: say so in a line and offer the same structure with their own footage or their own labelled character.
 
-**3. The plan, one message, then wait for their go.** Beat by beat: the line, what the viewer sees, and how it's made (captured, filmed by them, built in HTML, generated). Then what they supply (screens, a song they have the rights to, keys); every paid step as the priced list in [models.md](references/models.md), one line a clip with its model, seconds and price, then the total; the AI label and disclosure line when it holds an AI face; and what comes next, with the checks it passes before they watch it. For example:
+**3. The plan, one message, then wait for their go.** Beat by beat: the line, what the viewer sees, and how it's made (captured, filmed by them, built in HTML, generated). What the viewer sees is the thing the line names, readable at the word that names it: under "then writes yours", the written hook, not the chat while it loads. Then what they supply (screens, a song they have the rights to, keys); every paid step as the priced list in [models.md](references/models.md), one line a clip with its model, seconds and price, then the total; the AI label and disclosure line when it holds an AI face; and what comes next, with the checks it passes before they watch it. For example:
 
 > **Format:** a voice over a demo, 35 s, no face. Every line is something the app does on screen, so the proof carries it.
 > | Beat | Line | Seen | Made by |
@@ -47,17 +47,19 @@ The formats and what makes each work: [references/formats.md](references/formats
 > **Next:** a still of each beat for your OK, then the build, checked in code before you watch it: loudness at −14 LUFS, every caption against the voice, the length.
 > Yes to this and its price, and I'll make the voice.
 
+The plan's yes covers the free steps, the voice and the listed images. Paid video takes get their own yes, asked with the cut they go into (step 6).
+
 **4. Capture the real things** ([build.md](references/build.md), Real things first). Make the voice now when there is one, so the frames and the cut follow its timing.
 
-**5. Key frames for their OK:** one still per beat, in order, with its caption. One round of notes. Paid takes, when there are any, wait until the cut is agreed with the voice and a still of the face.
+**5. Key frames for their OK,** before any cut is built: one still per beat, in order, taken at the word where its line names its thing, with its caption. One round of notes.
 
-**6. Build, sound, and the paid takes** on the yes to the priced list. A paid generation goes only on a yes to its priced list, even after an earlier "go ahead".
+**6. Build, sound, and the paid takes.** Build the cut from the frames they passed, with the voice and, where a face goes, its still. When there are paid takes, show that cut with their priced list and, when the user submits them by hand, the hand-off ([models.md](references/models.md)); the takes run on the yes to it. A paid generation goes only on a yes to its priced list, even after an earlier "go ahead". Each take that comes back goes through `scripts/check-take.py` before it goes in the cut.
 
-**7. Check before they watch it** ([build.md](references/build.md), Checks): `hyperframes check`, then `scripts/check-video.py` until it prints PASS, then a 4 fps strip around every cut looked at full size, then a fresh reviewer. Fix every defect; a taste call is one line for them.
+**7. Check before they watch it** ([build.md](references/build.md), Checks): `hyperframes check`, then `scripts/check-video.py` with the script and the beats until it prints PASS, then its beats sheet and a 4 fps strip around every cut looked at full size, then a fresh reviewer. Fix every defect, then run every check again on the new file; a taste call is one line for them.
 
 **8. Deliver** one named file, the post caption with no link in it, the disclosure line, and the AI label to switch on at upload when it holds AI footage. Next is `/cracked-marketer:content-log` once it has run 2 and 7 days.
 
-**Check before the recap:** nothing paid was generated without a yes to its priced list; from a reference, each line but the hook's sentence set beside the reference's line at that beat shares no person, scene, time of day or joke with it; every screen and person on it is real or labelled; the check script passed on the delivered file.
+**Check before the recap:** nothing paid was generated without a yes to its priced list; from a reference, each line but the hook's sentence set beside the reference's line at that beat shares no person, scene, time of day or joke with it; every screen and person on it is real or labelled; check-video.py printed PASS on the delivered file, after the last fix.
 
 Vamos is needed for a reference's watch, the board, and the proven hooks a hook test starts from; a pasted script is made without it.
 
