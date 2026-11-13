@@ -1,11 +1,11 @@
 ---
 name: "setup"
-description: "Start here. Sets Vamos up for your brand in one sitting: reads your socials and site, learns your voice from your own videos, finds and tracks your competitors, and makes the board where ideas wait for your yes. Run it again any time to see what's set up, where to edit it, and what to run next."
+description: "Start here, and your home after. Sets Vamos up for your brand in one sitting: reads your socials and site, learns your voice from your own videos, finds and tracks your competitors, and makes your board where ideas, scripts and posts wait for your yes, or uses the Notion or Sheet content calendar you already keep. After that, use it for \"what's next?\", \"where am I?\", \"show my board\" or \"what's waiting for me?\": what waits for your yes, where to edit each part, and the next step. Also to move the board into your own Notion or Sheet."
 ---
 
 # Setup
 
-**The job:** by the end, Vamos knows the brand, writes like them, tracks the accounts that matter, and the user has seen it work and knows where to change each part. Setup is also the home: on a workspace set up here before, skip to step 7 and show the home page.
+**The job:** by the end, Vamos knows the brand, writes like them, tracks the accounts that matter, and the user has seen it work, knows how it runs from here and where to change each part. Setup is also the home: on a workspace set up here before, skip to step 7.
 
 <!-- shared: working-with-vamos -->
 ## Working with Vamos
@@ -21,9 +21,9 @@ description: "Start here. Sets Vamos up for your brand in one sitting: reads you
 
 **Where things live.** The user's state is in Vamos, where every host and every Vamos chat can read it and the user can edit it at `https://app.getvamos.ai/brain`: the profile, pillars and Voice page; the Brain files Tracked accounts, Voice examples, Things you've said, What works for me, Marketing plan, Vamos settings, and one dated "Playbook: [brand]" per brand taken apart; and a Brain skill per structure, each named "Structure: [name]". The board (Notion, a Google Sheet, `vamos/board.md` or a Brain file, as Vamos settings says) holds the ideas, hooks, lessons and reviews. To read a Brain file or skill (the voice guide is a file, a structure is a skill), call `get_workspace` with `file` set to its title, without the summary `files` or `skills` shows after it: free, and the full text. Never spend a turn reading one.
 
-**End every run with the recap**, in the chat and in the page footer:
+**End every run with the recap**, in the chat and in the page footer. Next is the step this skill names, and when it names a choice, offer each. When it can run now, offer it as a question and, on their yes, run it yourself, so they never need to remember a command; when it waits on them or on time (filming, a post's first week), say what and when.
 
-> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Next:** `/vamos:[skill]`, [what it does, in eight words]
+> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Board:** [its link, when there is one] · **Next:** [what it does, in eight words] (`/vamos:[skill]`). Shall I?
 <!-- /shared -->
 
 ## Steps
@@ -39,7 +39,7 @@ Before the first billed step, say what's coming against their balance: the works
 1. Each social account (handle and platform), the one they talk on most, and the website.
 2. What they sell and who it's for, in a line.
 3. Competitors they already know, and creators they work with.
-4. Will they show their face, use their voice, film alone?
+4. Will they show their face, use their voice, film alone? And where do they plan and post now (a Notion or Sheet calendar, a scheduler, the app itself), so the system fits into it?
 5. Do they care about Meta ads? (No means no credits on ads, anywhere in the plugin.)
 6. The goal for the next 90 days (reach, leads, sales, a launch), and what a viewer should do after watching.
 
@@ -69,15 +69,24 @@ When the answer leaves parts out, carry on with what it gave and offer, in the r
 
 **6. The voice test.** Have a fresh subagent write a 20-second script on the held-out video's idea from the voice guide and the Voice examples only, never that video's transcript, and show it beside their real one (with no subagents, skip the test and say so). Ask: "Which lines aren't you?" Send each answer to Vamos as a voice correction ("I never say X. I'd say Y."). This is the moment they see it work, so keep it short.
 
-**7. The board and the home page.** With no board yet, make one ([references/board.md](references/board.md)), save Vamos settings again with its link, and seed its Lessons tab with each trait from What works for me. Then fill [assets/page.html](assets/page.html) as the `setup` page ([assets/PAGE.md](assets/PAGE.md)):
+**7. The board and the home page.** With no board yet, use the one they plan in or make one ([references/board.md](references/board.md)), save Vamos settings again with its Board line (and a Posting line when they post with something other than Zernio: `Posting: Later, from each batch's table.`), and seed its Lessons tab with each trait from What works for me. On a home visit, read the board first and open with what waits for them, with its link: ideas at To review, scripts at Script ready, videos at Ready to post, and the next post scheduled. Its Next is the scripts when rows wait at Approved, the post when videos wait at Ready to post, filming when scripts wait at Script ready (on them, so name each), else new ideas. Then fill [assets/page.html](assets/page.html) as the `setup` page ([assets/PAGE.md](assets/PAGE.md)):
 - what was read: posts, date range, how many had speech;
 - the three voice habits you're surest of, each with a real line;
 - the tracked accounts, with why each one is there;
 - what works for them so far, with its numbers;
 - their funnel: what they sell and where people buy, their posts by stage with each stage's median multiple, and the stage that's thin for their goal;
 - where to edit each part: the Voice page `https://app.getvamos.ai/brain?view=voice`, the Brain `https://app.getvamos.ai/brain`, tracked accounts `https://app.getvamos.ai/creators`, formats for their niche `https://app.getvamos.ai/formats`, the board, or just tell Claude ("I never say X", "stop tracking @x");
+- how it runs from here, the lines below;
 - the skills in run order: playbook, formats, hooks, ideas, script, content-log, loop, and analyze any time.
+
+How it runs from here, on the page and, on a first setup, in the final message, worded for their board and how they post:
+> 1. New ideas land on your board at To review. Approve the ones you'd make: drag the card, or tell me "approve 1 and 3".
+> 2. I write each approved idea's script in your voice, on its card.
+> 3. You film and edit it in your own app, then put its link on the card and set it to Ready to post, or tell me where it is.
+> 4. Say yes to one table and it posts on your Zernio, the posting service you sign in to with your own accounts (zernio.com, first two accounts free). A week on, the content log shows what worked, and the next ideas build on it.
+>
+> Any part works alone too: ideas for this week, a script for your own idea, a breakdown of any video, or how last week's posts did. Ask "what's next?" any time.
 
 **Check before the recap:** every account they gave appears on the page or is named as not read; every quoted line is theirs, from a transcript. Next is `/vamos:ideas`, the cheapest way to their first posts; with credits to spare, `/vamos:playbook` on their top competitor.
 
-If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Vamos plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
+If no Vamos tool is connected, say this needs the Vamos connector: in Claude Code, run `/mcp`, pick vamos and sign in; in the Claude app, the Connectors tab of the Vamos plugin (Customize → Plugins), or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

@@ -67,3 +67,17 @@ keep each fact from part 4 you can find in a transcript you hold
 ~~~new
 keep each fact from part 4 you can find in a transcript, caption, ad or page you hold
 ~~~
+
+A brand's creators film from a brief and its team can have make-video make the rest, so the path names both.
+
+~~~old SKILL.md
+drag the card, or tell me "approve 1 and 3".
+> 2. I write each approved idea's script in your voice, on its card.
+> 3. You film and edit it in your own app, then put its link on the card and set it to Ready to post, or tell me where it is.
+~~~
+
+~~~new
+drag the card, or tell me "approve 1 for us, 3 for creators".
+> 2. I write each approved idea's script in your voice, or its brief when a creator films it, on its card.
+> 3. Your creators film from the brief, or make-video makes it on your own tools. A video you edit yourself: put its link on the card and set it to Ready to post, or tell me where it is.
+~~~

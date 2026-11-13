@@ -21,9 +21,9 @@ description: "Finds what's going viral in your niche, with your competitors, in 
 
 **Where things live.** The user's state is in Vamos, where every host and every Vamos chat can read it and the user can edit it at `https://app.getvamos.ai/brain`: the profile, pillars and Voice page; the Brain files Tracked accounts, Voice examples, Things you've said, What works for me, Marketing plan, Vamos settings, and one dated "Playbook: [brand]" per brand taken apart; and a Brain skill per structure, each named "Structure: [name]". The board (Notion, a Google Sheet, `vamos/board.md` or a Brain file, as Vamos settings says) holds the ideas, hooks, lessons and reviews. To read a Brain file or skill (the voice guide is a file, a structure is a skill), call `get_workspace` with `file` set to its title, without the summary `files` or `skills` shows after it: free, and the full text. Never spend a turn reading one.
 
-**End every run with the recap**, in the chat and in the page footer:
+**End every run with the recap**, in the chat and in the page footer. Next is the step this skill names, and when it names a choice, offer each. When it can run now, offer it as a question and, on their yes, run it yourself, so they never need to remember a command; when it waits on them or on time (filming, a post's first week), say what and when.
 
-> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Next:** `/cracked-marketer:[skill]`, [what it does, in eight words]
+> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Board:** [its link, when there is one] · **Next:** [what it does, in eight words] (`/cracked-marketer:[skill]`). Shall I?
 <!-- /shared -->
 
 ## Steps
@@ -57,8 +57,8 @@ Each idea gets a verdict from both sides, in Vamos's own counts, and "too few to
 
 Then check it against the bar in [references/ideas.md](references/ideas.md), their calls and the board, say plainly which is worth making and why, and give the best ways to make it theirs.
 
-**7. Tell them how to approve:** set a row to Approved on the board (or reply "approve 1, 3" in Claude Code), and `/cracked-marketer:brief` briefs the ones a creator will film, or `/cracked-marketer:script` writes the ones the team makes.
+**7. Tell them how to approve:** set a row to Approved on the board, or reply here ("approve 1 and 3"), and `/cracked-marketer:brief` briefs the ones a creator will film, or `/cracked-marketer:script` writes the ones the team makes ("approve 1 for us, 3 for creators").
 
 **Check before the recap:** the page is built; each find has three to five ideas and every idea links its find; no idea repeats a promise on the board or does what a call's reason in Vamos settings rules out; the page and the reply count as on the board only the rows Vamos or the board confirmed. Next is `/cracked-marketer:brief` for the approved ones a creator will film, or `/cracked-marketer:script` for the ones the team makes.
 
-If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
+If no Vamos tool is connected, say this needs the Vamos connector: in Claude Code, run `/mcp`, pick vamos and sign in; in the Claude app, the Connectors tab of the Cracked marketer plugin (Customize → Plugins), or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
