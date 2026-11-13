@@ -1,5 +1,5 @@
 ---
-description: "Instagram video. A reel 10× its account's usual beside a same-format post at about 1×. The mock is assembled from real reads (vamos-research profile rows and two watches, 2026-11-10 22:49 UTC); see the evals README. The pair and the numbers are in the verdict grader."
+description: "Instagram video. A reel about 9× its account's usual beside a same-format post at about 1×. The mock is assembled from real reads (vamos-research profile rows and two watches, 2026-11-10 22:49 UTC); see the evals README. The pair and the numbers are in the verdict grader."
 tags: [analyze, video, instagram, assembled-mock]
 runs: 1
 model: sonnet

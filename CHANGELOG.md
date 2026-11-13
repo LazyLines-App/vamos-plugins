@@ -2,6 +2,15 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.8
+- The Content System changes below (the usual at 7 days).
+- creator-program prices a creator from their posts at least 7 days old, and make-video's hook test reads each cut's multiple once it's 7 days old (a cut already past the usual shows as "so far" sooner).
+
+## vamos 0.2.10 (Content System)
+- The usual counts posts at least 7 days old, as Vamos's own usual does (it was 3 days). A younger post already above it shows as "N× so far" and can go on Repeat or the ad list; one under it is too early, never a miss. Hit rate, patterns and lessons count only posts at least 7 days old. Reposts and paid posts are set aside at any age.
+- content-log keeps a prediction open when the post it rests on is still too early, and checks it at the next review.
+- content-log gives every paid creator a call (more, wait or drop) with the number behind it. A creator whose posts are still too early waits.
+
 ## cracked-marketer 0.2.7
 - The Content System changes below (playbook's stopped ads and slots, content-log's cohort grid).
 - ideas leaves competitors' running Meta ads to winning-ad-ideas.

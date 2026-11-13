@@ -213,8 +213,9 @@ def main():
             mult = f"{c['multiple']}x" if c.get('multiple') is not None else '-'
             done = manifest[k - 1]['checks'] if k <= len(manifest) else 'not rendered yet'
             print(f"| {k} | {c['line']} | {os.path.splitext(os.path.basename(c['opening']))[0]} | {src} | {mult} | {done} |")
-        print('NEXT: content-log, once the posts are 3 days old, puts each cut\'s multiple in its Hooks-tab row '
-              '(Result "test: same demo, the hook changes"); the next ten lines start from the winner.')
+        print('NEXT: content-log, once the posts are 7 days old, puts each cut\'s multiple in its Hooks-tab row '
+              '(a cut already past the usual shows as "so far" sooner; Result "test: same demo, the hook changes"); '
+              'the next ten lines start from the winner.')
         sys.exit(1 if failed else 0)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

@@ -52,8 +52,8 @@ class CountDownload(unittest.TestCase):
     def test_link_downloads_past_the_user_agent_check(self):
         out = self.run_count(self.base + '/data/rows.json?e=1&s=2')
         self.assertEqual(out.returncode, 0, out.stderr)
-        self.assertIn('usual: 42,606 views, the median of 34 posts', out.stdout)
-        self.assertRegex(out.stdout, r'14\.4\s?x')
+        self.assertIn('usual: 37,629.5 views, the median of 30 posts', out.stdout)
+        self.assertRegex(out.stdout, r'16\.3\s?x so far')
 
     def test_failed_download_says_what_to_do_in_one_line(self):
         out = self.run_count(self.base + '/data/missing.json')
@@ -79,14 +79,16 @@ class CreatorResults(unittest.TestCase):
         d = tempfile.mkdtemp()
         own = [row('maker', i, f'10-{10 + i:02d}', 1000 * (i + 1)) for i in range(11)]  # usual 6,000
         brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # usual 20,000
-        ours = [row('maker', 20, '11-05', 30000, paid=True, caption='#ad trying Potly'),  # 5x, tagged paid
-                row('maker', 21, '11-06', 900, likes=2, paid=True, caption='#ad Potly'),  # under 1,000, likes 0.2%
+        ours = [row('maker', 20, '11-03', 30000, paid=True, caption='#ad trying Potly'),  # 5x, tagged paid
+                row('maker', 21, '11-04', 900, likes=2, paid=True, caption='#ad Potly'),  # 7 days: settled; under 1,000, likes 0.2%
                 row('maker', 22, '11-10', 4000, paid=True),                              # too early
-                row('brand', 23, '11-05', 10000, caption='no label')]                    # by @lee on the brand's account
+                row('brand', 23, '11-03', 10000, caption='no label'),                    # by @lee on the brand's account
+                row('brand', 24, '11-08', 50000, caption='#ad')]                         # 3 days old, already 2.5x: so far
         tags = {'maker20': {'ours': True, 'creator': '@maker', 'hook': 'Payday in nine minutes'},
                 'maker21': {'ours': True, 'creator': '@maker', 'hook': 'Day ten and not broke'},
                 'maker22': {'ours': True, 'creator': '@maker', 'hook': 'Payday in nine minutes'},
-                'brand23': {'ours': True, 'creator': '@lee', 'hook': 'Payday in nine minutes', 'paid': 200}}
+                'brand23': {'ours': True, 'creator': '@lee', 'hook': 'Payday in nine minutes', 'paid': 200},
+                'brand24': {'ours': True, 'creator': '@lee', 'hook': 'Day ten and not broke', 'paid': 200}}
         pay = {'@maker': {'base': 60, 'bonus': [[18000, 60], [60000, 120]], 'due': 4, 'sales': 6},
                '@nobody': {'base': 50, 'due': 2}}
         for name, blob in (('rows.json', {'data': {'videos': own + brand + ours}}), ('tags.json', tags), ('pay.json', pay)):
@@ -111,6 +113,10 @@ class CreatorResults(unittest.TestCase):
         self.assertRegex(self.out.stdout, r'brand23 on @brand: 10,000 views, 0\.5x the usual of 20,000')
         self.assertRegex(self.out.stdout, r'brand23[^\n]*no paid-partnership label in the row')
 
+    def test_a_young_post_above_the_usual_is_judged_so_far(self):
+        self.assertRegex(self.out.stdout, r'brand24 on @brand: 50,000 views, 2\.5x the usual of 20,000 so far')
+        self.assertRegex(self.out.stdout, r'maker22 on @maker: 4,000 views, too early \(under 7 days\)')
+
     def test_cost_from_the_deal(self):
         self.assertRegex(self.out.stdout, r'maker20[^\n]*paid \$120 \(\$60 base \+\$60 at 18,000\), \$4\.00 per 1,000')
         self.assertRegex(self.out.stdout, r'brand23[^\n]*paid \$200 \(\$200 as tagged\)')
@@ -121,9 +127,11 @@ class CreatorResults(unittest.TestCase):
     def test_scorecard(self):
         self.assertRegex(self.out.stdout, r'scorecard: 3 posted of 4 due, 1 of 2 judged above usual[^\n]*paid \$240 for 34,900 views, \$6\.88 per 1,000; 6 sales from your numbers, \$40\.00 each')
         self.assertIn('@nobody:\n    scorecard: 0 posted of 2 due', self.out.stdout)
+        self.assertRegex(self.out.stdout, r'scorecard: 2 posted, 1 of 2 judged above usual \(1 so far\)')
 
     def test_hooks_pooled_across_creators(self):
         self.assertIn('"Payday in nine minutes": 3 tries by 2 creators, 1 above usual, 1 too early, best 30,000, 5.0x (@maker)', self.out.stdout)
+        self.assertIn('"Day ten and not broke": 2 tries by 2 creators, 1 above usual, best 50,000, 2.5x so far (@lee)', self.out.stdout)
 
 class CreatorEdges(unittest.TestCase):
     """Share links, a post before --since, a capped bonus pool, an unmatched link, hooks ranked by multiple."""
@@ -136,7 +144,7 @@ class CreatorEdges(unittest.TestCase):
         brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # usual 20,000
         ours = [row('maker', 30, '10-25', 12000, caption='#ad'),                          # 2.0x, before --since
                 row('maker', 32, '11-04', 25000, caption='#ad'),                          # 4.2x
-                row('brand', 31, '11-05', 18000, caption='#ad')]                          # 0.9x on the brand's account
+                row('brand', 31, '11-04', 18000, caption='#ad')]                          # 0.9x on the brand's account
         tags = {'https://www.instagram.com/p/maker30/?igsh=abc123': {'ours': True, 'creator': '@maker', 'hook': 'B'},
                 'maker32': {'ours': True, 'creator': '@maker', 'hook': 'C'},
                 'brand31': {'ours': True, 'creator': '@maker', 'hook': 'A'},
@@ -182,6 +190,7 @@ class AdRule(unittest.TestCase):
         last = {'platform': 'instagram', 'handle': 'brand', 'likes': 30000}
         rows.append(dict(last, id='sells', posted_at='2026-11-05T12:00:00+00:00', views=100000, comments=200))  # 2.0 per 1,000
         rows.append(dict(last, id='only-reach', posted_at='2026-11-06T12:00:00+00:00', views=100000, comments=50))  # 0.5 per 1,000
+        rows.append(dict(last, id='young-sells', posted_at='2026-11-10T12:00:00+00:00', views=100000, comments=200))  # 2 days old, already 5x+
         for r in rows:
             r['counts_as_of'] = '2026-11-12T12:00:00+00:00'
         with open(path, 'w') as f:
@@ -196,8 +205,46 @@ class AdRule(unittest.TestCase):
                                  capture_output=True, text=True, timeout=60).stdout
         line = next(l for l in out.splitlines() if 'turn into an ad' in l)
         self.assertIn('what their posts that size get', line)
-        self.assertIn('sells (', line)  # 2.0 per 1,000: under the usual 3.1, above the 1.2 its size gets
+        self.assertIn(' sells (', line)  # 2.0 per 1,000: under the usual 3.1, above the 1.2 its size gets
         self.assertNotIn('only-reach', line)
+        self.assertRegex(line, r'young-sells \(\d+\.\dx so far, 100,000 views')  # under 7 days but past 5x already: its multiple can only rise
+
+
+class SevenDays(unittest.TestCase):
+    """The usual counts posts at least 7 days old, as Vamos's own usual does. A younger post is "so far" once it beats
+    the usual and too early under it; reposts and boosts are set aside at any age; a hook whose tries are all too early
+    shows no multiple."""
+
+    @classmethod
+    def setUpClass(cls):
+        import tempfile
+        d = tempfile.mkdtemp()
+        rows = [row('acct', i, f'10-{10 + i:02d}', 1000 * (i + 1), caption=f'post {i}') for i in range(11)]  # usual 6,000
+        rows += [row('acct', 20, '11-06', 5900, caption='five days, under the usual'),
+                 dict(row('acct', 21, '11-07', 9000), caption_head='post 3 3', duration_seconds=34),  # 4 days, beats the usual, but a repost of acct3
+                 row('acct', 22, '11-08', 40000, likes=100, caption='three days, boosted'),
+                 row('acct', 23, '11-09', 18000, caption='two days, 3x so far')]
+        tags = {'acct20': {'ours': True, 'creator': '@c', 'hook': 'H'}, 'acct23': {'hook': 'H'}}
+        for name, blob in (('rows.json', {'data': {'videos': rows}}), ('tags.json', tags)):
+            with open(os.path.join(d, name), 'w') as f:
+                json.dump(blob, f)
+        cls.out = subprocess.run([sys.executable, '-I', COUNT, os.path.join(d, 'rows.json'), '--since', '2026-11-01',
+                                  '--tags', os.path.join(d, 'tags.json')], capture_output=True, text=True, timeout=60).stdout
+
+    def test_the_usual_rests_on_settled_posts_only(self):
+        self.assertIn('usual: 6,000 views, the median of 11 posts', self.out)
+        self.assertIn('hit rate, last 11:', self.out)
+
+    def test_young_posts_by_the_floor_rule(self):
+        self.assertRegex(self.out, r'acct23 18,000 views, 3\.0x so far')
+        self.assertRegex(self.out, r'acct20 \[ours, by @c\] 5,900 views, too early \(under 7 days\)')
+
+    def test_reposts_and_boosts_are_set_aside_at_any_age(self):
+        self.assertIn('set aside: acct21 9,000 views, repost of acct3', self.out)
+        self.assertIn('set aside: acct22 40,000 views, likely boosted (0.25% likes)', self.out)
+
+    def test_a_hook_with_every_try_too_early_shows_no_multiple(self):
+        self.assertIn('"H": 1 try by 1 creator, 0 above usual, 1 too early, best 5,900, too early (@c)', self.out)
 
 
 if __name__ == '__main__':

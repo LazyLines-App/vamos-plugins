@@ -17,7 +17,7 @@ Write `pay.json` from the program file: `{"@handle": {"base": 60, "bonus": [[126
 ## The numbers
 
 `count.py <rows> --since [start] --tags tags.json --pay pay.json` does them all:
-- **Each post** against the usual of the account it went up on: the creator's own posts for their account, the brand's for the brand's. Posts made for the brand never count toward a usual. Under 3 days old, it's too early.
+- **Each post** against the usual of the account it went up on: the creator's own posts for their account, the brand's for the brand's. Posts made for the brand never count toward a usual. Under 7 days old, a post that already beats it is "so far" and one that doesn't is too early.
 - **Where a miss broke**: under 1,000 views the opening failed; 1,000 to 10,000, people left before the product; past 100,000, only sales or signups say whether the product moment worked.
 - **Cost per 1,000 views** from what the deal pays for that post, and per creator: posted against due, how many beat their usual, paid against views.
 - **Hooks across creators**: tries, how many beat the usual, the best, and dead at 5 or more tries with none past 10,000 views.
@@ -27,7 +27,7 @@ Sales, signups and revenue come only from the user's own numbers, with where the
 
 ## The Creators section, in order
 
-1. **The call, one sentence:** who to double down on and who to drop, with the number behind each. "Dana: 2 of 3 above her usual at $4.10 per 1,000, so she gets 4 next week; Lee: 0 of 3, all under 1,000 views, so his last video waits on a new opening or he stops."
+1. **The call, one sentence:** each creator's call (more, wait or drop) with the number behind it. A creator whose posts are still too early waits, with what has settled so far. "Dana: 2 of 3 above her usual at $4.10 per 1,000, so she gets 4 next week; Lee: 0 of 3, all under 1,000 views, so his last video waits on a new opening or he stops; Sam: 1 of 1 judged above his usual so far at $9.80 per 1,000, his second too early, so he waits until it's 7 days old."
 2. **Each creator:** each post's views against the usual with its age when read, where a miss broke, what it cost per 1,000 views; then posted against due, revision rounds from the briefs doc, and paid against views.
 3. **Hooks:** the top three across creators with their numbers, the dead ones, and the rest still being tried.
 4. **Next brief, per creator kept:** the one thing it changes, and why in a line. A winner (5× its account's usual, or comments asking where to get it) goes to every kept creator, with only its subject swapped, as on the Repeat list. A miss changes only the part its band names: a new opening under 1,000, the product earlier at 1,000 to 10,000.

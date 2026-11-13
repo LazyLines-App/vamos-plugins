@@ -1,6 +1,6 @@
 ---
 type: regex
 target: last_message
-pattern: '14\.[34]\s?[×x]'
+pattern: '16\.[23]\s?[×x]'
 ---
-# DfYab6Ftp98: 613,124 / 42,606 = 14.39.
+# DfYab6Ftp98: 613,124 / 37,629.5 = 16.29, so far (4.4 days old).
