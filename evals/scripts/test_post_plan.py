@@ -202,6 +202,16 @@ class Plan(unittest.TestCase):
         days = {row['at'][:10] for row in plan['rows'][:5]}
         self.assertNotIn(plan['rows'][5]['at'][:10], days)   # the 6th waits for the next day
 
+    def test_tiktok_draft_now_goes_now(self):
+        """A draft asked for now is sent now, not scheduled for a minute already past."""
+        r, plan = self.run_plan([{'file': 'n.mp4', 'to': ['tt1'], 'at': 'now'}],
+                                {'n.mp4': {'caption': 'x', 'ai': False, 'people': 'none'}}, tiktok_drafts=True)
+        self.assertEqual(r.returncode, 0, r.stdout)
+        args = plan['rows'][0]['create']['arguments']
+        self.assertIs(args.get('publish_now'), True)
+        self.assertNotIn('scheduled_for', args)
+        self.assertIs(args['tiktok_settings']['draft'], True)
+
     def test_x_posts_are_priced(self):
         r, plan = self.run_plan([{'file': 'xx.mp4', 'to': ['x1']}],
                                 {'xx.mp4': {'caption': 'x', 'ai': False, 'people': 'none'}})

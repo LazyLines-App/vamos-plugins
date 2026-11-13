@@ -236,7 +236,7 @@ def main():
                 entry['platformSpecificData'] = psd
             create = {'content': caption, 'media_items': [{'type': 'video', 'url': url}], 'platforms': [entry],
                       'metadata': {'vamos_file': name, 'vamos_row': len(rows) + 1}}
-            if how == 'now':
+            if post.get('at') == 'now':   # by the asked time, not `how`: a TikTok draft rewrites how
                 create['publish_now'] = True
             else:
                 create['scheduled_for'] = when.strftime('%Y-%m-%dT%H:%M:%S')
@@ -256,7 +256,7 @@ def main():
             if not how.startswith('by hand'):
                 row['validate'] = validate
                 row['create'] = {'name': 'posts_create_post', 'arguments': create}
-                if p == 'tiktok' and how not in ('now',) and not drafts:
+                if p == 'tiktok' and post.get('at') != 'now' and not drafts:
                     row['dry_run'] = {'name': 'posts_create_post', 'arguments': {**create, 'dry_run': True}}
             rows.append(row)
 
