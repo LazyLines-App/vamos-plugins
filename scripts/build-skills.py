@@ -25,7 +25,7 @@ COPIES = {
     'scripts/textstats.py': (os.path.join(SHARED, 'textstats.py'), ['setup', 'script']),
     'assets/page.html': (os.path.join(KIT, 'page.html'), PAGES),
     'assets/PAGE.md': (os.path.join(KIT, 'README.md'), PAGES),
-    'scripts/fill.py': (os.path.join(KIT, 'fill.py'), PAGES),
+    'scripts/embed.py': (os.path.join(KIT, 'embed.py'), PAGES),
 }
 
 check = '--check' in sys.argv

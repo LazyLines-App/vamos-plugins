@@ -1,6 +1,6 @@
 # The playbook
 
-The reply and the page follow these sections. The counting is in SKILL.md step 5.
+The reply follows these sections. The counting is in SKILL.md step 5.
 
 ## The sections, in order
 

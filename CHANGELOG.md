@@ -2,6 +2,13 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.11
+- The Content System change below: each page is Claude's own write-up of the run, in the quiet answer-report look. An ad format's card says its ads, advertisers and longest days running in plain words.
+
+## vamos 0.2.13 (Content System)
+- Each skill's page is Claude's own write-up of what the run found: the answer first, then the sections that run needs, named and ordered for it. The page kit is a short style shell in the answer-report look (light and dark, the orange only for what wins) with a few pieces to use or skip; the fixed sections, counters, pixel title and field schema are gone. `embed.py` puts a finished page's pictures inline and takes out any that fail, so no empty box is left (it replaces `fill.py`). The playbook page keeps the five plays with their Paste to copy; setup's keeps what is set and how it runs from here.
+- The page is written in plain words, the way you'd explain it to them. formats' card is cut to what picking a format needs (what it is, why it's first, how many posts in their niche use it, how they'd film it, an example or two, its angles); the stage, beats, range or a risk go in when they help. The playbook page tells the plays in plain words.
+
 ## cracked-marketer 0.2.10
 - The Content System changes below (the path, the board as home, the next step on a yes).
 - setup's path names both ways a video gets made: a creator films it from its brief, or make-video makes it.

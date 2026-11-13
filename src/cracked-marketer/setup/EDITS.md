@@ -2,7 +2,7 @@
 
 Each edit below is Content System's words in `plugins/vamos/skills/setup`, then the words Cracked marketer's copy has instead. `python3 scripts/build-skills.py` applies them and fails when the old words are gone. `references/written-voice.md` here is added to Cracked marketer's copy only.
 
-A brand's account often has nobody talking on camera, so its voice comes from the founder's account when they talk, else from how the brand writes. The home page lists the skills in run order, and Cracked marketer's order holds its own skills too (its README).
+A brand's account often has nobody talking on camera, so its voice comes from the founder's account when they talk, else from how the brand writes.
 
 ~~~old SKILL.md
 Check `tracking.following` against `cap` first, and price it as one turn.
@@ -34,14 +34,6 @@ every quoted line is theirs, from a transcript.
 
 ~~~new
 every quoted line is theirs, from a transcript, a caption, an ad or their site.
-~~~
-
-~~~old SKILL.md
-the skills in run order: playbook, formats, hooks, ideas, script, content-log, loop, and analyze any time.
-~~~
-
-~~~new
-the skills in run order: find-creators, creator-program, playbook, formats, hooks, ideas, winning-ad-ideas, brief, script, make-video, review-draft, content-log, loop, and analyze any time.
 ~~~
 
 ~~~old references/voice.md

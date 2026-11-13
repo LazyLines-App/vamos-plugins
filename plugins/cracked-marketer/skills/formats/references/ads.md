@@ -14,7 +14,7 @@ Vamos reads every ad's days running, copies, media and copy, and opens only some
 - **The order:** advertisers, then the longest days running, then copies.
 - **The numbers** come from the rows (`days_running`, `versions`, `media_type`, where IMAGE is a static) and the answer, dated.
 - **Call a format long-running,** since its proof is its days running, and say what that means on the page and in the reply: someone keeps paying, not that it sells, since nobody outside sees spend; stopped ads outside the EU and UK are hidden, never zero.
-- **The card:** `where_label` "[job] · Meta ads", `stage` Static, Video or Carousel, `stat` "[N] ads from [M] advertisers among the [K] opened, the longest [D] days", `beats` what the ad shows in order, `film` who makes it (formats.md), `yours` the angles, written from the longest runner's line the formats.md way. `examples` are the ads: `url` the Ad Library link, `handle` the advertiser, `hook` the image words or first line, `meta` "[N] days running", `platform` "FACEBOOK_AD", and no `views`.
+- **The card:** as in formats.md, with whether it's a static, a video or a carousel, "[N] ads from [M] advertisers among the [K] opened, the longest [D] days" for uses in their niche, and the ads as its examples: the Ad Library link, the advertiser, the image words or first line, and its days running. Its badge is "[job] · Meta ads", and its angles start from the longest runner's line.
 
 ## The page
 

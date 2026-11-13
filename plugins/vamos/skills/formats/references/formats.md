@@ -42,4 +42,4 @@ Each angle carries its **first line** (the words said or on screen in the first 
 
 ## The card
 
-Rank, name, definition, badge, stage (`status`), date read. Uses in their niche (`niche_examples`, or "not counted"). Why this one, for them, now, in a sentence ("Worked for 49 creators in 11 niches; used once in yours; you can film it alone"). Up to three examples that open the post, one from their niche when there is one; the first plays from its row's `video_url`. The range in their niche (best and median). The beats. What it takes, with any clash flagged. The angles. One honest risk. Actions: put on the board, write the script, not for me.
+Each ranked format: its name and what it is, why it's first for them now in a sentence ("Worked for 49 creators in 11 niches; used once in yours; you can film it alone"), how many posts in their niche use it (`niche_examples`, or "not counted"), how they'd film it with any clash with their limits, an example or two that open the post, and its angles. Add the stage, the beats, the range or a risk when it helps them choose.

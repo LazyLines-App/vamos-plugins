@@ -47,19 +47,11 @@ Next is `/cracked-marketer:brief` for a format their creators will film, `/crack
 ~~~
 
 ~~~old SKILL.md
-`titles.formats` "Newest for you first"
+its rank, name, badge, uses in their niche,
 ~~~
 
 ~~~new
-`titles.formats` "Newest for you first", or "Ads still running" when ad formats lead (", then videos by job" when videos follow)
-~~~
-
-~~~old SKILL.md
-per format its rank, name, badge, uses in their niche,
-~~~
-
-~~~new
-per format its rank and name, its job and who makes it as its card says ("Trust · your creators can film it"), its badge, uses in their niche (an ad format: its `stat`),
+its rank and name, its job and who makes it as its card says ("Trust · your creators can film it"), its badge, uses in their niche (an ad format: its ads, advertisers and longest days running),
 ~~~
 
 ~~~old references/formats.md
@@ -71,18 +63,18 @@ per format its rank and name, its job and who makes it as its card says ("Trust 
 ~~~
 
 ~~~old references/formats.md
-One honest risk. Actions: put on the board, write the script, not for me.
+Add the stage, the beats, the range or a risk when it helps them choose.
 ~~~
 
 ~~~new
-One honest risk. Actions: put on the board, brief a creator or write the script, not for me.
+Add the stage, the beats, the range or a risk when it helps them choose.
 
-Every card, ad or video, names its job and who makes it. Its `where_label` starts with the job its beats do ("Trust · Next door", "Buy · Meta ads"):
+Every card, ad or video, names its job and who makes it. Its badge starts with the job its beats do ("Trust · Next door", "Buy · Meta ads"):
 - **Reach:** stops a stranger.
 - **Trust:** proof, a demo, a how-to, a customer.
 - **Buy:** the product working, an objection answered, the offer.
 
-Its `film` opens with who makes it:
+How they'd film it opens with who makes it:
 - **"Your creators can film it":** one person with a phone, the product and their own place, face included. Name the creators a "Creator program: [brand]" lists.
 - **"Your team makes it":** a static, a carousel, a screen recording, animation, anything built rather than filmed.
 ~~~
