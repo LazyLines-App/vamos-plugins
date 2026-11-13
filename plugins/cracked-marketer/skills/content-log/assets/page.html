@@ -504,7 +504,7 @@ P.analyze = function () {
   var U = D.usual || {}, base = U.views || null;
   var pairs = D.pairs || [];
   var pairsBare = pairs.every(function (pr) { return !(pr.hit && pr.hit.thumbnail) && !(pr.miss && pr.miss.thumbnail); });
-  var uNote = U.views ? 'Usual ' + num(U.views) + ': ' + (U.rule || 'the median views of the account’s posts at least 3 days old') + (U.posts ? ', over ' + U.posts + ' posts' : '') + '.' + (U.aside && U.aside.length ? ' Set aside: ' + U.aside.join('; ') + '.' : '') : null;
+  var uNote = U.views ? 'Usual ' + num(U.views) + ': ' + (U.rule || 'the median views of the account’s posts at least 7 days old') + (U.posts ? ', over ' + U.posts + ' posts' : '') + '.' + (U.aside && U.aside.length ? ' Set aside: ' + U.aside.join('; ') + '.' : '') : null;
   var mx = function (p) { return p.x != null ? p.x : (base && p.views != null ? p.views / base : null); };
   var nums = function (p) { var x = mx(p); return x != null ? '<span class="nums"><span class="px">' + X(x) + '</span> the usual</span>' : ''; };
   var bare = function (p) { var h = first(p.hook || p.caption || ''); return '<a class="pc bare"' + link(p.url) + '>' + (h ? '<span class="hk">“' + esc(h) + '”</span>' : '') + '<span class="who">' + img(p.avatar, 'av') + '<span class="hd">' + at(p.handle) + '</span></span><span class="meta">' + (p.views != null ? '<span class="px">' + cx(p.views) + '</span> views' : '') + (p.date ? ' · ' + dt(p.date) : '') + '</span></a>'; };

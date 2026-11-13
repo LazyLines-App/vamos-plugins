@@ -2,7 +2,8 @@
 
   python3 price.py floor ROWS.json --fee 400 [--exclude id,id] [--handle name]
       ROWS.json is a saved chat_completion_poll answer (its data.videos) or a list of rows.
-      Counts posts at least 3 days old (by counts_as_of). Sets aside boosts (likes under 0.5% of
+      Counts posts at least 7 days old (by counts_as_of), as the usual does everywhere: views still
+      climb before then. Sets aside boosts (likes under 0.5% of
       views, or tagged paid or sponsored), reposts (the same caption as an earlier post, within 2 s
       of its length) and the ids in --exclude. Usual = their median; floor = the median of the 10
       worst of the last 30. Prints the cost per 1,000 views of the fee at the floor and at the usual.
@@ -14,6 +15,8 @@
       rows over 90 days old are flagged OLD. Exits 1 on a row that's missing one.
 """
 import argparse, datetime as dt, json, re, statistics as st, sys
+
+SETTLED = 7  # days; the usual counts posts this old (content-log's count.py, Vamos's own usual)
 
 
 def parse_time(s):
@@ -51,8 +54,8 @@ def floor(args):
             out.append((r.get('id'), 'repost'))
         elif r.get('id') in skip:
             out.append((r.get('id'), 'excluded'))
-        elif (asof - parse_time(r['posted_at'])).total_seconds() < 3 * 86400:
-            out.append((r.get('id'), 'under 3 days old'))
+        elif (asof - parse_time(r['posted_at'])).total_seconds() < SETTLED * 86400:
+            out.append((r.get('id'), f'under {SETTLED} days old'))
         else:
             ok.append(r)
     if len(ok) < 10:

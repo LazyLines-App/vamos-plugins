@@ -1,5 +1,5 @@
 ---
-description: "Brand, indexed account, organic only. The mock is the real Vamos answer to analyze's profile ask on demo1 (2026-11-11, 17 credits): 40 cited TikTok rows inline and a 40-post table saying how each was made. Usual by the rule 796,399 over 35 (5 posts under 3 days set aside). No ads asked, so no ads turn."
+description: "Brand, indexed account, organic only. The mock is the real Vamos answer to analyze's profile ask on demo1 (2026-11-11, 17 credits): 40 cited TikTok rows inline and a 40-post table saying how each was made. Usual by the rule 823,638.5 over 32 (the 8 posts under 7 days set aside). No ads asked, so no ads turn."
 tags: [playbook, brand, tiktok, real-mock]
 runs: 1
 model: sonnet

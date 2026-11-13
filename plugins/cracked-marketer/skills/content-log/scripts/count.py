@@ -23,15 +23,19 @@ signups) the user's own count from a code or link; a post's "paid" tag replaces 
 A top-level "pool": 500 caps the bonuses, paid in posting order until it's spent.
 
 Prints, per account: the usual and what was set aside, each post since --since
-(default: 7 days before the read) with its multiple or "too early", the hit
+(default: 7 days before the read) with its multiple, "so far" or "too early", the hit
 rate, each tag counted against the misses, and with --ads the posts that pass
-the ad rule.
+the ad rule. The usual and every count rest on posts at least 7 days old, as Vamos's
+own usual does, because views still climb before then; a younger post that already
+beats the usual shows its multiple "so far" (it can only rise), and one that doesn't
+is too early.
 """
 import argparse, json, math, os, re, statistics as st, sys
 from datetime import datetime, timedelta, timezone
 from urllib.request import Request, urlopen
 
 NAMES = {'tiktok': 'TikTok', 'youtube': 'YouTube', 'linkedin': 'LinkedIn'}
+SETTLED = 7  # days; Vamos's usual counts posts this old (Chat EARLY_COUNT_DAYS, Watchlist USUAL_SETTLED_DAYS)
 PAID = re.compile(r'#ad\b|#sponsored|paid partnership|\bsponsored\b|#partner', re.I)
 
 
@@ -95,7 +99,7 @@ def account(posts, tags, since, ads):
     posts = sorted(posts, key=lambda r: r['posted_at'])
     for r in posts:
         r.setdefault('id', r.get('url') or '?')
-    seen, aside, judged, ours = [], [], [], []
+    seen, aside, judged, ours, young = [], [], [], [], []
     for r in posts:
         age = (ts(r['counts_as_of']) - ts(r['posted_at'])).total_seconds() / 86400
         r['_age'] = age
@@ -104,15 +108,14 @@ def account(posts, tags, since, ads):
         why = None
         if tag_of(tags, r).get('ours'):
             r['_ours'] = True
-            r['_aside'] = 'too early (under 3 days)' if age < 3 else None
+            r['_young'] = age < SETTLED
+            r['_aside'] = None
             r['_boost'] = likes is not None and views and likes / views < 0.005
             ours.append(r)
             continue
-        if age < 3:
-            why = 'too early (under 3 days)'
-        elif r.get('paid_partnership') or r.get('sponsors') or PAID.search(cap):
+        if r.get('paid_partnership') or r.get('sponsors') or PAID.search(cap):
             why = 'tagged paid'
-        elif likes is not None and views and likes / views < 0.005:
+        elif age >= SETTLED and likes is not None and views and likes / views < 0.005:
             why = f'likely boosted ({likes / views:.2%} likes)'
         else:
             for p in seen:
@@ -121,14 +124,29 @@ def account(posts, tags, since, ads):
                     why = f"repost of {p['id']}"
                     break
         seen.append(r)
+        if not why and age < SETTLED:  # judged below, once the usual is known
+            r['_young'], r['_aside'] = True, None
+            young.append(r)
+            continue
         r['_aside'] = why
         (aside if why else judged).append(r)
     if not judged:
         print('  no post is old enough to judge')
         return
     usual = st.median(r['views'] for r in judged)
-    for r in ours:
-        r['_usual'] = usual
+    for r in young + ours:
+        if r.get('_ours'):
+            r['_usual'] = usual
+        if not r.get('_young'):
+            continue
+        likes = r.get('likes')
+        if r['views'] <= usual:
+            r['_aside'] = f'too early (under {SETTLED} days)'
+        elif not r.get('_ours') and likes is not None and likes / r['views'] < 0.005:
+            r['_aside'] = f"likely boosted ({likes / r['views']:.2%} likes)"
+            aside.append(r)
+        else:
+            r['_floor'] = True
     cpk = lambda r: (tags.get(r['id'], {}).get('intent', r.get('comments') or 0)) / r['views'] * 1000 if r['views'] else 0
     usual_cpk = st.median(cpk(r) for r in judged)
     for r in posts:
@@ -146,7 +164,7 @@ def account(posts, tags, since, ads):
     for r in posts:
         if ts(r['posted_at']) < since:
             continue
-        state = r['_aside'] if r['_aside'] else f"{r['_x']:.1f}x"
+        state = r['_aside'] or f"{r['_x']:.1f}x" + (' so far' if r.get('_floor') else '')
         mark = f" [ours, by {tag_of(tags, r).get('creator') or '?'}]" if r.get('_ours') else ''
         print(f"    {r['posted_at'][:10]} {r['id']}{mark} {num(r['views'])} views, {state}, {cpk(r):.1f} comments per 1,000, {r['_age']:.1f} days old | {(r.get('caption_head') or '')[:70]}")
     keys = sorted({k for t in tags.values() for k in t if k != 'intent'} | {'length'})
@@ -175,9 +193,10 @@ def account(posts, tags, since, ads):
             expect, against = (lambda r: math.exp(my + slope * (math.log(r['views']) - mx))), 'what their posts that size get'
         else:
             expect, against = (lambda r: usual_cpk), 'usual (under 10 posts with comments, too few to read by size)'
-        hits = [r for r in judged if ts(r['posted_at']) >= since and r['_x'] >= 5 and r['views'] >= 10000 and cpk(r) >= expect(r)]
+        # a post under 7 days counts once it already beats the usual (its multiple can only rise)
+        hits = [r for r in posts if (r in judged or (r.get('_floor') and not r.get('_ours'))) and ts(r['posted_at']) >= since and r['_x'] >= 5 and r['views'] >= 10000 and cpk(r) >= expect(r)]
         print(f'  turn into an ad (5x or more, 10,000+ views, comments per 1,000 at or above {against}): '
-              + (', '.join(f"{r['id']} ({r['_x']:.1f}x, {num(r['views'])} views, {cpk(r):.1f} per 1,000 against {expect(r):.1f})" for r in hits) or 'none'))
+              + (', '.join(f"{r['id']} ({r['_x']:.1f}x{' so far' if r.get('_floor') else ''}, {num(r['views'])} views, {cpk(r):.1f} per 1,000 against {expect(r):.1f})" for r in hits) or 'none'))
 
 
 def band(r):
@@ -252,12 +271,12 @@ def creators(rows, tags, pay):
                 state = r['_aside']
             elif usual:
                 judged.append(r)
-                state = f"{r['views'] / usual:.1f}x the usual of {num(usual)}" + ('' if r['views'] >= usual else f", {band(r)}")
+                state = f"{r['views'] / usual:.1f}x the usual of {num(usual)}" + (' so far' if r.get('_floor') else '' if r['views'] >= usual else f", {band(r)}")
             else:
                 state = 'no usual for this account'
             boost = ', likes under 0.5%: views may include paid' if r.get('_boost') else ''
             label = '' if (r.get('paid_partnership') or PAID.search(r.get('caption_head') or '')) else ', no paid-partnership label in the row and no #ad in the caption read: check the post'
-            sofar = ' so far' if r['_aside'] else ''
+            sofar = ' so far' if r.get('_young') else ''
             per = f", ${paid / r['views'] * 1000:,.2f} per 1,000{sofar}" if paid is not None and r['views'] else ''
             acct = handle_of(r)
             print(f"    {r['posted_at'][:10]} {r['id']} on @{acct}: {num(r['views'])} views, {state}, {r['_age']:.1f} days old{boost}{label}; "
@@ -266,7 +285,9 @@ def creators(rows, tags, pay):
         due = deal.get('due')
         line = f"    scorecard: {len(rs)} posted" + (f" of {due} due" if due else '')
         if xs:
-            line += f", {sum(x > 1 for x in xs)} of {len(xs)} judged above usual, median {st.median(xs):.1f}x"
+            early = sum(1 for r in judged if r.get('_floor'))
+            line += (f", {sum(x > 1 for x in xs)} of {len(xs)} judged above usual" + (f" ({early} so far)" if early else '')
+                     + f", median {st.median(xs):.1f}x")
         if spent and views:
             line += f"; paid ${num(spent)} for {num(views)} views, ${spent / views * 1000:,.2f} per 1,000"
         for word in ('sales', 'signups'):
@@ -285,11 +306,11 @@ def creators(rows, tags, pay):
             judged = [r for r in kv[1] if not r['_aside'] and r.get('_usual')]
             return (-sum(r['views'] > r['_usual'] for r in judged), -max((r['views'] / r['_usual'] for r in judged), default=0))
         for h, rs in sorted(hooks.items(), key=rank):
-            best = max(rs, key=lambda r: (bool(r.get('_usual')), r['views'] / r['_usual'] if r.get('_usual') else r['views']))
+            best = max(rs, key=lambda r: (bool(r.get('_usual')), not r['_aside'], r['views'] / r['_usual'] if r.get('_usual') else r['views']))
             up = [r for r in rs if not r['_aside'] and r.get('_usual') and r['views'] > r['_usual']]
             early = sum(1 for r in rs if r['_aside'])
             dead = len(rs) >= 5 and max(r['views'] for r in rs) < 10000
-            bx = f", {best['views'] / best['_usual']:.1f}x" if best.get('_usual') else ''
+            bx = '' if not best.get('_usual') else ', too early' if best['_aside'] else f", {best['views'] / best['_usual']:.1f}x{' so far' if best.get('_floor') else ''}"
             print(f"    \"{h}\": {len(rs)} tr{'y' if len(rs) == 1 else 'ies'} by {len({who(r) for r in rs})} creator{'s' if len({who(r) for r in rs}) > 1 else ''}, "
                   f"{len(up)} above usual{f', {early} too early' if early else ''}, best {num(best['views'])}{bx} ({who(best)})"
                   + (' DEAD: 5+ tries, none past 10,000' if dead else ''))

@@ -1,5 +1,5 @@
 ---
-description: "Instagram, no setup, no board. Rows are @opusjake's real 40 posts (vamos-research fetch_link, 2026-11-10 11:16 UTC), the same assembled mock as analyze-profile-opusjake. The week to Nov 10 holds a 14.4x hit, three posts too young to judge and a sponsored post at 0.47% likes."
+description: "Instagram, no setup, no board. Rows are @opusjake's real 40 posts (vamos-research fetch_link, 2026-11-10 11:16 UTC), the same assembled mock as analyze-profile-opusjake. The week to Nov 10 holds a 16.3x-so-far hit and five posts too young to judge, one of them sponsored at 0.47% likes."
 tags: [content-log, instagram, assembled-mock, answer-key]
 runs: 1
 model: sonnet

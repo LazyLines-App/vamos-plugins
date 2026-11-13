@@ -1,6 +1,6 @@
 ---
 type: regex
 target: last_message
-pattern: '([Uu]sual|[Mm]edian)[^\n]{0,80}(42,606|42\.6\s?[Kk])|(42,606|42\.6\s?[Kk])[^\n]{0,80}([Uu]sual|[Mm]edian)'
-# 42,606 over 34 posts. 42,466 and 42,746 are posts' own views, so "usual" or "median" must sit near it.
+pattern: '37,62\d|37,630|37\.6\s?[Kk]'
+# 37,629.5 over 30 posts at least 7 days old. No post has 37.6K views, so the number alone is the usual.
 ---

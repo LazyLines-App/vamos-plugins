@@ -1,5 +1,5 @@
 ---
-description: "An account Vamos hasn't indexed: 40 rows with no hook, format or transcript and no stored median. Mock assembled from real reads (vamos-research profile rows and two watches, 2026-11-10), as the analyze case. The skill should ask Vamos to watch the top posts and misses made the same way before naming hooks, and compute the usual itself (29,134.5 over 36)."
+description: "An account Vamos hasn't indexed: 40 rows with no hook, format or transcript and no stored median. Mock assembled from real reads (vamos-research profile rows and two watches, 2026-11-10), as the analyze case. The skill should ask Vamos to watch the top posts and misses made the same way before naming hooks, and compute the usual itself (32,507.5 over 32)."
 tags: [playbook, creator, instagram, unindexed, assembled-mock]
 runs: 1
 model: sonnet

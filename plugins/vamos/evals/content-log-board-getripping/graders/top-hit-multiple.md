@@ -1,6 +1,6 @@
 ---
 type: regex
 target: last_message
-pattern: '13\.5\s?[×x]'
+pattern: '12\.1\s?[×x]'
 ---
-# DfYTnaJFcMP: 393,629 / 29,134.5 = 13.51.
+# DfYTnaJFcMP: 393,629 / 32,507.5 = 12.11, so far (4.9 days old).

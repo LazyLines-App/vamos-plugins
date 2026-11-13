@@ -47,12 +47,12 @@ The user's hook database: proven hooks the runs found, and the ones written for 
 | Column | Holds |
 |---|---|
 | Lesson | One sentence with its numbers |
-| Evidence | Post links with views, multiples and the date read |
-| Posts | How many posts it rests on |
+| Evidence | Post links with views, multiples and the date read; a post under 7 days old is listed as pending |
+| Posts | How many posts at least 7 days old it rests on |
 | Status | Hunch (under 3 posts), Testing, Confirmed (3 or more, from different weeks), Dropped |
 | Action | Make more, Stop, Test next |
 
-A lesson moves up only when a new post backs it. One flop makes a Hunch, never a Stop. Setup fills the first rows; after that only `/vamos:content-log` changes them, and every other skill reads them.
+A lesson moves up only when a new post at least 7 days old backs it. One flop makes a Hunch, never a Stop. Setup fills the first rows; after that only `/vamos:content-log` changes them, and every other skill reads them.
 
 ## Reviews
 
