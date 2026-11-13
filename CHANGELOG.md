@@ -2,6 +2,24 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.10
+- The Content System changes below (the path, the board as home, the next step on a yes).
+- setup's path names both ways a video gets made: a creator films it from its brief, or make-video makes it.
+- script offers make-video when the team wants the video made.
+- "approve 1 for us, 3 for creators" says which ideas the team makes and which a creator films.
+- The install works in the Claude app too: Customize → Plugins → Add marketplace, `LazyLines-App/vamos-plugins`.
+
+## vamos 0.2.12 (Content System)
+- Every run ends with its next step as a question (both, when the skill names a choice), and Claude runs it on your yes, so there are no commands to remember. The recap links your board.
+- setup tells you how it runs from here (ideas at To review, your yes, the script, your video, one table to post, the content log) and that any part works alone.
+- "what's next?", "where am I?" or "show my board" opens setup's home: what waits for your yes, with the board's link, and the next step (scripts, filming, the post, or new ideas).
+- The board fits what you already use: setup asks where you plan and post, adds its columns to your own Notion or Sheet content calendar instead of making a new one, and hands posting batches to your own scheduler (Later, Buffer, Metricool).
+- A new Notion board shows each card with its source video's thumbnail, and a calendar of what goes out. When the calendar you keep isn't connected in Claude, setup asks you to connect it first; with none at all, it says in one line what connecting Notion gives and moves the board there once you do.
+- A finished video goes on by its link on the card and Ready to post, from any host, or by telling Claude where it is. The path says what Zernio is.
+- "approve 1 and 3" in the chat works on every host, not only Claude Code.
+- loop picks the scheduler for you: Cowork by default (with the desktop app's download and the plugin's install path), the Claude Code desktop app when a run needs this computer's files, a cloud task only when you ask.
+- Connecting Vamos in Claude Code is named everywhere it's needed: `/mcp`, pick vamos, sign in. The README gives one install path for the Claude app and says what a free account covers.
+
 ## cracked-marketer 0.2.9
 - The Content System changes below (post, and the board's File and Post columns).
 - make-video makes dramas: a short scene acted by characters you made, one voice per character, every take priced and asked first. drama-cut.py builds the cut on whole frames with the song's drop on the turn; place-line.py fits a take that said its line at its own pace, before anyone pays for a retake.

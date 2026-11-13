@@ -2,7 +2,7 @@
 
 Vamos is an AI agent for content research. This plugin adds the Vamos connector to Claude and a content system you can run end to end or one part at a time. In the order you'd run them:
 
-1. **setup**: start here. Reads your socials and site, learns your voice from your own videos, finds and tracks your competitors, and makes the board where ideas wait for your yes. Run it again any time to see what's set up and what's next.
+1. **setup**: start here. Reads your socials and site, learns your voice from your own videos, finds and tracks your competitors, and makes your board, or uses the Notion or Sheet you already plan in, where ideas, scripts and posts wait for your yes. Run it again any time to see what's set up and what's next.
 2. **playbook**: takes any brand or creator apart, counted: what they repeat, which patterns win against their misses, their hooks word for word, how they sell, their Meta ads, creators and what customers say in comments, reviews and Reddit if you want them, and the plays for your account.
 3. **formats**: the formats to make next, ranked for you, with examples, proof, what it takes to film and two or three angles for your brand.
 4. **hooks**: opening lines built from hooks that are working in your format and niche, in your voice. Keeps your hook database on the board.
@@ -17,13 +17,28 @@ Plus **creator-research**: creators who really get views in your niche, starting
 
 Vamos reads public posts and Meta's Ad Library and keeps your brand, voice, tracked accounts and lessons in your workspace. Claude does the judging and the writing with the method in each skill, and makes each result a page you can read, share or film.
 
+## How it runs
+
+Your board is home. Setup makes it in your Notion (or a Google Sheet), or adds its columns to the content calendar you already keep there. Each idea, its script, the finished video and its post sit on one card:
+
+1. New ideas land at To review. Approve the ones you'd make: drag the card, or tell Claude "approve 1 and 3".
+2. Claude writes each approved idea's script in your voice, on its card.
+3. You film and edit it in your own app, then put its link on the card and set it to Ready to post, or tell Claude where it is.
+4. Say yes to one table and it posts on your Zernio, the posting service you sign in to with your own accounts (zernio.com, first two accounts free). A week on, the content log shows what worked, and the next ideas build on it.
+
+Every run ends with the next step, and Claude runs it when you say yes, so there are no commands to remember. Ask "what's next?" any time to see what's waiting for you.
+
+Any part works alone: ideas for this week, a script for your own idea, a breakdown of any video, or how last week's posts did. It fits what you already use: your own board, your own editor, and your own scheduler (post hands you each batch as a table for it).
+
 ## Install
 
-1. Add the plugin from Claude's directory (Plugins > Discover > Vamos > Add).
-2. Open the plugin's Connectors tab, press Connect and sign in to Vamos. A free account works.
+In the Claude app (chat and Cowork):
+
+1. Open Customize → Plugins → Add marketplace, enter `LazyLines-App/vamos-plugins`, and install Vamos. Once it's in Claude's directory, it's also under Discover.
+2. Open the plugin's Connectors tab, press Connect and sign in to Vamos. A free account (200 credits, once) is enough to try it; a weekly loop needs a paid plan.
 3. Type `/vamos:setup`.
 
-In Claude Code: `/plugin marketplace add LazyLines-App/vamos-plugins`, then `/plugin install vamos@vamos-plugins`.
+In Claude Code: `/plugin marketplace add LazyLines-App/vamos-plugins`, then `/plugin install vamos@vamos-plugins`, then run `/mcp`, pick vamos and sign in. Then type `/vamos:setup`.
 
 ## What it can't do
 

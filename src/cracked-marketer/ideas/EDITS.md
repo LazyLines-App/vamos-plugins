@@ -35,7 +35,7 @@ and `/vamos:script` writes those.
 ~~~
 
 ~~~new
-and `/cracked-marketer:brief` briefs the ones a creator will film, or `/cracked-marketer:script` writes the ones the team makes.
+and `/cracked-marketer:brief` briefs the ones a creator will film, or `/cracked-marketer:script` writes the ones the team makes ("approve 1 for us, 3 for creators").
 ~~~
 
 ~~~old SKILL.md

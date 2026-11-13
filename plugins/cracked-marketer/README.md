@@ -4,9 +4,22 @@ The marketing hire a brand or startup would make, in Claude. It researches what'
 
 It holds all ten Content System skills (find-creators does creator research's job), so you never need both. Content System is for creators, coaches and service providers who film their own content. Cracked marketer is for a brand or startup that needs the whole marketing job done.
 
+## How it runs
+
+Your board is home. Setup makes it in your Notion (or a Google Sheet), or adds its columns to the content calendar you already keep there. Each idea, its script, the finished video and its post sit on one card:
+
+1. New ideas land at To review. Approve the ones you'd make: drag the card, or tell Claude "approve 1 for us, 3 for creators".
+2. Claude writes each approved idea's script in your voice, or its brief when a creator films it, on its card.
+3. Your creators film from the brief, or make-video makes it on your own tools. A video you edit yourself: put its link on the card and set it to Ready to post, or tell Claude where it is.
+4. Say yes to one table and it posts on your Zernio, the posting service you sign in to with your own accounts (zernio.com, first two accounts free). A week on, the content log shows what worked, and the next ideas build on it.
+
+Every run ends with the next step, and Claude runs it when you say yes, so there are no commands to remember. Ask "what's next?" any time to see what's waiting for you.
+
+Any part works alone: creators to pay, a brief, ten ad ideas, a script for your own idea, a breakdown of any video, or how last week's posts did. It fits what you already use: your own board, your own editor, and your own scheduler (post hands you each batch as a table for it).
+
 ## Skills, in the order you'd run them
 
-1. **setup**: start here. Reads your socials and site, learns your brand's voice (from the videos of whoever talks on camera, the founder or someone on your account, else from your site, captions and ads), finds and tracks your competitors, and makes the board where ideas wait for your yes.
+1. **setup**: start here. Reads your socials and site, learns your brand's voice (from the videos of whoever talks on camera, the founder or someone on your account, else from your site, captions and ads), finds and tracks your competitors, and makes your board, or uses the Notion or Sheet you already plan in, where ideas, scripts and posts wait for your yes.
 2. **find-creators**: a sheet of creators to pay for your videos (people already posting about you, creators your competitors use, creators brands rehire, fresh breakouts), each checked on niche and format, with the contact their bio shows and a first message for you to send.
 3. **creator-program**: how many creators to start with, what to pay each per video against published deals, whose accounts they post on, the first DM and a follow-up at your offer, the first 30 days and how to read the results.
 4. **playbook**: takes any brand or creator apart, counted: what they repeat, which patterns win against their misses, their hooks word for word, how they sell, their Meta ads and creators, what customers say in comments, reviews and Reddit, counted into reasons, and the plays for your brand.
@@ -31,10 +44,10 @@ In Claude Code:
 
 1. `/plugin marketplace add LazyLines-App/vamos-plugins`
 2. `/plugin install cracked-marketer@vamos-plugins`
-3. Connect Vamos when asked and sign in. A free account works.
+3. Run `/mcp`, pick vamos and sign in. A free account (200 credits, once) is enough to try it; a weekly loop needs a paid plan.
 4. Type `/cracked-marketer:setup`.
 
-Cracked marketer installs from this marketplace only. It isn't in Claude's plugin directory.
+In the Claude app (chat and Cowork): Customize → Plugins → Add marketplace, enter `LazyLines-App/vamos-plugins`, install Cracked marketer, then connect Vamos on its Connectors tab. It installs from this marketplace only; it isn't in Claude's plugin directory.
 
 ## What it can't do
 

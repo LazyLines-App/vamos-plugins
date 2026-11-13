@@ -23,14 +23,14 @@ The Zernio calls, the upload and the hand-off: [references/zernio.md](references
 
 **Where things live.** The user's state is in Vamos, where every host and every Vamos chat can read it and the user can edit it at `https://app.getvamos.ai/brain`: the profile, pillars and Voice page; the Brain files Tracked accounts, Voice examples, Things you've said, What works for me, Marketing plan, Vamos settings, and one dated "Playbook: [brand]" per brand taken apart; and a Brain skill per structure, each named "Structure: [name]". The board (Notion, a Google Sheet, `vamos/board.md` or a Brain file, as Vamos settings says) holds the ideas, hooks, lessons and reviews. To read a Brain file or skill (the voice guide is a file, a structure is a skill), call `get_workspace` with `file` set to its title, without the summary `files` or `skills` shows after it: free, and the full text. Never spend a turn reading one.
 
-**End every run with the recap**, in the chat and in the page footer:
+**End every run with the recap**, in the chat and in the page footer. Next is the step this skill names, and when it names a choice, offer each. When it can run now, offer it as a question and, on their yes, run it yourself, so they never need to remember a command; when it waits on them or on time (filming, a post's first week), say what and when.
 
-> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Next:** `/vamos:[skill]`, [what it does, in eight words]
+> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Board:** [its link, when there is one] · **Next:** [what it does, in eight words] (`/vamos:[skill]`). Shall I?
 <!-- /shared -->
 
 ## Steps
 
-**1. The posting tool.** Look for Zernio's tools (`accounts_list`, `validate_post`, `call_tool`; their prefix depends on the host). With none, say in one line what to connect ([zernio.md](references/zernio.md), Connect), then give the batch as the hand-off table, its captions and labels from plan.py run on the accounts they name, and post nothing. Another scheduler gets the same table: this skill sets the AI label only through fields checked live on Zernio.
+**1. The posting tool.** Look for Zernio's tools (`accounts_list`, `validate_post`, `call_tool`; their prefix depends on the host). With none, give the batch as the hand-off table, its captions and labels from plan.py run on the accounts they name, and post nothing. When Vamos settings' Posting line names the scheduler they use (Later, Buffer, Metricool, the app itself), the table is for it, AI label column included, since this skill sets the label only through fields checked live on Zernio; otherwise say in one line what to connect ([zernio.md](references/zernio.md), Connect).
 
 **2. The accounts and times.** Read Vamos settings' Posting line (`get_workspace` with `file`, free). The first time, `accounts_list`, then ask once, in one message: which accounts post which videos, how many a day each, at what times, in which time zone. Save the answer as that Posting line, with `save_brain_file` and the file's whole text:
 > Posting: Zernio. @brand (instagram, tiktok) and @brand.two (instagram): 09:00, 13:00, 19:00 (Europe/Madrid). Ready to post goes out by itself: no.
@@ -55,7 +55,7 @@ When the batch has X rows, add what plan.py's BATCH line says X bills, from thei
 
 Wait for it. A yes covers that table only: a row changed after it ("move 3 to 18:00") is shown again and needs its own yes.
 
-**7. Send and record.** On the yes, run plan.py once more on the same batch (re-read `existing` first). A row whose time moved, because its slot passed while the table waited, is shown again for a new yes: Zernio publishes a past time the moment it's sent. Then send each row's `create` as it is: `call_tool` with its `name` and `arguments`, one row a call. Never the short `posts_create`: it can't carry the AI label. Keep each returned post id in `vamos/posted.json` and on the board's row (Status Scheduled, its Post column: account, time and id). Zernio publishes each at its time, laptop closed. Say "now" only when the user asked for now.
+**7. Send and record.** On the yes, run plan.py once more on the same batch (re-read `existing` first). A row whose time moved, because its slot passed while the table waited, is shown again for a new yes: Zernio publishes a past time the moment it's sent. Then send each row's `create` as it is: `call_tool` with its `name` and `arguments`, one row a call. Never the short `posts_create`: it can't carry the AI label. Keep each returned post id in `vamos/posted.json` and on the board's row (Status Scheduled, Goes out its time, its Post column: account, time and id). Zernio publishes each at its time, laptop closed. Say "now" only when the user asked for now.
 
 **While they're away.** Once the user says their yes covers every video they mark Ready to post, write "Ready to post goes out by itself: yes" on the Posting line. Then each `/vamos:loop` ideas run plans those rows, from each row's File, into the next free times and sends them with every rule above, `"tiktok_drafts": true` in batch.json: nobody saw that table, so TikTok gets each video in the account's TikTok inbox, and the user adds the caption and taps Post there (up to 5 waiting a day). A row with a DEFECT, a FLAG, a file this run can't open, or by hand waits for them in the digest. Until then the loop's digest shows the batch's table and waits. The run reads the files where they are, so it runs on the computer that holds them; what it has scheduled goes out with that computer off.
 
@@ -63,8 +63,8 @@ Wait for it. A yes covers that table only: a row changed after it ("move 3 to 18
 
 **Check before the recap:** nothing was created before the yes to its table; every created row went out with plan.py's arguments unchanged; every AI row has its label on or is listed by hand; the recap counts what's scheduled, what's by hand and what was dropped.
 
-> **Made:** 12 posts scheduled on your Zernio, Sat 09:00 to Mon 19:00, 1 by hand on Facebook · **Credits:** 0 used, [left] left · **Next:** `/vamos:content-log`, each post's numbers at 2 and 7 days
+> **Made:** 12 posts scheduled on your Zernio, Sat 09:00 to Mon 19:00, 1 by hand on Facebook · **Credits:** 0 used, [left] left · **Board:** [link] · **Next:** each post's numbers at 2 and 7 days old (`/vamos:content-log`), from Monday
 
 Vamos is needed for the Posting line and the board; with neither, the batch is the files the user names and the Posting answer stays in this chat.
 
-If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Vamos plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
+If no Vamos tool is connected, say this needs the Vamos connector: in Claude Code, run `/mcp`, pick vamos and sign in; in the Claude app, the Connectors tab of the Vamos plugin (Customize → Plugins), or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

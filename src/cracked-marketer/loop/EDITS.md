@@ -29,7 +29,7 @@ all drafted for them to send.
 ~~~new
 all drafted for them to send.
 
-Offer the research pack on the content log's day, an hour after it: the content log's ad week, what their customers say (read again each month) and winning-ad-ideas' concepts, kept by its three blind judges, waiting at To review with their codes. The ad week needs that week's two Ads Manager exports in the project folder before the content log runs, and only a Claude Code desktop task sees that folder; elsewhere the pack runs without it and says so. Taken, the Loop line adds `research pack [that day] [an hour after the content log]`, and its task says `run pack`.
+Offer the research pack on the content log's day, an hour after it: the content log's ad week, what their customers say (read again each month) and winning-ad-ideas' concepts, kept by its three blind judges, waiting at To review with their codes. The ad week needs that week's two ad-level Ads Manager exports (Last 7 days and the 7 days before, as the content log asks) in the project folder before the content log runs, and only a Claude Code desktop task sees that folder; elsewhere the pack runs without it and says so. Taken, the Loop line adds `research pack [that day] [an hour after the content log]`, and its task says `run pack`.
 ~~~
 
 ~~~old SKILL.md

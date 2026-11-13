@@ -21,9 +21,9 @@ description: "Takes a brand, competitor or creator apart into a playbook for you
 
 **Where things live.** The user's state is in Vamos, where every host and every Vamos chat can read it and the user can edit it at `https://app.getvamos.ai/brain`: the profile, pillars and Voice page; the Brain files Tracked accounts, Voice examples, Things you've said, What works for me, Marketing plan, Vamos settings, and one dated "Playbook: [brand]" per brand taken apart; and a Brain skill per structure, each named "Structure: [name]". The board (Notion, a Google Sheet, `vamos/board.md` or a Brain file, as Vamos settings says) holds the ideas, hooks, lessons and reviews. To read a Brain file or skill (the voice guide is a file, a structure is a skill), call `get_workspace` with `file` set to its title, without the summary `files` or `skills` shows after it: free, and the full text. Never spend a turn reading one.
 
-**End every run with the recap**, in the chat and in the page footer:
+**End every run with the recap**, in the chat and in the page footer. Next is the step this skill names, and when it names a choice, offer each. When it can run now, offer it as a question and, on their yes, run it yourself, so they never need to remember a command; when it waits on them or on time (filming, a post's first week), say what and when.
 
-> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Next:** `/cracked-marketer:[skill]`, [what it does, in eight words]
+> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Board:** [its link, when there is one] · **Next:** [what it does, in eight words] (`/cracked-marketer:[skill]`). Shall I?
 <!-- /shared -->
 
 ## Steps
@@ -78,4 +78,4 @@ The first line is what the user can say or put on screen today, word for word: t
 
 **Check before the recap:** every pattern carries "N of M" and links a hit and a miss from the rows; the usual is yours, by the rule, and any Vamos baseline is called Vamos's; every play has its five parts in the reply and on the page, and names the user's product, with any fact about it they, their site or the workspace didn't give as a slot (`[your price]`), and every ad play the days its ad has run; nothing says spend, ROAS, revenue, "best-performing" or "every ad they ever ran"; the page is written, it is the recap's Made link, and its strip says what was read, when, and the credits. Offer what wasn't read with its price. Next is `/cracked-marketer:formats`, or `/cracked-marketer:analyze` on their best post.
 
-If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
+If no Vamos tool is connected, say this needs the Vamos connector: in Claude Code, run `/mcp`, pick vamos and sign in; in the Claude app, the Connectors tab of the Cracked marketer plugin (Customize → Plugins), or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

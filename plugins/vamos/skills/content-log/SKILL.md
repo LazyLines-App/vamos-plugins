@@ -21,9 +21,9 @@ description: "Logs what's working on your account: your posts against your own u
 
 **Where things live.** The user's state is in Vamos, where every host and every Vamos chat can read it and the user can edit it at `https://app.getvamos.ai/brain`: the profile, pillars and Voice page; the Brain files Tracked accounts, Voice examples, Things you've said, What works for me, Marketing plan, Vamos settings, and one dated "Playbook: [brand]" per brand taken apart; and a Brain skill per structure, each named "Structure: [name]". The board (Notion, a Google Sheet, `vamos/board.md` or a Brain file, as Vamos settings says) holds the ideas, hooks, lessons and reviews. To read a Brain file or skill (the voice guide is a file, a structure is a skill), call `get_workspace` with `file` set to its title, without the summary `files` or `skills` shows after it: free, and the full text. Never spend a turn reading one.
 
-**End every run with the recap**, in the chat and in the page footer:
+**End every run with the recap**, in the chat and in the page footer. Next is the step this skill names, and when it names a choice, offer each. When it can run now, offer it as a question and, on their yes, run it yourself, so they never need to remember a command; when it waits on them or on time (filming, a post's first week), say what and when.
 
-> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Next:** `/vamos:[skill]`, [what it does, in eight words]
+> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Board:** [its link, when there is one] · **Next:** [what it does, in eight words] (`/vamos:[skill]`). Shall I?
 <!-- /shared -->
 
 ## Steps
@@ -60,4 +60,4 @@ python3 <this skill's folder>/scripts/count.py "<the poll's data.json_url>" --si
 
 **Check before the recap:** every × came from `count.py` or your shown counts, with the read date, and every spend, CPA and ROAS from `ads.py`; with creators, every cost, scorecard and hook count came from its `creators:` block, and each winner on a creator's own account has its code ask written out; each private number names its screenshot; every list item and lesson shows how many posts it rests on, and a lesson's count holds only posts at least 7 days old; nothing is on Stop or Confirmed on fewer than 3 posts from different weeks. Next is `/vamos:ideas`, which now starts from these lessons.
 
-If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Vamos plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
+If no Vamos tool is connected, say this needs the Vamos connector: in Claude Code, run `/mcp`, pick vamos and sign in; in the Claude app, the Connectors tab of the Vamos plugin (Customize → Plugins), or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp

@@ -21,9 +21,9 @@ description: "Runs your content system on a schedule, even with your laptop clos
 
 **Where things live.** The user's state is in Vamos, where every host and every Vamos chat can read it and the user can edit it at `https://app.getvamos.ai/brain`: the profile, pillars and Voice page; the Brain files Tracked accounts, Voice examples, Things you've said, What works for me, Marketing plan, Vamos settings, and one dated "Playbook: [brand]" per brand taken apart; and a Brain skill per structure, each named "Structure: [name]". The board (Notion, a Google Sheet, `vamos/board.md` or a Brain file, as Vamos settings says) holds the ideas, hooks, lessons and reviews. To read a Brain file or skill (the voice guide is a file, a structure is a skill), call `get_workspace` with `file` set to its title, without the summary `files` or `skills` shows after it: free, and the full text. Never spend a turn reading one.
 
-**End every run with the recap**, in the chat and in the page footer:
+**End every run with the recap**, in the chat and in the page footer. Next is the step this skill names, and when it names a choice, offer each. When it can run now, offer it as a question and, on their yes, run it yourself, so they never need to remember a command; when it waits on them or on time (filming, a post's first week), say what and when.
 
-> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Next:** `/cracked-marketer:[skill]`, [what it does, in eight words]
+> **Made:** [what, with its link] · **Credits:** [used], [left] left · **Board:** [its link, when there is one] · **Next:** [what it does, in eight words] (`/cracked-marketer:[skill]`). Shall I?
 <!-- /shared -->
 
 ## Set it up
@@ -38,7 +38,7 @@ description: "Runs your content system on a schedule, even with your laptop clos
 
 With a "Creator program: [brand]" in the Brain and the brief skill in this plugin, add that the content log's day is also the creators' week ([references/creators.md](references/creators.md)): their results, each one's next brief, and the code asks, chases and payout list, all drafted for them to send.
 
-Offer the research pack on the content log's day, an hour after it: the content log's ad week, what their customers say (read again each month) and winning-ad-ideas' concepts, kept by its three blind judges, waiting at To review with their codes. The ad week needs that week's two Ads Manager exports in the project folder before the content log runs, and only a Claude Code desktop task sees that folder; elsewhere the pack runs without it and says so. Taken, the Loop line adds `research pack [that day] [an hour after the content log]`, and its task says `run pack`.
+Offer the research pack on the content log's day, an hour after it: the content log's ad week, what their customers say (read again each month) and winning-ad-ideas' concepts, kept by its three blind judges, waiting at To review with their codes. The ad week needs that week's two ad-level Ads Manager exports (Last 7 days and the 7 days before, as the content log asks) in the project folder before the content log runs, and only a Claude Code desktop task sees that folder; elsewhere the pack runs without it and says so. Taken, the Loop line adds `research pack [that day] [an hour after the content log]`, and its task says `run pack`.
 
 **2. Price it** from `get_credit_usage`: an ideas run is about 50 credits, a content log about 15 (about 20 with creators, plus up to 45 for their briefs' research turn: 42 for three creators on 2026-11-12), the research pack up to 60 (up to 110 when its monthly customer read is due); saves are free. Say the week's total against what's left (Free's 200 don't renew). When it doesn't fit, offer fewer ideas days and set nothing up until they choose.
 
@@ -47,10 +47,10 @@ Offer the research pack on the content log's day, an hour after it: the content 
 **4. Save the settings** with `save_brain_file` as Vamos settings: its whole text, with its Approval, Loop and Board lines replaced by these (when you don't know their time zone, drop the brackets rather than describe it):
 > Approval: Ask me after ideas. Loop: ideas Monday and Thursday 08:00, content log Monday 10:00 ([their time zone]). Board: [link].
 
-**5. Schedule one task per job,** an hour or more apart, on a scheduler that loads this plugin:
-- **Cowork** (Claude desktop app: Scheduled, New task) runs with the laptop closed and loads the plugins on their claude.ai account, so first add this plugin in Customize → Plugins and connect Vamos there.
-- **The Claude Code desktop app** (Code: Scheduled, New task, Only on this computer) loads this laptop's plugins, but runs only while the app is open and the laptop awake; a run it sleeps through runs once on wake.
-- **A Claude Code cloud task** (`/schedule`) runs with the laptop closed but loads no plugins: only the claude.ai connectors it includes and the skills committed to its repository. It works once every skill folder beside this one is in that repository's `.claude/skills/` (offer to copy and commit them, again after each plugin update; ask before pushing) and Vamos is added at claude.ai connectors. Its prompt then starts "Use the loop skill:" in place of the command.
+**5. Schedule one task per job,** an hour or more apart, on the scheduler you pick for them, so they have nothing to choose:
+- **Cowork** (the Claude desktop app, claude.ai/download: Scheduled, New task), the default: it runs with the laptop closed and loads the plugins on their claude.ai account, so first add this plugin there (Customize → Plugins → Add marketplace, `LazyLines-App/vamos-plugins`, then Install) and connect Vamos on its Connectors tab.
+- **The Claude Code desktop app** (Code: Scheduled, New task, Only on this computer) when a run needs this computer's files (Ads Manager exports in the project folder, or the videos it posts): it loads this laptop's plugins, but runs only while the app is open and the laptop awake; a run it sleeps through runs once on wake.
+- **A Claude Code cloud task** (`/schedule`) only when they ask for one. It runs with the laptop closed but loads no plugins: only the claude.ai connectors it includes and the skills committed to its repository. It works once every skill folder beside this one is in that repository's `.claude/skills/` (offer to copy and commit them, again after each plugin update; ask before pushing) and Vamos is added at claude.ai connectors. Its prompt then starts "Use the loop skill:" in place of the command.
 
 `/loop` stops when the session closes. When you can't create the task here, give them each task's days, time and prompt to paste:
 > /cracked-marketer:loop run ideas for [brand] ([@handle] on [platforms], [niche]). Board: [link]. Settings: the Vamos settings Brain file. Approval: [setting].
@@ -75,4 +75,4 @@ Anything that spends outside Vamos credits, emails, pays or messages someone wai
 
 To change, pause or stop it, edit or delete the scheduled tasks and update Vamos settings.
 
-If no Vamos tool is connected, say this needs the Vamos connector: the Connectors tab of the Cracked marketer plugin, or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
+If no Vamos tool is connected, say this needs the Vamos connector: in Claude Code, run `/mcp`, pick vamos and sign in; in the Claude app, the Connectors tab of the Cracked marketer plugin (Customize → Plugins), or https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Vamos&connectorUrl=https%3A%2F%2Fmcp.getvamos.ai%2Fmcp
