@@ -2,14 +2,14 @@
 
 This repo is one marketplace, `vamos-plugins`, with two plugins:
 - `vamos` (Content System): for creators, coaches and service providers who film their own content. It is the one in Claude's plugin directory.
-- `cracked-marketer` (Cracked marketer by Vamos): the marketing hire for a brand or startup. It holds the nine shared Content System skills plus its own, and installs from this marketplace only.
+- `cracked-marketer` (Cracked marketer by Vamos): the marketing hire for a brand or startup. It holds the ten shared Content System skills plus its own, and installs from this marketplace only.
 
 ## Making a change
 
 1. **Start from the root cause.** Trace the bad output to the line that caused it and fix it there. Often the fix is a deletion.
 2. **Edit shared parts once.**
    - `src/` holds the Vamos block, the board, `textstats.py` and the page kit.
-   - `plugins/vamos/skills/<name>` is the one source for the nine shared skills: setup, playbook, formats, hooks, ideas, script, content-log, loop, analyze.
+   - `plugins/vamos/skills/<name>` is the one source for the ten shared skills: setup, playbook, formats, hooks, ideas, script, post, content-log, loop, analyze.
    - Run `python3 scripts/build-skills.py`. It copies `src/` into each skill and each shared skill into `plugins/cracked-marketer/skills/`, with `/vamos:` turned into `/cracked-marketer:`.
    - Where a shared skill's job differs for a brand, Cracked marketer's copy differs only through `src/cracked-marketer/<skill>/`: `EDITS.md` holds each edit as Content System's exact words (`~~~old SKILL.md`) and Cracked marketer's (`~~~new`), and any other file there is added to Cracked marketer's copy only. The build fails when an edit's old words are gone.
    - Cracked marketer's own skills live only in `plugins/cracked-marketer/skills/`. The build refreshes only the Vamos block between its markers in each, and checks their last line and links.

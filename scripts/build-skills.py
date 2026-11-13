@@ -21,7 +21,7 @@ END = '<!-- /shared -->'
 LAST_LINE = re.compile(r"If no Vamos tool is connected, say this needs the Vamos connector:.*\n?\Z")
 PAGES = ['setup', 'playbook', 'formats', 'ideas', 'content-log', 'analyze']
 COPIES = {
-    'references/board.md': (os.path.join(SHARED, 'board.md'), ['setup', 'formats', 'hooks', 'ideas', 'script', 'content-log']),
+    'references/board.md': (os.path.join(SHARED, 'board.md'), ['setup', 'formats', 'hooks', 'ideas', 'script', 'content-log', 'post']),
     'scripts/textstats.py': (os.path.join(SHARED, 'textstats.py'), ['setup', 'script']),
     'assets/page.html': (os.path.join(KIT, 'page.html'), PAGES),
     'assets/PAGE.md': (os.path.join(KIT, 'README.md'), PAGES),
@@ -69,7 +69,7 @@ for name in sorted(os.listdir(SKILLS)):
 # Cracked marketer holds Content System's skills: each is copied whole from plugins/vamos/skills,
 # with the command prefix and the plugin name rewritten. Its own skills are never touched.
 CM_SKILLS = os.path.join(ROOT, 'plugins', 'cracked-marketer', 'skills')
-CM_SHARED = ['setup', 'playbook', 'formats', 'hooks', 'ideas', 'script', 'content-log', 'loop', 'analyze']
+CM_SHARED = ['setup', 'playbook', 'formats', 'hooks', 'ideas', 'script', 'content-log', 'loop', 'analyze', 'post']
 CM_REWRITE = [('/vamos:', '/cracked-marketer:'),
               ('the Connectors tab of the Vamos plugin', 'the Connectors tab of the Cracked marketer plugin')]
 # Where a shared skill's job differs for a brand, Cracked marketer's copy has its own words and files:

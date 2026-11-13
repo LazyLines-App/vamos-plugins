@@ -54,6 +54,20 @@ A person talks to camera while, above them or full frame, the thing they describ
 - Voice first, presenter last: the whole cut is agreed with the voice and a still of the face before any paid take ([models.md](models.md), the presenter chain).
 - Made with: their TTS voice, their image and video generator for the face, their captured screens.
 
+## Drama
+
+A small cast acts a short story in a place everyone knows: someone sets a bar to the hero's face, the hero answers flat, and a picture turns it at about half way. In an ad, the picture is the user's product: their app on the hero's phone, the parcel at the door, the result on the skin. 15 to 30 s, one or two places, 6 to 16 cuts. From 21 dramas read frame by frame on 2026-11-12, 13 winners (8× to 1,050× their account's usual) and 7 flops from the same accounts.
+
+- **The bar is said to the hero's face by someone with power over them, in a room everyone knows:** a parent at the family table, an officer at the passport desk, a boss, a saleswoman. The flops had nobody judging anyone (0.43×) or an invented world (0.2×).
+- **The hero answers flat and says least:** "I'm unemployed." Two of the biggest winners' heroes say nothing at all.
+- **The turn is a picture at 45 to 65% of the runtime,** in its own shot, readable in a second on a phone: the cash in the mum's hand at 12 s of 21, the airport sign changed at 15 s of 26. Where the turn was said instead ("I post videos like this. They go viral."), the video sank (0.09× to 0.9×).
+- **The product turns it inside the story, 1 to 4 s on screen.** A story that stopped for its sponsor, with a tutorial, a discount card or a logo on every frame, fell to 0.04× to 0.9× on the same accounts.
+- **The last line is the hero's, two to six words,** a callback to the bar or a role swap ("Make it dinner."). It's what the comments quote back.
+- **Lip-synced lines with small subtitles,** or no words over a song, or one bold caption a beat. A song runs under all of it. Nobody narrates and nobody speaks to the camera; the ask lives in the caption and a pinned comment, as all 13 winners did it.
+- **Two to five characters,** each face clearly different from the others, reused across the account's posts. Faces are characters the user made, never a real person's likeness.
+- **The look is free:** smooth CGI, Pixar-style 3D, PS2-era 3D, photoreal AI film or a 90s grade all won; one premise won in two looks.
+- Made with: their image model for the cast and start frames, their video model for the acted takes (paid, priced first), their TTS for one voice per character, the real product captured for the turn, and the cut in code. The path: [drama.md](drama.md).
+
 ## Static ad
 
 One image in Meta's Feed (4:5) and Stories and Reels (9:16).

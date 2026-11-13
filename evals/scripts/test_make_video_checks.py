@@ -4,7 +4,8 @@
 
 Each test is a way a finished video failed its maker in the 11-12 trial, while the old checks printed PASS:
 a blank first frame (the feed's cover), a line whose thing wasn't on screen when it was said, an ending whose
-words changed in a fix, captions that broke after "are" and "their", and a take the model re-voiced.
+words changed in a fix, captions that broke after "are" and "their", and a take the model re-voiced. Then the
+drama's cut: a line the take moved, a take that re-timed its line, and shots whose lengths fell off whole frames.
 Needs ffmpeg; the beat test needs tesseract and is skipped without it.
 """
 import json, os, shutil, subprocess, sys, tempfile, unittest
@@ -177,6 +178,81 @@ class MakeVideoChecks(unittest.TestCase):
                            capture_output=True, text=True)
         self.assertIn('DEFECT re-voiced', p.stdout)
         self.assertEqual(p.returncode, 1)
+
+    # a read with five syllables and a pause, like "Your brother just | bought a house"
+    READ = ('sin(2*PI*220*t)*0.5*(between(t,0.3,0.5)+0.6*between(t,0.6,0.75)+between(t,0.85,1.2)'
+            '+0.8*between(t,1.45,1.6)+between(t,1.7,2.0))')
+
+    def read_and_take(self, name, filt):
+        """The clean read, and a 5 s take whose own sound is that read passed through filt."""
+        read = self.path('read-line.wav')
+        if not os.path.exists(read):
+            ff('-f', 'lavfi', '-i', f"aevalsrc='{self.READ}':s=48000:d=2.3", read)
+        take = self.path(name)
+        ff('-f', 'lavfi', '-i', 'color=black:s=270x480:r=24:d=5', '-i', read, '-f', 'lavfi', '-i', 'anoisesrc=a=0.02:d=5',
+           '-filter_complex', f'[1:a]{filt},apad=whole_dur=5[v];[v][2:a]amix=inputs=2:normalize=0[a]',
+           '-map', '0:v', '-map', '[a]', '-t', '5', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', take)
+        return read, take
+
+    def place(self, *args):
+        p = subprocess.run([sys.executable, os.path.join(SCRIPTS, 'place-line.py'), *args], capture_output=True, text=True)
+        return p.stdout + p.stderr
+
+    def test_line_placed_where_the_mouth_says_it(self):
+        """The take said its line 1.9 s after the plan put it (11-12, the sunglasses-off beat): place-line finds it."""
+        read, take = self.read_and_take('late.mp4', 'adelay=1900|1900')
+        out = self.place(take, read)
+        self.assertIn('vdelay 1.90', out)
+        self.assertIn('match 1.00', out)
+
+    def test_retimed_take_is_fitted(self):
+        """A take that stretched the pause and dragged the second half scores under 0.8 placed whole; --fit places
+        each part at its own pace and the fitted read matches the take."""
+        read, take = self.read_and_take(
+            'retimed.mp4', 'asplit=2[r1][r2];[r1]atrim=0:1.3,asetpts=PTS-STARTPTS[a];'
+            '[r2]atrim=1.3:2.3,asetpts=PTS-STARTPTS,atempo=0.83,adelay=500|500[b];[a][b]concat=n=2:v=0:a=1,adelay=1000|1000')
+        fitted = self.path('fitted.wav')
+        out = self.place(take, read, '--fit', fitted)
+        first = float(out.split('match ')[1].split(')')[0])
+        self.assertLess(first, 0.8)
+        self.assertIn('part 2:', out)
+        after = float(out.split('fitted: ')[1].split('match ')[1].split(';')[0])
+        self.assertGreaterEqual(after, 0.9)
+
+    def test_drama_cut_snaps_to_whole_frames(self):
+        """drama-cut.py: every shot a whole number of frames at 24 fps (lengths rounded off frames drift the late lines
+        off the mouths), each line timed where its voice sounds, -14 LUFS, and the turn and last-line flags."""
+        d = self.path("Levi's drama")   # an apostrophe in the path once broke the subtitles filter
+        os.makedirs(d, exist_ok=True)
+        for n in ('a', 'b', 'c'):
+            ff('-f', 'lavfi', '-i', 'testsrc2=s=270x480:r=30:d=3', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', f'{d}/{n}.mp4')
+        ff('-f', 'lavfi', '-i', "aevalsrc='0.4*sin(2*PI*200*t)*between(t,0.1,0.8)':s=48000:d=1", f'{d}/v.wav')
+        ff('-f', 'lavfi', '-i', 'sine=f=110:d=30', f'{d}/song.wav')
+        save(f'{d}/shots.json', {'song': 'song.wav', 'song_drop': 10, 'drop_offset': 0.3, 'shots': [
+            {'name': 'bar', 'src': 'a.mp4', 'in': 0, 'dur': 1.01, 'voice': 'v.wav', 'vdelay': 0.2, 'line': 'Still renting.'},
+            {'name': 'phone', 'src': 'b.mp4', 'in': 0.5, 'dur': 1.33, 'turn': True},
+            {'name': 'last', 'src': 'c.mp4', 'in': 1.4, 'dur': 2.0, 'voice': 'v.wav', 'vdelay': 1.9,
+             'line': 'And that is why I never rent again.'}]})
+        final = f'{d}/final.mp4'
+        p = subprocess.run([sys.executable, os.path.join(SCRIPTS, 'drama-cut.py'), f'{d}/shots.json', final],
+                           capture_output=True, text=True)
+        self.assertEqual(p.returncode, 0, p.stderr)
+        frames = subprocess.run(['ffprobe', '-v', 'error', '-count_frames', '-select_streams', 'v', '-show_entries',
+                                 'stream=nb_read_frames', '-of', 'csv=p=0', final], capture_output=True, text=True).stdout
+        self.assertEqual(int(frames), 24 + 32 + 48)
+        with open(f'{d}/final.timeline.json') as f:
+            t = json.load(f)
+        self.assertEqual([s['start'] for s in t['shots']], [0.0, 1.0, 2.333])
+        # the last line: shot at 2.333 s, its line 1.9 s into the take, entered 1.4 s in, the read's sound from 0.1 s
+        self.assertAlmostEqual(t['subs'][1][0], 2.333 + 1.9 - 1.4 + 0.1 - 0.05, delta=0.03)
+        # the 3 s take entered at 1.4 s has 1.6 s for a 2 s shot: its last frame is held, the length stays whole
+        self.assertIn('FLAG   last runs 1.60 s', p.stdout)
+        with open(f'{d}/final.srt') as f:
+            self.assertIn('Still renting.', f.read())
+        self.assertIn('turn at 1.00 s, 23%', p.stdout)
+        self.assertIn('FLAG   the turn lands at 23%', p.stdout)
+        self.assertIn('FLAG   the last line is 8 words', p.stdout)
+        self.assertIn('PASS', check_video(final, '--captions', f'{d}/final.srt'))
 
 
 if __name__ == '__main__':

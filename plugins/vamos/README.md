@@ -8,9 +8,10 @@ Vamos is an AI agent for content research. This plugin adds the Vamos connector 
 4. **hooks**: opening lines built from hooks that are working in your format and niche, in your voice. Keeps your hook database on the board.
 5. **ideas**: what's working among your competitors, your niche and your audience's comments, turned into ideas in your audience's words, each backed by the post it came from, with the dates coming up that they fit.
 6. **script**: the full script for an approved idea, in your voice, on a structure that works, with only facts you've said, checked before you see it.
-7. **content-log**: your posts against your own usual, every pattern counted against the misses, and what to repeat, stop and turn into an ad, with the lessons recorded so every next run gets better. With an Ads Manager export, your ads' week too.
-8. **loop**: runs ideas, scripts and the content log on a schedule, stopping where you choose for your yes.
-9. **analyze**: any time, breaks down a video or a whole profile, proves why the hits worked against the creator's own posts made the same way, beat by beat on a page, and saves each structure for your scripts.
+7. **post**: your finished videos out on your accounts through your own Zernio, many accounts and many a day at the times you pick, after one yes to one table of every post. Each platform's AI label goes on for AI footage, the disclosure line goes in the caption, and every post is checked with Zernio before it goes.
+8. **content-log**: your posts against your own usual, every pattern counted against the misses, and what to repeat, stop and turn into an ad, with the lessons recorded so every next run gets better. With an Ads Manager export, your ads' week too.
+9. **loop**: runs ideas, scripts and the content log on a schedule, stopping where you choose for your yes, and posts the videos you mark Ready to post once you say those go out by themselves.
+10. **analyze**: any time, breaks down a video or a whole profile, proves why the hits worked against the creator's own posts made the same way, beat by beat on a page, and saves each structure for your scripts.
 
 Plus **creator-research**: creators who really get views in your niche, starting with people already posting about your brand.
 
@@ -26,10 +27,11 @@ In Claude Code: `/plugin marketplace add LazyLines-App/vamos-plugins`, then `/pl
 
 ## What it can't do
 
-Vamos reads public posts and Meta's Ad Library. It does not post, edit videos, contact creators or run ads, and it can't read private analytics such as retention or reach unless you paste in a screenshot of your Insights. Nothing is posted, sent or paid for without your yes.
+Vamos reads public posts and Meta's Ad Library. Vamos itself never posts: the post skill sends your videos through your own Zernio account, which you connect in Claude. It does not edit videos, contact creators or run ads, and it can't read private analytics such as retention or reach unless you paste in a screenshot of your Insights. Nothing is posted, sent or paid for without your yes.
 
 ## Your data
 
 - **Where your requests go:** to the Vamos connector (`https://mcp.getvamos.ai/mcp`). Vamos keeps your chats, brand profile, voice, saved files (such as Tracked accounts, Voice examples and What works for me) and tracked accounts in your Vamos workspace until you delete them, as [getvamos.ai/privacy-policy](https://getvamos.ai/privacy-policy) describes. Edit or delete any of it at [app.getvamos.ai/brain](https://app.getvamos.ai/brain).
 - **Personal data it reads:** public posts and profiles. Creator research returns public creators' names, handles and the contact their bio shows.
-- **Your board:** the skills keep your ideas, hooks and lessons in Notion or Google Sheets only when you have connected that app in Claude yourself; otherwise in a local `vamos/` folder or a Vamos Brain file. Pages are published as your own private Claude artifacts or saved as local files. No skill sends data anywhere else.
+- **Your board:** the skills keep your ideas, hooks and lessons in Notion or Google Sheets only when you have connected that app in Claude yourself; otherwise in a local `vamos/` folder or a Vamos Brain file. Pages are published as your own private Claude artifacts or saved as local files.
+- **Posting:** the post skill sends the video files, captions and times you said yes to to your own Zernio account, which publishes them to your accounts. Vamos never sees your Zernio sign-in or your accounts' tokens. No skill sends data anywhere else.

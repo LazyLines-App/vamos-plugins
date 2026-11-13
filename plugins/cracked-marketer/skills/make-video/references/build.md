@@ -43,4 +43,4 @@ After any fix, run 1 to 4 again on the new file: a fix to one beat can break ano
 
 ## Deliver
 
-One final in its aspect ratio with its exact file name, the post caption (no link in it), the disclosure line when it holds AI footage or is paid, and the AI label to switch on at upload. Then the numbers 2 and 7 days after it posts, through `/cracked-marketer:content-log`.
+One final in its aspect ratio with its exact file name, the post caption (no link in it), the disclosure line when it holds AI footage or is paid, and the AI label to switch on at upload, with its post sheet beside it (SKILL.md, step 8) for `/cracked-marketer:post`. Then the numbers 2 and 7 days after it posts, through `/cracked-marketer:content-log`.

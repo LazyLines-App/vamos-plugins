@@ -15,17 +15,19 @@ The page a skill publishes is a view of the board, made for reading and filming.
 | Column | Holds |
 |---|---|
 | Idea | The idea in one sentence, in the user's words |
-| Status | To review, Picked, Approved, Script ready, Made, Posted, Not for me, Stale |
+| Status | To review, Picked, Approved, Script ready, Made, Ready to post, Scheduled, Posted, Not for me, Stale |
 | Source | The post, comment or format it came from, linked, with its multiple |
 | Why it's yours | What only this brand can show |
 | Stage | Reach, trust or buy, from the Marketing plan |
 | Format | The format it's made in |
 | Hook | The first line, once written |
 | Script | The script, or its link |
+| File | The finished video, once made: its path on this computer, or a link |
+| Post | Where it went: each account, time and Zernio post id once scheduled, then its link once live |
 | Uses lesson | The lesson it rests on, if any |
 | Added | The run's date |
 
-Only the user sets Approved, Not for me or Posted. Picked is set only by the loop on "run everything", and `/vamos:script` writes Picked rows like Approved ones. A row left at To review for 14 days becomes Stale at the next run, which says so; silence is never a yes. In Claude Code, "approve 1, 3 and 5" in the chat counts, and the skill writes the status.
+Only the user sets Approved, Ready to post or Not for me. `/vamos:post` sets Scheduled after their yes to its table and Posted once the post is live; a video they post themselves, they mark Posted. Picked is set only by the loop on "run everything", and `/vamos:script` writes Picked rows like Approved ones. A row left at To review for 14 days becomes Stale at the next run, which says so; silence is never a yes. In Claude Code, "approve 1, 3 and 5" in the chat counts, and the skill writes the status.
 
 ## Hooks
 

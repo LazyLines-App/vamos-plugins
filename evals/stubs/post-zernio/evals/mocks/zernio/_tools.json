@@ -1,0 +1,193 @@
+{
+ "tools": [
+  {
+   "name": "accounts_list",
+   "description": "List connected social media accounts, one page at a time. Returns the platform, username, and account ID for each account on the page.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "platform": {
+      "type": "string"
+     },
+     "profile_id": {
+      "type": "string"
+     },
+     "search": {
+      "type": "string"
+     },
+     "cursor": {
+      "type": "string"
+     },
+     "limit": {
+      "type": "integer"
+     }
+    }
+   }
+  },
+  {
+   "name": "posts_list",
+   "description": "List posts with optional filtering by status. Status options: draft, scheduled, published, failed",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "status": {
+      "type": "string"
+     },
+     "limit": {
+      "type": "integer"
+     }
+    }
+   }
+  },
+  {
+   "name": "validate_post",
+   "description": "Validate post content. Dry-run the full post validation pipeline without publishing. Accepts the same body as POST /v1/posts.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "content": {
+      "type": "string"
+     },
+     "media_items": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     },
+     "platforms": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     }
+    },
+    "required": [
+     "platforms"
+    ]
+   }
+  },
+  {
+   "name": "posts_create",
+   "description": "Create a social media post. Can be saved as DRAFT, SCHEDULED, or PUBLISHED immediately.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "content": {
+      "type": "string"
+     },
+     "platform": {
+      "type": "string"
+     },
+     "account_id": {
+      "type": "string"
+     },
+     "media_urls": {
+      "type": "string"
+     },
+     "schedule_minutes": {
+      "type": "integer"
+     },
+     "publish_now": {
+      "type": "boolean"
+     },
+     "is_draft": {
+      "type": "boolean"
+     },
+     "title": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "content",
+     "platform"
+    ]
+   }
+  },
+  {
+   "name": "posts_update",
+   "description": "Update a scheduled post.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "post_id": {
+      "type": "string"
+     },
+     "content": {
+      "type": "string"
+     },
+     "scheduled_for": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "post_id"
+    ]
+   }
+  },
+  {
+   "name": "posts_delete",
+   "description": "Delete a post.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "post_id": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "post_id"
+    ]
+   }
+  },
+  {
+   "name": "search_tools",
+   "description": "Search the tools that are not listed up front, by what you want to do. Returns the best matches as markdown: name, description and parameters. Run one with call_tool using its exact name.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "query": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "query"
+    ]
+   }
+  },
+  {
+   "name": "call_tool",
+   "description": "Run a tool found with search_tools, by its exact name, with the arguments its parameters describe. An unknown name returns the closest matching tools.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+     "name": {
+      "type": "string"
+     },
+     "arguments": {
+      "type": "object"
+     }
+    },
+    "required": [
+     "name"
+    ]
+   }
+  },
+  {
+   "name": "media_generate_upload_link",
+   "description": "Generate a page where the user uploads media files; check it with media_check_upload_status.",
+   "inputSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {}
+   }
+  }
+ ]
+}

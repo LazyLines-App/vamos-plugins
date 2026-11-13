@@ -1,6 +1,6 @@
 ---
 name: "loop"
-description: "Runs your content system on a schedule, even with your laptop closed: ideas on the days you pick, scripts for the ones you approve, a weekly content log, stopping where you want to say yes. Use when an ask says every Monday, every week or while I sleep: to automate your content, keep research running, check that a scheduled run worked, or change, pause or stop the schedule."
+description: "Runs your content system on a schedule, even with your laptop closed: ideas on the days you pick, scripts for the ones you approve, a weekly content log, and the videos you mark Ready to post sent to your own Zernio, stopping where you want to say yes. Use when an ask says every Monday, every week or while I sleep: to automate your content, keep research running, check that a scheduled run worked, or change, pause or stop the schedule."
 ---
 
 # Loop
@@ -32,7 +32,7 @@ description: "Runs your content system on a schedule, even with your laptop clos
 > Where should it stop for you?
 > 1. After ideas (default): new ideas wait on the board; scripts are written only for the ones you approve.
 > 2. After ideas and after scripts: each script waits for your OK too.
-> 3. Run everything and show me: it picks the best ideas by your lessons and writes their scripts. Nothing is posted, sent or paid for.
+> 3. Run everything and show me: it picks the best ideas by your lessons and writes their scripts. Nothing is sent or paid for, and nothing is posted but what you mark Ready to post, once you've said those go out by themselves.
 >
 > Which days for ideas (default Monday and Thursday), and which day for the content log (default Monday)?
 
@@ -61,10 +61,11 @@ The content log's task says `run content-log`. With no scheduler, they run `/vam
 
 A fresh session knows only Vamos settings (`get_workspace` with `file`, free) and the board. Nobody is there to answer, so where a skill would ask, take its default and say so in the digest.
 
-- **ideas:** `/vamos:script` for the rows they set to Approved, then `/vamos:ideas`, whose new ideas wait at To review. On "run everything", run `/vamos:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets), then `/vamos:script` for the Picked rows.
+- **ideas:** `/vamos:script` for the rows they set to Approved, then `/vamos:ideas`, whose new ideas wait at To review. On "run everything", run `/vamos:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets on its own), then `/vamos:script` for the Picked rows. Then the post job, when Zernio is connected and there are Ready to post rows.
+- **post:** (it runs at the end of each ideas run) when Vamos settings' Posting line says Ready to post goes out by itself, `/vamos:post` plans the board's Ready to post rows into the next free times and sends them; a row with a DEFECT, a FLAG or by hand waits in the digest. Without that line, the digest holds the batch's table and waits for their yes. When the user asks for it ("post whatever I mark ready"), run `/vamos:post` once now: it connects their Zernio, sets the accounts and times, and writes that line on their yes.
 - **content-log:** `/vamos:content-log` on public numbers, with the Ads Manager exports in the project folder when ads are on. First check the Brain for a "Creator program: [brand]" (`get_workspace`, free): when there is one and this plugin has the brief skill, read [references/creators.md](references/creators.md) before anything else and run all four of its steps, so content-log is its first step and the digest is the one there.
 
-Anything that spends outside Vamos credits, posts, emails, pays or messages someone waits for their yes. A run that finds nothing new says so in one line and spends nothing more.
+Anything that spends outside Vamos credits, emails, pays or messages someone waits for their yes, and so does a post, except the Ready to post rows their Posting line already said yes to. A run that finds nothing new says so in one line and spends nothing more.
 
 **End with the digest**, as the recap:
 > **Waiting for you:** 3 new ideas at To review, 1 script at Script ready · **Credits:** 51 used, 132 left · **Board:** [link] · **Next:** Thursday 08:00. Approve on the board, or reply "approve 1, 3".
