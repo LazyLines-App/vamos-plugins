@@ -2,6 +2,16 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.9
+- The Content System changes below (post, and the board's File and Post columns).
+- make-video makes dramas: a short scene acted by characters you made, one voice per character, every take priced and asked first. drama-cut.py builds the cut on whole frames with the song's drop on the turn; place-line.py fits a take that said its line at its own pace, before anyone pays for a retake.
+- make-video writes a post sheet beside each finished file (caption, disclosure, whether it holds AI footage, whose face), so post sets the right label.
+
+## vamos 0.2.11 (Content System)
+- New skill, post: schedules your finished videos on your own Zernio, many accounts and many a day, after one yes to one table (account, time, file, caption, AI label, disclosure). Zernio checks every post first. AI footage gets each platform's AI label and the disclosure in the caption; on Facebook, Threads and LinkedIn, whose APIs have no label field, an AI video is posted by hand. An AI version of a real person who hasn't agreed is never posted.
+- loop posts what you mark Ready to post once you say those go out by themselves. TikTok then gets them as drafts in your TikTok inbox, where you tap Post.
+- The board adds File and Post columns.
+
 ## cracked-marketer 0.2.8
 - The Content System changes below (the usual at 7 days).
 - creator-program prices a creator from their posts at least 7 days old, and make-video's hook test reads each cut's multiple once it's 7 days old (a cut already past the usual shows as "so far" sooner).
