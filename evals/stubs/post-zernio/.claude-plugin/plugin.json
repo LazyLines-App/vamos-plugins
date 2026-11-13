@@ -1,0 +1,5 @@
+{
+  "name": "post-zernio",
+  "version": "0.0.0",
+  "description": "Eval stub, never released: the vamos plugin's post skill (a symlink) with the Vamos and Zernio servers declared, so claude plugin eval can mock both."
+}

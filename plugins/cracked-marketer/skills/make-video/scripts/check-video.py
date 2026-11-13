@@ -26,7 +26,7 @@ from captions import NEEDS_NEXT, ends_phrase, bare, display_words
 
 CAPS = {  # longest the format runs, seconds
     'narrated-motion-graphics': 60, 'voice-over-demo': 50, 'ai-ugc': 50,
-    'silent-hook-demo': 52, 'other': 90,
+    'silent-hook-demo': 52, 'drama': 30, 'other': 90,
 }
 SIZE = (1080, 1920)
 

@@ -11,6 +11,8 @@ Prices move weekly. The user's tool's own quote wins: when their generator conne
 | The same, without a start frame | Seedance 720p (Kie) | about $0.315 a second | Kie's route can't take a start frame with reference media |
 | A short 1080p clip | Seedance 2.0 1080p (Higgsfield) | 180 credits for 15 s | |
 | The voice | ElevenLabs (their key), or another TTS | their plan's characters | Cheap next to video |
+| A drama's cast and start frames | GPT Image 2.6 (Higgsfield) | about 1 credit an image (read 2026-11-12) | Held six frames' faces on the first try; Nano Banana Pro refused every drama frame as "nsfw" that night |
+| A drama's acted take, lip-synced | Seedance 2.5 (Higgsfield), 480p / 720p / 1080p | about 3 / 7 / 16 credits a second (read 2026-11-12) | One job at a time, about 7 minutes each on 11-12 |
 
 Higgsfield sold 1,200 credits for $59 on its CLI plan (about $0.05 a credit). A 15 s presenter take at 720p is about 105 credits, so about $5.
 
@@ -26,6 +28,17 @@ Before any paid video generation, show one list and wait for the user's yes to i
 > These run on your yes once you've seen the whole video with a still of her: I'll make the voice and the cut first.
 
 Draft at the cheaper size when the user wants to see motion first; one take per line, and redo a broken moment alone, never the whole video. The list goes to them with the cut, built with the voice and a still of the face (SKILL.md step 6), so they say yes to the takes having seen what they go into.
+
+## A drama's list
+
+A 22 s drama is about 7 acted takes of 4 to 5 s, about 29 s of video. Price each take, then add 30% for retakes (about one take in three re-times or re-voices its line, and a re-timed one is fixed in the cut for free):
+
+> Paid, on your Higgsfield (prices from its quote, 12 Nov):
+> 1. Cast and start frames, GPT Image 2.6, 6 images: about 6 credits
+> 2. Takes, Seedance 2.5 480p, 7 shots, 29 s: 87 credits
+> 3. Retakes, up to 30%: up to 26 credits
+> Total up to about 120 credits (about $6) of your 1,200. At 720p the takes are 203 credits, about 270 in all (about $13).
+> The frames come first for your OK; the takes run on your yes once you've seen them with the voices.
 
 ## The hand-off, when the user submits the takes
 

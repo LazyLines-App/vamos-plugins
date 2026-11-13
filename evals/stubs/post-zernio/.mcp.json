@@ -1,0 +1,6 @@
+{
+  "mcpServers": {
+    "vamos": {"type": "http", "url": "https://mcp.getvamos.ai/mcp"},
+    "zernio": {"type": "http", "url": "https://mcp.zernio.com/mcp"}
+  }
+}

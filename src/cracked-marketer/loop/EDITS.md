@@ -5,11 +5,11 @@ Each edit below is Content System's words in `plugins/vamos/skills/loop`, then t
 The description names the creators' week only where there is a creator program to run, and the research pack only where winning-ad-ideas is there to make it.
 
 ~~~old SKILL.md
-a weekly content log, stopping
+a weekly content log, and the videos
 ~~~
 
 ~~~new
-a weekly content log with your paid creators' results, a Monday research pack of judged ad concepts, stopping
+a weekly content log with your paid creators' results, a Monday research pack of judged ad concepts, and the videos
 ~~~
 
 ~~~old SKILL.md
@@ -52,9 +52,9 @@ so content-log is its first step and the digest is the one there.
 A brand's creators film from a brief, and its team makes the rest, so a scheduled run sends each approved row by who makes it, and a static ad waits for the user, since making one can cost money.
 
 ~~~old SKILL.md
-- **ideas:** `/vamos:script` for the rows they set to Approved, then `/vamos:ideas`, whose new ideas wait at To review. On "run everything", run `/vamos:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets), then `/vamos:script` for the Picked rows.
+- **ideas:** `/vamos:script` for the rows they set to Approved, then `/vamos:ideas`, whose new ideas wait at To review. On "run everything", run `/vamos:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets on its own), then `/vamos:script` for the Picked rows.
 ~~~
 
 ~~~new
-- **ideas:** the rows they set to Approved, each by who makes it: `/cracked-marketer:brief` for a row a creator films (it names a creator, or the Brain has a "Creator program: [brand]" and its Format is one their creators film), `/cracked-marketer:script` for the rest, and a "Meta ad: static" row named in the digest for `/cracked-marketer:make-video`, which prices and asks first. Then `/cracked-marketer:ideas`, whose new ideas wait at To review. On "run everything", run `/cracked-marketer:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets), then the Picked rows the same way.
+- **ideas:** the rows they set to Approved, each by who makes it: `/cracked-marketer:brief` for a row a creator films (it names a creator, or the Brain has a "Creator program: [brand]" and its Format is one their creators film), `/cracked-marketer:script` for the rest, and a "Meta ad: static" row named in the digest for `/cracked-marketer:make-video`, which prices and asks first. Then `/cracked-marketer:ideas`, whose new ideas wait at To review. On "run everything", run `/cracked-marketer:ideas` first, mark the two or three best by What works for me as Picked (the only status a run sets on its own), then the Picked rows the same way.
 ~~~
