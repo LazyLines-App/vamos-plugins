@@ -10,6 +10,6 @@ The page is what the user keeps from this run. Write it in Markdown and publish 
 
 Say how sure you are as a reason ("from 3 posts, so a guess"). Keep contact details off the page, and name a customer only with their OK.
 
-The page has no pictures and no counters. The Artifact viewer blocks images from other sites and the sandbox has no network, while Vamos's own view under its answer already shows the posts and ads with their pictures. A link to each post carries it here.
+The page has no pictures and no counters, because the Artifact viewer blocks images from other sites and the sandbox has no network. A link to each post or ad carries it here.
 
 Where the host can't publish an Artifact, give the file's path.
