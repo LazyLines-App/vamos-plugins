@@ -2,6 +2,15 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.13
+- The Content System change below.
+
+## vamos 0.2.15 (Content System)
+- The ask decides: a brand, niche or platform the user names wins over the workspace's, and the ask runs in the same turn. Asked "What trending formats are working in fitness?" from a workspace about an app, Claude Desktop stopped to ask "Who are these fitness formats for?" before any research; formats now asks Vamos about the niche in general and says so in one line.
+- Credits are reported in the recap, not announced before a step: Claude asks first only when what's left is below a step's cost. The old line put "the research run costs up to 60 of your 90 remaining credits" into that question; the run cost 17.
+- formats assumes face and voice when the user hasn't said, and says so, instead of asking.
+- Where the host has no subagents (the Claude app), the fresh check runs as a separate pass instead of being skipped with a note: the fitness reply ended "The skill normally runs a fresh outside check on every angle before showing them. I skipped that step".
+
 ## cracked-marketer 0.2.12
 - The Content System change below. Formats makes no page; an ad format's card is in the reply.
 
