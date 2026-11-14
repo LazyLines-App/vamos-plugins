@@ -2,6 +2,15 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.15
+- The formats and Working with Vamos changes below.
+
+## vamos 0.2.17
+- A niche their brand isn't in is an ask for another account: formats runs every step for a general account in that niche, angles included, opens with the scope ("Fitness accounts in general, on TikTok, Instagram and Shorts.") and offers in Next to make them for the account they name. In Desktop on 0.2.16 the reply ended "I didn't write content angles because you don't have a fitness brand".
+- The setup suggestion is for asks about their own brand. On a fitness ask from an app's workspace with no setup, Claude turned it into "Your workspace is set up for RIP, so this isn't tailored". Opus still adds a clause like that on about half of the eval runs (formats-other-niche-rip).
+- formats no longer says Vamos shows its formats under its answer; the connector doesn't draw that view.
+- creator-research carries the Working with Vamos block, so its reply ends with the recap and the credits used (the Tempo run used 48 and never said so), and each creator's line is about their content, audience, views, deals and contact.
+
 ## cracked-marketer 0.2.14
 - The playbook page change below.
 
