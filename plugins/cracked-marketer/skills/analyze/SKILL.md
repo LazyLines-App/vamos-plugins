@@ -44,7 +44,7 @@ If no rows came back, ask once more in the same chat for the rows. If there are 
 
 **4. Save each structure,** unproven or holds, when the rows came back. With no rows, don't save: end the hand-over with a one-line offer to save it. `get_workspace` lists the Brain skills starting "Structure:"; read each with its `file` for its format, signature and status, and decide add or update by the signature. Write it in the fields of structure.md and save it with `save_brain_file`: title "Structure: [name]" (an update keeps the old title), the whole text, and `when_to_use` saying in one line which videos it fits. An unproven structure is saved with its status, so the next pair can move it to holds.
 
-**5. The page.** Fill [assets/page.html](assets/page.html) as the `analyze` page ([assets/PAGE.md](assets/PAGE.md)): the verdict as the lede, each pair with its beats side by side, the structure; for a profile, the patterns and the kinds first. Where you can't write files, give the same in the chat.
+**5. The page.** Make `analyze.html` on [assets/page.html](assets/page.html) as [assets/PAGE.md](assets/PAGE.md) says, from this breakdown. Where you can't write files, give the same in the chat.
 
 **6. Hand it over**, opening on the verdict. For example:
 
