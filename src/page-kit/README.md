@@ -1,21 +1,15 @@
 # The page
 
-The page is what the user keeps from this run: what you found, laid out so they can come back to it. [page.html](page.html) holds the look, light and dark, and a few pieces at the top of `<main>` that you can use or skip.
+The page is what the user keeps from this run. Write it in Markdown and publish it as an Artifact (a `.md` file), so the host's own document view sets the look: no HTML and no styling of your own.
 
-## Write it
-
-1. Copy `page.html` to the page's file, set its `<title>`, and write the body in `<main>`.
+1. A title that names the target and the date.
 2. Open with the answer: one sentence on what this run found, then a line on what it means for them.
-3. Then what they'll read or act on, in sections you name and order for this run. Give each section something real from the rows or your counts, and leave out any that came back empty.
+3. Then the sections the skill names, in plain words, each with something real from the rows or your counts. Leave out any that came back empty. Use a table only where the reader compares rows.
 4. Give numbers as the rows give them, with the date they were read. Link every post, ad and account you name.
-5. End with the recap as the footer.
+5. End with the recap as the last line.
 
-Write it in plain words, the way you'd explain it to them, and say how sure you are as a reason ("from 3 posts, so a guess").
+Say how sure you are as a reason ("from 3 posts, so a guess"). Keep contact details off the page, and name a customer only with their OK.
 
-Keep it quiet: one typeface, plenty of room, the orange only for what wins. Put a wide table in `<div class="scroll">`, so the page reads on a phone. Keep contact details off the page, and name a customer only with their OK.
+The page has no pictures and no counters. The Artifact viewer blocks images from other sites and the sandbox has no network, while Vamos's own view under its answer already shows the posts and ads with their pictures. A link to each post carries it here.
 
-## Pictures
-
-Artifacts block remote images. Use a thumbnail where seeing the post helps, with the row's `cdn.lazylines.ai` link, then run `python3 <this skill's folder>/scripts/embed.py <page>.html`. It puts each picture in the page, takes out any that won't load, and prints the page's size (an Artifact holds 16 MB) and any `cloudfront.net` link left; swap those for the post's own link, since they die in about 102 minutes. With no shell, let the post's hook and link carry it, with no picture.
-
-Publish it as an Artifact; where the host can't, give the file's path.
+Where the host can't publish an Artifact, give the file's path.

@@ -1,10 +1,12 @@
 # The playbook
 
-The reply follows these sections. The counting is in SKILL.md step 5.
+The page holds every section below that came back. The counting is in SKILL.md step 5.
+
+**The reply** holds only: the strip in one line; the answer in two sentences (what wins for them, and what it means for the user); What wins, counted; the section their ask named (ads, the creators they pay or what customers say); the five plays whole, each with its five parts; Skip. It ends with one line saying what else the page holds, then the recap.
 
 ## The sections, in order
 
-0. **The strip:** posts read and their dates (the target's own apart from collaborators'), ads read ("114 of an unknown total"), credits per step.
+0. **The strip:** posts read and their dates (the target's own apart from collaborators'), ads read ("114 found, 22 came back as rows") and which counts are Vamos's over all of them and which are yours over the rows, credits per step.
 1. **Who they are and how they sell:** the offer path, free thing to paid, with the keywords and links that carry it, dated.
 2. **What wins, counted:** 3 to 5 traits, each with its count, its pair and the user's line.
 3. **Formats they repeat:** each with how many posts and its median multiple. A format posted often with a low median is volume, not the hit-maker: say so.

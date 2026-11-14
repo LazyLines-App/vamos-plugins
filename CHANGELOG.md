@@ -2,6 +2,17 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.12
+- The Content System change below. Formats makes no page; an ad format's card is in the reply.
+
+## vamos 0.2.14 (Content System)
+- A plain ask finds its skill: "What Meta ads is Huel running, and which have run longest?" loads playbook. In the Claude app the SessionStart hook arrives only after the first tool call, so the skill descriptions carry the routing alone.
+- Only playbook makes a page, and it is a Markdown document the host lays out itself, with no pictures and no counters: the Artifact viewer blocks images from other sites and the sandbox has no network, while Vamos's own view under its answer shows the posts and ads with their pictures. The HTML shell and `embed.py` are gone.
+- setup, formats, ideas, content-log and analyze make no page: the reply, Vamos's own view and the board hold what they found.
+- playbook's reply is short: the strip, the answer, what wins counted, the part the ask named, and the plays. The other sections are on the page.
+- playbook writes its plays straight into the page, so the page can't be skipped: on Sonnet replays it was left out on 2 of 3 runs, main included.
+- formats keeps no `data.json`: it was the page's data, and the reply said "I didn't write data.json".
+
 ## cracked-marketer 0.2.11
 - The Content System change below: each page is Claude's own write-up of the run, in the quiet answer-report look. An ad format's card says its ads, advertisers and longest days running in plain words.
 
