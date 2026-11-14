@@ -12,7 +12,7 @@ The board is the user's home: each idea, its script, the finished video and its 
 
 When the calendar they keep is in a tool that isn't connected in Claude, ask them to connect it at https://claude.ai/customize/connectors and say "done", and use it then. With neither Notion nor Google Sheets connected and no calendar of their own, say in one line that connecting Notion there gives them a board to drag cards on. Either way, carry on with 3 or 4 when they'd rather not, and move the board at the first run after they connect it.
 
-The page a skill publishes is a view of the board, made for reading and filming. Approving happens on the board or in the chat.
+Approving happens on the board or in the chat.
 
 ## Ideas
 

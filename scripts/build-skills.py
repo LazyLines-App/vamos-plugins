@@ -19,13 +19,11 @@ KIT = os.path.join(ROOT, 'src', 'page-kit')
 BLOCK = '<!-- shared: working-with-vamos -->'
 END = '<!-- /shared -->'
 LAST_LINE = re.compile(r"If no Vamos tool is connected, say this needs the Vamos connector:.*\n?\Z")
-PAGES = ['setup', 'playbook', 'formats', 'ideas', 'content-log', 'analyze']
+PAGES = ['playbook']
 COPIES = {
     'references/board.md': (os.path.join(SHARED, 'board.md'), ['setup', 'formats', 'hooks', 'ideas', 'script', 'content-log', 'post']),
     'scripts/textstats.py': (os.path.join(SHARED, 'textstats.py'), ['setup', 'script']),
-    'assets/page.html': (os.path.join(KIT, 'page.html'), PAGES),
     'assets/PAGE.md': (os.path.join(KIT, 'README.md'), PAGES),
-    'scripts/embed.py': (os.path.join(KIT, 'embed.py'), PAGES),
 }
 
 check = '--check' in sys.argv

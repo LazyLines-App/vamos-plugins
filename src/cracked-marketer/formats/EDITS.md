@@ -2,7 +2,7 @@
 
 Each edit below is Content System's words in `plugins/vamos/skills/formats`, then the words Cracked marketer's copy has instead. `python3 scripts/build-skills.py` applies them and fails when the old words are gone. `references/ads.md` here is added to Cracked marketer's copy only.
 
-A brand asks which formats to make for its ads as well as its posts, and its creators film what the team can't, so the page adds the ad formats its category keeps running and says who makes each format.
+A brand asks which formats to make for its ads as well as its posts, and its creators film what the team can't, so the reply adds the ad formats its category keeps running and says who makes each format.
 
 ~~~old SKILL.md
 description: "Ranks the video formats to make next for your brand: new ones taking off outside your niche, rising ones, and proven ones you haven't made, each with playable examples, how crowded it is near you, what it takes to film, and angles written for you. Use when you ask what format to try, what's trending, or how to make a format yours."
@@ -17,17 +17,17 @@ Vamos's answer is research for the next steps, not the reply:
 ~~~
 
 ~~~new
-**The ads:** read [references/ads.md](references/ads.md) and send its ad ask in the same chat, unless Vamos settings has Ads off. When they asked about ad formats only, it is the only ask, and steps 3 to 8 run on its answer.
+**The ads:** read [references/ads.md](references/ads.md) and send its ad ask in the same chat, unless Vamos settings has Ads off. When they asked about ad formats only, it is the only ask, and steps 3 to 7 run on its answer.
 
 Vamos's answer is research for the next steps, not the reply:
 ~~~
 
 ~~~old SKILL.md
-the ranking lives in that file, and steps 4 to 7 add to it and read from it.
+the ranking and the angles go ahead without it.
 ~~~
 
 ~~~new
-the ranking lives in that file, and steps 4 to 7 add to it and read from it. The ad format cards follow [references/ads.md](references/ads.md).
+the ranking and the angles go ahead without it. The ad format cards follow [references/ads.md](references/ads.md).
 ~~~
 
 ~~~old SKILL.md
