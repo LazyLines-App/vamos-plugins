@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.14
+- The playbook page change below.
+
+## vamos 0.2.16
+- The playbook page no longer says Vamos's own view shows the posts and ads with their pictures: the connector doesn't draw that view yet, so the reasons for a page without pictures are the Artifact viewer and the sandbox, and each post or ad is a link.
+
 ## cracked-marketer 0.2.13
 - The Content System change below.
 
