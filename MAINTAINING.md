@@ -30,11 +30,11 @@ This repo is one marketplace, `vamos-plugins`, with two plugins:
 2. Add a line per change to `CHANGELOG.md`, under the new version.
 3. A renamed command keeps working under its old name for one release: keep a short skill under the old name that runs the new one, and remove it the release after.
 4. `claude plugin tag plugins/<name>` makes the release tag and checks plugin.json against the marketplace entry.
-5. Push only on Levi's word.
+5. Push once every check above passes, after the squash and a private-data scan, then send Levi one line (see Who says yes).
 6. Content System only: resubmit it to Claude's plugin directory after the push. Cracked marketer is not in the directory.
 
 ## Who says yes
 
-- After launch, a bug fix that passes every check above can go out on Levi's standing OK. Send him one line afterwards: what broke, the fix, the checks.
-- New or changed skills always wait for Levi's look.
-- Pushes, PRs and directory submissions wait for his word.
+- Levi's standing OK (2026-11-11, confirmed 2026-11-14): a change that passes every check above and a fresh review ships without waiting for him. That covers bug fixes, new or changed skills, pushes and PRs. Send him one line afterwards: what changed, and the checks.
+- Taste (hooks, scripts, angles) is judged first by a judge against his past marks; he marks one batch at the end.
+- Still his word: directory submissions, spend beyond Claude and Vamos credits, and anything that messages a real person.
