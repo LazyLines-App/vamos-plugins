@@ -43,7 +43,7 @@ TELLS = [
      "say the news plainly: \"My course is live.\""),
     ("let that sink in", r"\blet that sink in\b|\bread that again\b", "cut it"),
     ("it's not what you think", r"\b(?:it'?s|it is|this is|that'?s|the answer is|the reason is)(?: probably)? not what you(?:'d)? (?:think|expect)\b|\b(?:might|will|may) (?:surprise|shock) you\b", "cut it and say the thing"),
-    ("stop X, start Y", r"\bstop [^.!?\n]{1,60}?[.!?,;]\s*(?:and )?start\b|(?:^|[.!?]\s+)stop [^.!?\n]{1,60}?[.!?]\s+[a-z]", "keep only the second half, plainly: \"Post with a plan.\""),
+    ("stop X, start Y", r"\bstop [^.!?\n]{1,60}?[.!?,;]\s*(?:and )?start\b|(?:^|[.!?]\s+)stop (\w+?)(?:ing)?\b[^.!?\n]{0,60}[.!?]\s+\1\b", "keep only the second half, plainly: \"Post with a plan.\""),
     ("this matters because", r"\b(?:this|that) matters\b|\bit matters because\b|\bwhy (?:this|that|it) matters\b", "cut it and keep what follows"),
     ("studies show", r"\b(?:studies|research|science|(?<!my )(?<!our )data|experts|scientists|statistics|surveys|doctors) (?:show|shows|showed|suggest|suggests|say|says|prove|proves|found|finds|confirm|confirms)\b|\baccording to (?:studies|research|experts|science|data)\b|\bresearch has shown\b",
      "keep the claim and make its source a slot: \"[your source] shows …\""),
@@ -51,7 +51,7 @@ TELLS = [
      "end on the last useful line, or their own closer"),
     ("self-answered question", r"\bthe (?:best part|result|answer|catch|secret|kicker|twist|truth)\?", "say it as a plain line that names what's coming"),
     ("buzzword", r"\bunlock(?:s|ed|ing)?\b|\bdelve\b|\bseamless(?:ly)?\b|\belevate\b|\blevel up\b", "say the plain word"),
-    ("em dash", r"—|\s–\s", "a full stop or a comma"),
+    ("em dash", r"—|\s–\s(?!\d)", "a full stop or a comma"),
 ]
 TELL_RES = [(n, re.compile(p, re.I | re.M), f) for n, p, f in TELLS]
 
@@ -93,9 +93,6 @@ def words(text):
 def per100(n, total):
     return round(100 * n / total, 2) if total else 0.0
 
-def tell_count(text):
-    return len(tell_hits(text))
-
 def profile(items):
     rates, lens, all_words, all_sents, qs, short = [], [], [], [], 0, 0
     for it in items:
@@ -122,7 +119,6 @@ def profile(items):
         "you_per_100_words": per100(sum(x in ("you", "your", "you're", "yours") for x in all_words), total),
         "i_per_100_words": per100(sum(x in ("i", "i'm", "my", "me", "i've", "i'd") for x in all_words), total),
         "contractions_per_100_words": per100(sum("'" in x for x in all_words), total),
-        "tells_per_100_words": per100(tell_count(joined), total),
         "tells_used": sorted({h[0] for h in tell_hits(joined)}),
     }
 
@@ -210,7 +206,6 @@ def check(script, prof, seconds, sources, facts="", extra="", voice=""):
         if abs(med - theirs) > 0.15 * theirs:
             warns.append(f"median sentence {med} words against their {theirs} (within 15%)")
     hits = tell_hits(script + "\n" + SLOT.sub(" ", extra))
-    out["tells_per_100_words"] = per100(len(hits), len(w))
     theirs = set(prof.get("tells_used", [])) | {h[0] for h in tell_hits(voice)}
     bad = [h for h in hits if h[0] not in theirs]
     out["tells"] = [{"tell": n, "text": t, "fix": f} for n, t, f in bad]
