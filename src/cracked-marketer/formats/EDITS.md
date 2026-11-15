@@ -13,13 +13,13 @@ description: "Ranks the formats to make next for your brand: the Meta ad formats
 ~~~
 
 ~~~old SKILL.md
-Vamos's answer is research for the next steps, not the reply:
+The formats Vamos's answer names are the set you rank:
 ~~~
 
 ~~~new
 **The ads:** read [references/ads.md](references/ads.md) and send its ad ask in the same chat, unless Vamos settings has Ads off. When they asked about ad formats only, it is the only ask, and steps 3 to 7 run on its answer.
 
-Vamos's answer is research for the next steps, not the reply:
+The formats Vamos's answer names are the set you rank:
 ~~~
 
 ~~~old SKILL.md
