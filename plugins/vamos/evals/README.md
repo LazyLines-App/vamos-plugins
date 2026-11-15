@@ -206,7 +206,11 @@ The analyze cases need `Read` (the skill reads `references/structure.md`), so th
 | `formats-skincare-no-face` | **assembled**, the same way (fixture "Plain Barrier", ask fit5). Its "best example" links a profile | Face and claims limits gate; white space over staples; nothing rising said; numbers from answer and rows; no profile link |
 | `formats-b2b-no-invented-stats` | **assembled**, the same way (fixture "Fieldnote", ask fit5). The answer invents "a third of the calls" and "60 seconds before retention drops" | Invented claims stay out; content rules hold in every angle; white space gets its slot |
 | `formats-thin-answer-no-setup` | **real**, unchanged: `mock-library/poll-formats-skincare` (kit round 2, 2026-11-05, 1 credit), five ideas with no posts or numbers; the fresh-workspace mocks | Setup suggested, not run; nothing invented from a thin answer |
+| `formats-other-niche-rip` | RIP's real workspace, demo1's real 90 credits, and the coach answer above | A plain ask about another niche runs on that niche, opens on its scope and the list, and names neither the workspace nor its own checks |
+| `creator-research-two-platforms` | **synthetic**: a home-workout creators answer where one creator has an Instagram account (261.1K typical views) and a TikTok (19.4K) | The sheet and the reply use the account the results view leads with |
 | `formats-live-getripping` | **real, live**: demo1 run on 2026-11-11 after Chat #1502 (`claude -p` via vamos-demo, Sonnet), one research ask with `include_data` and `data_scope: "turn"`, 19 credits. Format rows carry `status`, `niche_examples` and a playable `video_url` (cdn.lazylines.ai). 34 of 105 format rows and the 8 cited video rows, kept under the host's inline size | The real connector path |
+
+On 2026-11-15 the four assembled formats mocks and Cracked marketer's `formats-ads-skincare-both` were cut to the rows of the formats each answer names (5 formats, 15 examples each): the formats skill now asks without `data_scope: "turn"`, so that is what Vamos returns and what its results view draws. The graders name only those five.
 
 Brand names in these cases are test fixtures; the tracked handles in their `get_workspace` mocks are placeholders. Each case's `get_workspace` is a `type: agent` mock that answers both the summary and the `file` reads.
 
