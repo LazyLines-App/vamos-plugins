@@ -19,7 +19,7 @@
 
 - Write it as their next video after the Voice examples: one of their opener shapes, their sentence length, their transitions and their closer, in their language. A Spanish speaker gets Spanish as they'd say it, not English translated.
 - **Every "I" sentence comes from Things you've said, a line the voice guide quotes, or this chat.** Anything else only they know is a `[your …]` slot. A creator can't post a script that makes up their past.
-- **Their habits stay.** A tic they really have ("right?", a run of short questions, the same closer every time) is voice. Tells they never use are the AI's: "it's not X, it's Y", groups of three, every paragraph wrapped up neatly, a question answered by the next line.
+- **Their habits stay.** A tic they really have ("right?", a run of short questions, the same closer every time) is voice. Tells they never use are the AI's: step 6's code names each one it finds with its fix, and the ones no pattern catches are yours to cut: a closing line that sums the video up as a slogan, every paragraph wrapped up neatly, a question answered by the next line.
 - **Humour and exaggeration only of their kind,** and only if they use them.
 - **The hook on the row is theirs:** keep it as written.
 
