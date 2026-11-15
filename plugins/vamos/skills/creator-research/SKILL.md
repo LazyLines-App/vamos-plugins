@@ -30,7 +30,22 @@ description: "Finds creators for a brand to work with: UGC creators or influence
 **Ask Vamos**, with `include_data: true`:
 > Find [UGC creators / influencers] for [brand, product] on [platform] who get views [under N followers], starting with people already posting about [brand], with their usual views, the contact in their bio and any brand deals.
 
-The list is the deliverable and runs long, so build it as a sheet from the rows, one per creator, in Google Sheets when it's connected, otherwise as a file, and say in your reply who stands out. Each creator's line is about their content, audience, views, deals and contact, because the list gets passed around a team.
+The list is the deliverable, so build it as a sheet from the rows: in Google Sheets when it's connected, else the host's own sheet, else `creators-[brand].csv`. One row per creator, best fit first, and every cell short enough for one line, so the team can scan the sheet and work down it:
+
+| Column | What goes in it |
+|---|---|
+| Creator | their name and @handle, linked to the profile |
+| Platform | TikTok, Instagram or YouTube |
+| Followers | as the row gives it |
+| Typical views | as the row gives it |
+| Contact | the bio's email or link exactly as Vamos gave it, else "DM" |
+| Why them | up to 15 words: what they post, and any brand deal, marked "competitor" when it is one |
+| Draft DM | two sentences the user sends from their own account: something real from their posts, what [brand] is, and whether they'd make a paid video |
+| Status | "To contact" |
+
+> Your Sunday starter-feeding videos are exactly how people use our kit. We're Crumb, a sourdough starter kit for first-time bakers: would you be up for a paid video with it?
+
+Then the reply names the three who stand out, a line each, and says every creator has a draft DM in the sheet.
 
 **Check:** before you reply, make sure Vamos's answer covers each part of what they asked; ask for what's missing in the same chat.
 
