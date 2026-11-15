@@ -2,6 +2,13 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.17
+- The formats and playbook changes below.
+
+## vamos 0.2.19
+- formats ranks the formats Vamos's answer names, the ones its results view draws on screen in Claude Desktop. The ask no longer sets `data_scope: "turn"`, which added every format Vamos read (71 in one run, 15 readable) after the cited ones, so the reply ranked formats that were not on screen and called two that were "cooling, not ranked". Now every format in the rows is ranked in the reference's order, and one that fails the gate goes to More with its reason. The reply opens on the ranked list, and the job line no longer sells the angles as "checked by a fresh reader". New graders on formats-other-niche-rip: rows-are-the-formats-on-screen passes 2/2 (0/2 on main); reply-has-no-process-notes still fails, as on main, because the reply mentions the angle check in passing.
+- playbook writes each play on the page the way the reply shows it: a numbered name, then Seen, Your first line, Outline, Watch and Paste as a list. Step 8's example was one paragraph, and Claude Desktop's page ran the five parts together ("history. - Seen: … - Your first line: …"). Skip is a list too. New grader page-lists-each-play on playbook-duolingo-tiktok.
+
 ## cracked-marketer 0.2.16
 - The playbook change below.
 
