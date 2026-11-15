@@ -2,6 +2,17 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.18
+- formats' ad ask and winning-ad-ideas' research turn no longer set `data_scope: "turn"`, so their rows are the ads Vamos's answer lists, the ones its results view shows in Claude Desktop. With turn scope, rows held every ad Vamos read, and a concept or ad format could rest on an ad that wasn't on screen. An ad format's gate reads the answer's advertiser count with its ads' days running. formats-ads-supplements' grader is now rows-are-the-ads-on-screen.
+- formats' reply example shows each card's job and who makes it. Also the Working with Vamos, formats and playbook changes below.
+
+## vamos 0.2.20
+- The formats reply is the ranked list, then More, then the recap, with an example of how it opens. A data caveat goes on the card it changes. The working stays out of the reply: the angle check, a second ask, what was left out of Vamos's prose, and why the ask was scoped. formats-other-niche-rip on the same mocks: reply-has-no-process-notes 3/3 (main 0/2), answers-the-ask 2/3 (main 0/2); one run still opened with "RIP itself is in Apps & SaaS".
+- Working with Vamos: the reply is about what the user named, and the workspace stays background, named only when they ask about it. A fresh read's check is the skill's working, so the reply carries what passed. In Desktop, the Tempo creators reply opened "Your Vamos workspace is set up for RIP", and formats replies said "A fresh reviewer checked every angle".
+- playbook's check before the recap asks for the likely pick named above the plays, so no line has a [bracket] left. The check used to ask for a slot like `[your price]`, which contradicted step 8, and the Wispr page in Desktop kept "[age]" and "[your landing page]".
+- creator-research gives a creator on two platforms one row: the account with the higher typical views, the one the results view leads with. The other account goes in Why them ("also TikTok, 19.4K"). In Desktop the Tempo reply's "best views" used Chloe's TikTok while the view led with her Instagram. New case creator-research-two-platforms: 2/2, main 0/2 (main writes both rows).
+- The formats mocks (coach, skincare, b2b, other-niche RIP, and Cracked marketer's ads-skincare) are cut to the formats each answer names, which is what the default scope returns. Their graders name only those five formats.
+
 ## cracked-marketer 0.2.17
 - The formats and playbook changes below.
 

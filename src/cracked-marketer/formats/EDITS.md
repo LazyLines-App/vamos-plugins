@@ -54,6 +54,14 @@ its rank, name, badge, uses in their niche,
 its rank and name, its job and who makes it as its card says ("Trust · your creators can film it"), its badge, uses in their niche (an ad format: its ads, advertisers and longest days running),
 ~~~
 
+~~~old SKILL.md
+> **1. [Format]** · Rising · [N] posts in fitness
+~~~
+
+~~~new
+> **1. [Format]** · Trust · your creators can film it · Rising · [N] posts in fitness
+~~~
+
 ~~~old references/formats.md
 - **No hard clash with their limits:** a format filmed on a face for someone who never shows one, before-and-after for someone who rules it out.
 ~~~

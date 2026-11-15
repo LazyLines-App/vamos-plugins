@@ -1,6 +1,6 @@
 # The creator sheet
 
-One row per creator, Main list first, best fit first, then Near miss. In Google Sheets, Main and Near miss are two tabs; in a CSV, the `list` column holds which.
+One row per creator, Main list first, best fit first, then Near miss. A creator on two platforms gets the row with the higher usual views, the account Vamos's results view leads with, and the other goes in why they fit ("also TikTok, 19.4K"). In Google Sheets, Main and Near miss are two tabs; in a CSV, the `list` column holds which.
 
 | Column | What goes in it |
 |---|---|
