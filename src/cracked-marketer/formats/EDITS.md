@@ -110,3 +110,13 @@ Read the rows first, from `json_url` (curl) or inline, because the stage and the
 ~~~new
 Read the rows first, from `json_url` (curl) or inline, because the stage and the niche counts are only there; when the ad ask's answer came without rows, its numbers fill the ad cards and every later step runs.
 ~~~
+
+A brand's "we won't be on camera" is the team's: its creators film themselves, and step 2's ask already says so, so Content System's faceless rule is left out.
+
+~~~old SKILL.md
+assume and say so. When they won't be on camera, the formats you rank need no face and no voice of theirs, unless they narrate or say they'll record a voiceover: the ask's limits say so, a format that needs a face goes to More, and each card says how it's made with on-screen text, hands, the product or a screen.
+~~~
+
+~~~new
+assume and say so.
+~~~

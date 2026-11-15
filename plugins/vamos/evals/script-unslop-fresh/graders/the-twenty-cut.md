@@ -1,0 +1,7 @@
+---
+type: llm
+---
+The draft held the 20 tells the video names. Read only the rewritten reel itself (ignore any "before" lines the reply quotes, a list of what was cut, the recap, and the reply's own formatting such as bold headings like **Said**: item 1 is asterisks inside a line of the reel):
+1 markdown asterisks ("**Pro tip:**"); 2 "isn't about perfection. It's about showing up."; 3 "Certainly! Here's your hook:"; 4 check-mark emoji list; 5 "In today's fast-paced world"; 6 "leverage"; 7 "game-changer"; 8 "genuinely"; 9 "No fluff."; 10 the list of three "a checklist, a tip, or a template"; 11 "Let's dive in."; 12 "I'm excited to share that"; 13 "Let that sink in."; 14 "and it's not what you think"; 15 "quietly"; 16 the closer "Consistency is the new currency."; 17 "Stop posting at random. Start posting with a plan."; 18 "This matters because"; 19 "Studies show" with no source; 20 the made-up story (graded separately).
+PASS if none of 1 to 19 is left in the rewritten reel, and the draft's facts stay, said plainly: the course is live, open with your result, one simple thing to keep (two examples at most), post daily and reply to comments, post with a plan, and the unsourced "studies" claim is gone: cut, kept with its source as a slot ("[your source] shows …"), or swapped for a slot for their own proof.
+FAIL if any of 1 to 19 is still in the rewritten reel, if a fact is lost, or if the rewrite adds a new claim, number or story of its own.
