@@ -141,7 +141,7 @@ class TheirHabits(unittest.TestCase):
     def test_plain_lines_pass(self):
         for line in ("First, you post, and then you reply.", "So, yeah, and then I left.", "Post daily, reply to comments, and track your views.",
                      "That isn't a problem if you post daily.", "I think this works.",
-                     "Stop the car. Then wait.", "Bake 5 \u2013 10 loaves."):
+                     "Stop the car. Then wait.", "Bake 5 \u2013 10 loaves.", "This will certainly work."):
             with self.subTest(line=line):
                 self.assertEqual(run(line)["tells"], [], line)
 

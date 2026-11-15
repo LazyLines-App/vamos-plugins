@@ -22,7 +22,7 @@ import argparse, json, re, statistics, sys
 # (name, pattern, fix). Matched case-blind on text with curly quotes made straight.
 TELLS = [
     ("markdown asterisks", r"\*\*?[^*\n]+\*\*?|\*\*|__[^_\n]+__", "drop the asterisks and keep the words"),
-    ("chatbot opener", r"\bcertainly\b|(?:^|[.!?]\s+)(?:absolutely|of course|sure|great question)\s*[!,.]|\bhere'?s (?:your|the|a|an)(?: \w+){0,2} (?:hook|script|caption|rewrite|version|draft|post|reel|breakdown)\b:?|\byou'?re absolutely right\b",
+    ("chatbot opener", r"(?:^|[.!?]\s+)(?:certainly|absolutely|of course|sure|great question)\s*[!,.]|\bhere'?s (?:your|the|a|an)(?: \w+){0,2} (?:hook|script|caption|rewrite|version|draft|post|reel|breakdown)\b:?|\byou'?re absolutely right\b",
      "cut it and start on the content"),
     ("check-mark list", r"[✅✔✓☑]", "say the items as one plain sentence: \"Post daily and reply to comments.\""),
     ("it's not X, it's Y",
