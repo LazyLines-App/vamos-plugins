@@ -2,6 +2,14 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.16
+- The playbook change below.
+
+## vamos 0.2.18
+- creator-research's sheet is one short row per creator: Creator, Platform, Followers, Typical views, Contact, Why them (up to 15 words, a competitor's deal marked), Draft DM and Status. 0.2.17 asked for each creator's "content, audience, views, deals and contact", and the Tempo sheet in Claude Desktop came out as 18 tall rows with half the columns off screen. The Draft DM is two sentences the user sends from their own account; the reply names the three who stand out.
+- playbook's page is "Plays to steal from [target]": the plays come first, then what they stand on. A play's parts are Seen (what they run, linked, and why it keeps running), Your first line, Outline (the three or four beats after it), Watch and Paste; Outline replaces Work, so the user can film the play from the page.
+- playbook answers a question about what a brand runs ("what Meta ads is Huel running, and which have run longest?") in the reply, with what it means for the user's brand, and offers the plays as Next: no page and no plays nobody asked for. Every other ask, "what to steal" included, still gets the five plays and the page. New case playbook-ads-question-gruns.
+
 ## cracked-marketer 0.2.15
 - The formats and Working with Vamos changes below.
 
