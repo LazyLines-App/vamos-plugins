@@ -16,6 +16,7 @@ This repo is one marketplace, `vamos-plugins`, with two plugins:
 3. **Run what the change needs.**
    - Always: `python3 scripts/build-skills.py --check` prints `ok`. It fails if any copy drifts from its source.
    - A changed skill script: its test in `evals/scripts/` (`python3 evals/scripts/test_count.py` for content-log's `count.py`; free, no network).
+   - A changed AI tell in `textstats.py`: `python3 evals/scripts/measure_tells.py` counts it on short-form scripts, viral transcripts against plain-Claude drafts (`evals/scripts/shortform/`), and `test_textstats.py` fails a tell on more than 3% of viral ones.
    - A changed description: rerun the routing test (`python3 evals/routing/route.py evals/routing/cases.tsv`, about $0.05 a case).
    - A changed skill: replay its saved cases with `claude plugin eval` on mocks, with the old version as the control. Mocks are written from real saved Vamos answers, so a replay spends no credits and a change in score is the skill, not the data. Cases and mocks live in `plugins/vamos/evals/` (the routing test stays in the root `evals/routing/`). Run `claude plugin eval .` from inside the plugin's folder, with the `--allow-tools` its eval note names: run from the repo root, a case's saved files aren't found and every file grader fails.
    - A new skill: a cold review by a fresh Opus agent, then one fix round.

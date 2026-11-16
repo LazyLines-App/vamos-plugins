@@ -19,15 +19,17 @@ Standard library only. Prints JSON. `check` exits 1 when a check fails, and says
 """
 import argparse, json, re, statistics, sys
 
-# (name, pattern, fix). Matched case-blind on text with curly quotes made straight.
+# (name, pattern, fix). Matched case-blind on text with curly quotes made straight. Each one is rare in what viral
+# short-form videos say and common in plain Claude's scripts: the repo's evals/scripts/measure_tells.py counts both.
 TELLS = [
     ("markdown asterisks", r"\*\*?[^*\n]+\*\*?|\*\*|__[^_\n]+__", "drop the asterisks and keep the words"),
     ("chatbot opener", r"(?:^|[.!?]\s+)(?:certainly|absolutely|of course|sure|great question)\s*[!,.]|\bhere'?s (?:your|the|a|an)(?: \w+){0,2} (?:hook|script|caption|rewrite|version|draft|post|reel|breakdown)\b:?|\byou'?re absolutely right\b",
      "cut it and start on the content"),
     ("check-mark list", r"[✅✔✓☑]", "say the items as one plain sentence: \"Post daily and reply to comments.\""),
     ("it's not X, it's Y",
-     r"\b(?:(?:is|are|was|were)(?:n'?t| not)|(?:it|this|that|he|she)'?s not|(?:they|you|we)'?re not|not (?:just|only|about)|never about)\b[^.!?\n]{0,80}?[.!?;:,—–-]+\s*(?:but\s+|and\s+)?(?:(?:it|this|that|they|you|we|he|she)(?:'s|'re| is| are| was| were)|(?:you|we|they|it) (?:just|only|simply))\b"
-     r"|(?:^|[.!?]\s+)not (?:a|an|the|just|about)\b[^.!?\n]{1,40}[.!?]\s+(?:a|an|the|it'?s|just|about)\b"
+     r"(?:\bnot|n't) (?:just |only |even )?about\b[^.!?\n]{0,80}?[.!?;:,\u2014\u2013-]+\s*(?:but\s+)?(?:(?:it|this|that|they|you|we|he|she)(?:'s|'re| is| are| was| were)|(?:you|we|they|it) (?:just|only|simply))\b"
+     r"|\bthat'?s not\b[^.!?,\n]{1,60}[.!?,;]\s+that'?s\b"
+     r"|\b(?:it|this|that)(?:'s| is) not (?:a|an|the|my|your|our)\b[^.!?\n]{1,40}[.!?]\s+(?:it|this|that)(?:'s| is) (?:just |only |really |actually )?(?:a|an|the|my|your|our)\b"
      r"|\b(?:you|we) (?:don'?t|do not) need\b[^.!?\n]{0,60}[.!?,;:\u2014\u2013-]+\s*(?:but\s+)?(?:you|we) (?:just |only )?need\b",
      "say only the second half, plainly: \"The routine is about showing up.\""),
     ("not only, but also", r"\bnot only\b.*\bbut also\b", "say the second half"),
@@ -36,7 +38,6 @@ TELLS = [
     ("let's dive in", r"\blet'?s (?:dive|jump|get) (?:right )?in(?:to(?: it)?)?\b|\bdeep[- ]dive\b|\bwithout further ado\b", "cut it; the next line starts"),
     ("leverage", r"\bleverag(?:e|es|ed|ing)\b", "say \"use\""),
     ("game-changer", r"\bgame[- ]?chang(?:er|ers|ing)\b", "say what it does"),
-    ("genuinely", r"\bgenuinely\b", "cut it"),
     ("quietly", r"\bquietly\b", "cut it"),
     ("no fluff", r"\b(?:no|zero) (?:fluff|filler)\b|\bwithout the fluff\b|\bfluff[- ]free\b", "cut it"),
     ("excited to share", r"\b(?:i'?m|i am|we'?re|we are)(?: so| really| super| very| beyond| incredibly)? (?:excited|thrilled|happy|proud|delighted|pleased|honou?red|stoked) to (?:share|announce|introduce|tell you|say|launch|unveil|reveal)\b",
@@ -51,37 +52,18 @@ TELLS = [
      "end on the last useful line, or their own closer"),
     ("self-answered question", r"\bthe (?:best part|result|answer|catch|secret|kicker|twist|truth)\?", "say it as a plain line that names what's coming"),
     ("buzzword", r"\bunlock(?:s|ed|ing)?\b|\bdelve\b|\bseamless(?:ly)?\b|\belevate\b|\blevel up\b", "say the plain word"),
+    ("follow for more", r"\bfollow for\b", "cut it; end on the last useful line, or on what you'll send them"),
+    ("save this", r"\bsave this\b", "cut it; end on the last useful line"),
     ("em dash", r"—|\s–\s(?!\d)", "a full stop or a comma"),
 ]
 TELL_RES = [(n, re.compile(p, re.I | re.M), f) for n, p, f in TELLS]
 
-# A list of three: "like a checklist, a tip, or a template", "your time, your money, and your energy", "faster, smarter, and cheaper".
-WORD = r"[a-z][a-z']*"
-ITEM = rf"{WORD}(?: {WORD}){{0,2}}"
-LIST3 = re.compile(rf"(?<![\w'])({ITEM}), ({ITEM}),? (?:and|or) ({ITEM})", re.I)
-LEAD = re.compile(r"^(?:like|such as|including|whether it'?s|from)\s+", re.I)
-
 def straight(text):
     return text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
 
-def lists_of_three(text):
-    hits = []
-    for m in LIST3.finditer(text):
-        led = bool(LEAD.match(m.group(1)))
-        items = [LEAD.sub("", m.group(1)).split(), m.group(2).split(), m.group(3).split()]
-        if not all(items):
-            continue
-        same_start = len({it[0].lower() for it in items}) == 1
-        single = all(len(it) == 1 for it in items)
-        if led or same_start or single:
-            hits.append(m.group(0))
-    return hits
-
 def tell_hits(text):
     text = straight(text)
-    hits = [(name, m.group(0).strip(), fix) for name, rx, fix in TELL_RES for m in rx.finditer(text)]
-    hits += [("list of three", h, "keep the two that matter most: \"like a checklist or a tip\"") for h in lists_of_three(text)]
-    return hits
+    return [(name, m.group(0).strip(), fix) for name, rx, fix in TELL_RES for m in rx.finditer(text)]
 
 def sentences(text):
     parts = re.split(r"(?<=[.!?])\s+|\n+", text.strip())
