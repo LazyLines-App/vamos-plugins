@@ -2,6 +2,17 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## cracked-marketer 0.2.20
+- The script check's tells below (Cracked marketer's script and setup share `textstats.py`).
+
+## vamos 0.2.22
+- script's AI tells are measured on short-form video scripts: 419 viral Reels, TikToks and Shorts (what they say, word for word; 259 AI, tech and marketing, 160 local and service businesses) against 108 short-form scripts from plain Claude (Sonnet 5.5 and Opus 5.5, 40 and 68 in the same niches), in `evals/scripts/shortform/`, counted by `evals/scripts/measure_tells.py`. A script with any tell: main's list 121 of 419 viral (28.9%) and 57 of 108 Claude (52.8%); now 52 of 419 (12.4%) and 73 of 108 (67.6%), and in each niche (AI/tech/marketing 16.2% against 85.0%, local and service 6.2% against 57.4%).
+- "It's not X, it's Y" fired on 65 viral scripts (15.5%) and 27 Claude drafts (25.0%). People say "it's not just X, it's Y" on camera as often as Claude writes it (that shape: 10 viral, 4 Claude), so it now catches only the shapes Claude owns: "isn't about X. It's about Y", "That's not X. That's Y", "You don't need X. You need Y", and "It's not a content plan. It's just my morning.", a rewrite's half-fix seen in a replay (4 viral, 1.0%; 7 Claude, 6.5%).
+- Dropped: the list of three (30 viral, 7.2%; 9 Claude, 8.3%) and "genuinely" (13 viral, 3.1%; 1 Claude, 0.9%).
+- Added the two spoken closers Claude ends a script on: "follow for more" ("follow for …", so "Follow for tomorrow's tray", a replay's half-fix, fails too: 9 viral, 2.1%; 45 Claude, 41.7%), and "save this" (9 viral, 2.1%; 12 Claude, 11.1%). "Follow me for more" stays, because viral creators say it (6 viral, 0 Claude), and so does a comment-keyword closer, because it's the user's offer.
+- The other 21 are unchanged. Each fires on 2.1% of viral scripts or fewer. Markdown asterisks are in 38 Claude scripts (35.2%; a transcript can't hold them); seven fire on neither side.
+- script-unslop-fresh's draft is now a 30-second bakery reel in plain Claude's own format with the seven tells it writes most, its hook and caption the made-up story. The free unit test gives every tell a spoken line (six are Claude's own) and holds the list to the corpus.
+
 ## cracked-marketer 0.2.19
 - The script check and rewrite below (Cracked marketer's script and setup share `textstats.py`). Its formats skips Content System's new faceless rule, since a brand's "we won't be on camera" is the team's and its creators film themselves: with a team version of the rule, formats-ads-skincare-both remade Bad, Good, Great as "your team makes it, hands and cutouts only" (job-and-maker failed; main 1/1).
 
