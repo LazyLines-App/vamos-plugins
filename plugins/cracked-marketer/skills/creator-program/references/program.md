@@ -8,7 +8,7 @@ Notes from people who run creator programs and from our read of 134 short app de
 - **Budget under about 10 videos** at the rate you'd pay: the team films the 6 cells from scripts on the brand's own accounts, and creators come in on the winners.
 - **A post has already won:** skip the test. 3 or 4 creators each make their own version of it, with one thing changed.
 - **How many to message:** about 30 for each creator you want filming, in waves, with two follow-ups ([outreach.md](outreach.md); our planning number, rough until their own first wave replaces it).
-- **Who:** 3 or 4 creators who belong to the niche, each with a post of their own that went well past their usual. Name the brands each one already posts for (the rows' paid-partnership flag); one who posts for a competitor may be tied to it. Add more once a format works; the return per creator falls past about 30 (@maubaron, app program, Nov 2026).
+- **Who:** 3 or 4 creators who belong to the niche, each with a post of their own that was an outlier, well past their median views. Name the brands each one already posts for (the rows' paid-partnership flag); one who posts for a competitor may be tied to it. Add more once a format works; the return per creator falls past about 30 (@maubaron, app program, Nov 2026).
 - **Sold online:** hire more low-cost creators than you need and drop the ones who haven't delivered by week 2. Hit rates are close across tiers, so more faces beat bigger faces (Sweat Equity, DTC plan, Nov 2026, not launched yet).
 
 ## Whose account
@@ -17,11 +17,11 @@ Creators post on an account they own in the niche, so every video gets reach. In
 
 ## Pay
 
-- **Default:** a base per video, plus a bonus counted over each video's first 7 days at multiples of that creator's own usual, with a cap. Our proposal, by `scripts/price.py offer`: +1× the base at 3× their usual, +2× more at 10×, so the bonus caps at 3× the base and a video at 4× (base and bonus). Sizing to their usual keeps the bonus reachable for a creator who usually gets 3K views; @maubaron's per-100K bands pay them close to nothing. The month's money is the bases plus one bonus pool, not every video at its cap: bonuses are paid as videos cross a threshold until the pool is spent, and every offer and draft to a creator says so.
+- **Default:** a base per video, plus a bonus counted over each video's first 7 days at multiples of that creator's own median views, with a cap. Our proposal, by `scripts/price.py offer`: +1× the base at a 3× outlier, +2× more at 10×, so the bonus caps at 3× the base and a video at 4× (base and bonus). Sizing to their median keeps the bonus reachable for a creator who usually gets 3K views; @maubaron's per-100K bands pay them close to nothing. The month's money is the bases plus one bonus pool, not every video at its cap: bonuses are paid as videos cross a threshold until the pool is spent, and every offer and draft to a creator says so.
 - **Price each creator off their floor:** the median of the 10 worst of their last 30 posts, and what the fee costs per 1,000 views at that level (@maubaron's method; `scripts/price.py floor`).
 - **Sold online, with a code or link per creator:** add commission. Commission alone gets turned down.
 - Pay weekly for posted videos. Every offer reads per video; a monthly deal is shown as its per-video price.
-- **Stages, 30 days after a creator's first video posts:** every creator starts on Test. The one whose video became a proven winner (below) moves to Core: first pick of the briefs and a raise the user sets. One with no video at their own usual by then stops. Our proposal: say so.
+- **Stages, 30 days after a creator's first video posts:** every creator starts on Test. The one whose video became a proven winner (below) moves to Core: first pick of the briefs and a raise the user sets. One with no video at their own median by then stops. Our proposal: say so.
 
 ## The first 30 days
 
@@ -29,18 +29,18 @@ Creators post on an account they own in the niche, so every video gets reach. In
 |---|---|
 | 0 | The creators from `/cracked-marketer:find-creators`: message the first wave on day 1 (about 30 per creator wanted), follow up on days 4 and 10, and agree the terms below with each yes. Pick the 3 angles with `/cracked-marketer:ideas`; briefs from `/cracked-marketer:brief`. Fewer yeses than needed by day 11: the next wave, sized on their own rate |
 | 1-2 | The 12 test videos post, one a day per account at most; each creator's tracked link live |
-| 3 | Read each video at 7 days against its creator's usual (below) |
+| 3 | Read each video at 7 days as an outlier score against its creator's median (below) |
 | 4 | Each week from now: 80% of videos repeat what's proven, 20% test something new (@maubaron). Winners go to every creator. Keep or stop each creator at day 14 on reliability and draft quality |
 
 Day 30: the money check. Add creators only where a format won.
 
-Each wave of creators is a cohort. The cohort grid is one row per creator: their wave, the week they started, videos due and posted, their best video against their usual, their stage (Test or Core) and keep or stop, in the program's Brain file and in Google Sheets when it's connected (else `creator-program-[brand].csv`), so the user sees which wave and which creator to keep. Each week's content log fills its posted, best-video and stage columns.
+Each wave of creators is a cohort. The cohort grid is one row per creator: their wave, the week they started, videos due and posted, their best video's outlier score, their stage (Test or Core) and keep or stop, in the program's Brain file and in Google Sheets when it's connected (else `creator-program-[brand].csv`), so the user sees which wave and which creator to keep. Each week's content log fills its posted, best-video and stage columns.
 
 ## Reading results
 
-- **By where it broke** (@maubaron, for apps): under 1,000 views the opening failed; 1,000-10,000, people left before the product; 100,000 or more with few downloads or sales, the product moment or the ask failed. He gives no read for 10,000-100,000, so judge those against the creator's own usual.
+- **By where it broke** (@maubaron, for apps): under 1,000 views the opening failed; 1,000-10,000, people left before the product; 100,000 or more with few downloads or sales, the product moment or the ask failed. He gives no read for 10,000-100,000, so judge those against the creator's own median.
 - **Sales or signups per 1,000 views** from each creator's tracked link, from the user's own analytics. Views decide little before about 25 posts on an account. Wispr cancelled a program that got views and few customers.
-- **A winner:** 5× its account's usual within 48 hours, or comments asking what or where the product is. It's proven when it holds on two other creators within 7 days. A winner can run as a Spark or partnership ad from the creator's handle on the terms agreed on day one ([ads.md](ads.md)); content-log drafts the code ask. `/cracked-marketer:content-log` reads this every week.
+- **A winner:** a 5× outlier against its account's median within 48 hours, or comments asking what or where the product is. It's proven when it holds on two other creators within 7 days. A winner can run as a Spark or partnership ad from the creator's handle on the terms agreed on day one ([ads.md](ads.md)); content-log drafts the code ask. `/cracked-marketer:content-log` reads this every week.
 
 ## Openings (our read of 134 app demos)
 

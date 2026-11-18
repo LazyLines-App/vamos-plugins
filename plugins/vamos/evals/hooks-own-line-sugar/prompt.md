@@ -1,5 +1,5 @@
 ---
-description: "A skin-and-food creator (Clearday, a test brand) brings their own hook and asks if it's good. The real saved Vamos answer from 2026-11-05 (kit round 2, 4 credits): the hook tested against 5 lookalikes in the niche, ranked by × usual, with one change (open on day 1 and day 30 side by side). Tests that their line stays theirs (kept words, the original shown beside each change), the proof in the first frame, links and numbers from the answer."
+description: "A skin-and-food creator (Clearday, a test brand) brings their own hook and asks if it's good. The real saved Vamos answer from 2026-11-05 (kit round 2, 4 credits): the hook tested against 5 lookalikes in the niche, ranked by outlier score, with one change (open on day 1 and day 30 side by side). Tests that their line stays theirs (kept words, the original shown beside each change), the proof in the first frame, links and numbers from the answer."
 tags: [hooks, their-line, real-mock]
 runs: 1
 model: sonnet

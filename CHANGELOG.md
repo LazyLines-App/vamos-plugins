@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## vamos 0.2.24
+- A post's multiple of its account's median views is its outlier score, written "N× outlier", and the baseline is the median, never "usual" (Levi, 2026-11-18). A live analyze answer said "That's 6.9× the account's usual of 868,629"; it now reads "got 5,974,383 views, a 6.9× outlier: the account's median is 868,629 (its 33 Reels at least 7 days old among the last 40)". Under 1× is "0.4× outlier" or "under the median". The shared Numbers rule, analyze, playbook, content-log (its `count.py` prints "median:" and "N.Nx outlier"), ideas (its Vamos asks are for the biggest outliers; `filter.py` says "under a 2x outlier"), hooks, formats, setup, the board's Reviews row and the READMEs all say it, and the skills say it even where Vamos's answer says "usual". creator-research's sheet column is Median views (was Typical views). Graders named usual-by-the-rule are median-by-the-rule and expect "median" beside the number; analyze-video-instagram-getripping, analyze-video-tiktok-chloejp and content-log-week-opusjake get `says-outlier` and `never-usual`.
+
+## cracked-marketer 0.2.22
+- The shared outlier wording above, and Cracked marketer's own skills say it too: creator-program (`price.py offer --median`, which replaces `--usual`, and the bonus at "a 3x outlier"), find-creators (the sheet's median views column), brief (its Vamos ask; the creator's page still carries no outlier score or median), make-video and review-draft.
+
 ## vamos 0.2.23
 - formats reads the optional weekly library measurements with a local parser, preserving missing values, true zero, readable weeks and the counts behind medians. Compact Markdown charts name stored views and the post age when those views were read. Older exports keep the existing reply.
 

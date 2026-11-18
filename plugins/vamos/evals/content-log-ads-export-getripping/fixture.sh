@@ -26,15 +26,15 @@ cat > vamos/board.md <<'BOARD'
 
 | Id | Lesson | Evidence | Posts | Status | Action |
 |---|---|---|---|---|---|
-| L1 | Openers that call out vibe coders' money problem: 3 of 4 above usual, median 2.1× | DemP8MaD20j 169,878 (4.1×), De-jmrfPgtt 89,276 (2.2×), De78Pr4DABW 81,146 (2.0×), De9czaFgIqc 27,938 (0.7×); read 2026-11-03 | 4 (2 weeks) | Confirmed | Make more |
+| L1 | Openers that call out vibe coders' money problem: 3 of 4 above the median, median 2.1× | DemP8MaD20j 169,878 (4.1×), De-jmrfPgtt 89,276 (2.2×), De78Pr4DABW 81,146 (2.0×), De9czaFgIqc 27,938 (0.7×); read 2026-11-03 | 4 (2 weeks) | Confirmed | Make more |
 | L2 | A "Claude can now … for you" opener | Being tried on purpose; no post yet | 0 | Testing | Test next |
-| L3 | Idea-list videos run under usual: 0 of 1 above | DfNDxQ7PpaK 5,936 (0.1×), read 2026-11-03 | 1 | Hunch | Test next |
+| L3 | Idea-list videos run under the median: 0 of 1 above | DfNDxQ7PpaK 5,936 (0.1×), read 2026-11-03 | 1 | Hunch | Test next |
 
 ## Reviews
 
-| Date | Period | Usual | Hit rate (last 20: above 1×, above 2×) | Median × | Predictions for next time | Ad ids seen |
+| Date | Period | Median views | Hit rate (last 20: above 1×, above 2×) | Median × | Predictions for next time | Ad ids seen |
 |---|---|---|---|---|---|---|
-| 2026-11-03 | 2026-10-27 to 2026-11-03 | 41,005 views over 24 posts | 10 of 20, 2 of 20 | 0.94× | P1: the "Claude can now post trial reels for you" video beats 3× usual. P2: another idea-list video stays under usual. | — |
+| 2026-11-03 | 2026-10-27 to 2026-11-03 | 41,005 views over 24 posts | 10 of 20, 2 of 20 | 0.94× | P1: the "Claude can now post trial reels for you" video is a 3× outlier or more. P2: another idea-list video stays under the median. | — |
 BOARD
 cat > ads-2026-11-04_2026-11-10.csv <<'CSV'
 Reporting starts,Reporting ends,Ad name,Amount spent (USD),Purchases,Purchases conversion value,Impressions,Cost per purchase (USD)

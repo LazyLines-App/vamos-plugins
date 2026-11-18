@@ -42,7 +42,7 @@ def check(title, body, rows):
     if re.search(r'^\s*\|', body, re.M):
         errors.append('a table; a phone page has none (talking points are bullets)')
     for m in ANALYSIS.finditer(body):
-        errors.append(f'analysis on the creator\'s page: "{m.group(0)}" (multiples and the usual stay with you)')
+        errors.append(f'analysis on the creator\'s page: "{m.group(0)}" (outlier scores and the median stay with you)')
     found = [int(x) for x in PART.findall(body)]
     if found != list(range(1, 8)):
         errors.append(f'parts {found}; need **1.** to **7.** once each, in order')

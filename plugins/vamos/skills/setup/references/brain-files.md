@@ -16,9 +16,9 @@ Each first-person fact from their transcripts (numbers, history, people, results
 ## What works for me
 
 Under about 400 words. At setup, from their own rows:
-- their usual and the date it was read;
+- their median views and the date it was read;
 - 2 to 4 traits of their top quarter against their bottom half, each counted ("number-first openers: 5 of 9 top posts, 1 of 18 bottom ones"), each marked Hunch (under 3 posts) or Confirmed (3 or more, from different weeks);
-- their best and worst post, linked, with multiples.
+- their best and worst post, linked, with outlier scores.
 
 ## Marketing plan
 

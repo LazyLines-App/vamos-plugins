@@ -2,13 +2,13 @@
 
   python3 price.py floor ROWS.json --fee 400 [--exclude id,id] [--handle name]
       ROWS.json is a saved chat_completion_poll answer (its data.videos) or a list of rows.
-      Counts posts at least 7 days old (by counts_as_of), as the usual does everywhere: views still
+      Counts posts at least 7 days old (by counts_as_of), as the median does everywhere: views still
       climb before then. Sets aside boosts (likes under 0.5% of
       views, or tagged paid or sponsored), reposts (the same caption as an earlier post, within 2 s
-      of its length) and the ids in --exclude. Usual = their median; floor = the median of the 10
-      worst of the last 30. Prints the cost per 1,000 views of the fee at the floor and at the usual.
-  python3 price.py offer --base 60 --usual 4200
-      The default offer: the base per video, +1x the base at 3x their usual within 7 days,
+      of its length) and the ids in --exclude. Median = their median views; floor = the median of the 10
+      worst of the last 30. Prints the cost per 1,000 views of the fee at the floor and at the median.
+  python3 price.py offer --base 60 --median 4200
+      The default offer: the base per video, +1x the base at a 3x outlier (3x their median) within 7 days,
       +2x more at 10x, so the bonus caps at 3x the base and a video at 4x.
   python3 price.py table PAY.md [--today 2026-11-11]
       Every deal row needs a per-video figure, a source link and a date. Prints each row's age;
@@ -16,7 +16,7 @@
 """
 import argparse, datetime as dt, json, re, statistics as st, sys
 
-SETTLED = 7  # days; the usual counts posts this old (content-log's count.py, Vamos's own usual)
+SETTLED = 7  # days; the median counts posts this old (content-log's count.py, Vamos's own median)
 
 
 def parse_time(s):
@@ -65,17 +65,17 @@ def floor(args):
     worst = sorted(r['views'] for r in last)[:10]
     fl = st.median(worst)
     print(f'posts counted: {len(ok)} (read as of {asof:%Y-%m-%d}); set aside: ' + (', '.join(f'{i} ({why})' for i, why in out) or 'none'))
-    print(f'usual (median of {len(ok)}): {usual:,.0f}')
+    print(f'median views (of {len(ok)}): {usual:,.0f}')
     print(f'floor (median of the 10 worst of the last {len(last)}): {fl:,.1f}  [10 worst: {", ".join(f"{v:,}" for v in worst)}]')
     if args.fee:
         per = lambda v: f'${args.fee / v * 1000:,.2f}' if v else 'no number (0 views)'
-        print(f'${args.fee:,.0f} a video = {per(fl)} per 1,000 views at the floor, {per(usual)} at the usual')
+        print(f'${args.fee:,.0f} a video = {per(fl)} per 1,000 views at the floor, {per(usual)} at the median')
 
 
 def offer(args):
-    b, u = args.base, args.usual
+    b, u = args.base, args.median
     print(f'base ${b:,.0f} a video')
-    print(f'+${b:,.0f} if it reaches {3 * u:,.0f} views (3x their usual) within 7 days')
+    print(f'+${b:,.0f} if it reaches {3 * u:,.0f} views (a 3x outlier) within 7 days')
     print(f'+${2 * b:,.0f} more if it reaches {10 * u:,.0f} views (10x) within 7 days')
     print(f'most the bonus adds: ${3 * b:,.0f}; most a video can cost, base and bonus: ${4 * b:,.0f}')
 
@@ -110,7 +110,7 @@ def table(args):
 p = argparse.ArgumentParser()
 sub = p.add_subparsers(dest='cmd', required=True)
 f = sub.add_parser('floor'); f.add_argument('rows'); f.add_argument('--fee', type=float); f.add_argument('--exclude'); f.add_argument('--handle')
-o = sub.add_parser('offer'); o.add_argument('--base', type=float, required=True); o.add_argument('--usual', type=float, required=True)
+o = sub.add_parser('offer'); o.add_argument('--base', type=float, required=True); o.add_argument('--median', type=float, required=True)
 t = sub.add_parser('table'); t.add_argument('path'); t.add_argument('--today')
 a = p.parse_args()
 {'floor': floor, 'offer': offer, 'table': table}[a.cmd](a)

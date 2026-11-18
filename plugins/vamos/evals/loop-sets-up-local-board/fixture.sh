@@ -23,6 +23,6 @@ cat > vamos/board.md <<'BOARD'
 
 ## Reviews
 
-| Date | Period | Usual | Hit rate | Median x | Predictions | Ad ids |
+| Date | Period | Median views | Hit rate | Median x | Predictions | Ad ids |
 |---|---|---|---|---|---|---|
 BOARD

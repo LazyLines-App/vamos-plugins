@@ -80,11 +80,11 @@ cat > vamos/board.md <<'BOARD'
 
 | Id | Lesson | Evidence | Posts | Status | Action |
 |---|---|---|---|---|---|
-| L1 | Payday-moment openers on our own account: 2 of 2 above usual | read 2026-11-04 | 2 | Hunch | Test next |
+| L1 | Payday-moment openers on our own account: 2 of 2 above the median | read 2026-11-04 | 2 | Hunch | Test next |
 
 ## Reviews
 
-| Date | Period | Usual | Hit rate (last 20: above 1×, above 2×) | Median × | Predictions for next time | Ad ids seen |
+| Date | Period | Median views | Hit rate (last 20: above 1×, above 2×) | Median × | Predictions for next time | Ad ids seen |
 |---|---|---|---|---|---|---|
-| 2026-11-04 | 2026-10-28 to 2026-11-04 | 57,900 views over 20 posts | 10 of 20, 4 of 20 | 1.0× | P1: a creator post beats 5× its creator's usual. | — |
+| 2026-11-04 | 2026-10-28 to 2026-11-04 | 57,900 views over 20 posts | 10 of 20, 4 of 20 | 1.0× | P1: a creator post is a 5× outlier against its creator's median. | — |
 BOARD
