@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## vamos 0.2.23
+- formats reads the optional weekly library measurements with a local parser, preserving missing values, true zero, readable weeks and the counts behind medians. Compact Markdown charts name stored views and the post age when those views were read. Older exports keep the existing reply.
+
+## cracked-marketer 0.2.21
+- The shared formats weekly-measurement reader above; ad-only replies retain their existing path.
+
 ## cracked-marketer 0.2.20
 - The script check's tells below (Cracked marketer's script and setup share `textstats.py`).
 

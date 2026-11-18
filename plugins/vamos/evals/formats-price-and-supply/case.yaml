@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: formats-price-and-supply
+context:
+  scaffold_script: fixture.sh
