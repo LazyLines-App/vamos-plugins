@@ -1,6 +1,6 @@
 ---
 name: "creator-research"
-description: "Finds creators for a brand to work with: UGC creators or influencers who get views in its niche, and people already posting about it, ranked, with usual views, bio contact and brand deals."
+description: "Finds creators for a brand to work with: UGC creators or influencers who get views in its niche, and people already posting about it, ranked, with median views, bio contact and brand deals."
 ---
 # Creator research
 
@@ -15,7 +15,7 @@ description: "Finds creators for a brand to work with: UGC creators or influence
 - **One-off wording.** Say "the last 7 days", "each" or "all". Vamos saves a recurring routine when an ask says every, daily, weekly or schedule, so keep those words for when the user asks for a Vamos routine.
 - **Saves.** Write a Brain file or skill with `save_brain_file`, always as its whole text, so read one first to add to it. Report a save only when its `action` comes back or Vamos's answer confirms it.
 - **Credits.** Run what the ask needs and report the cost in the recap; ask first only when what they have left is below a step's cost. Credits used is the poll's `creditsCharged`, and what's left is `get_credit_usage`'s balance, read before the recap; when you couldn't read one, say so.
-- **Numbers.** Every number you show comes from Vamos (a row or its answer) or your own code, with the date it was read. For the user's own posts and for a playbook or analyze target, compute "usual" yourself: the median views of posts at least 7 days old (views still climb before that), leaving out boosted posts (likes under 0.5% of views, or tagged paid) and reposts (the same caption as an earlier post, within 2 s of its length). A younger post that already beats it shows as "N× so far"; one that doesn't is too early to judge. Elsewhere use Vamos's multiple and say so.
+- **Numbers.** Every number you show comes from Vamos (a row or its answer) or your own code, with the date it was read. For the user's own posts and for a playbook or analyze target, compute the account's median yourself: the median views of posts at least 7 days old (views still climb before that), leaving out boosted posts (likes under 0.5% of views, or tagged paid) and reposts (the same caption as an earlier post, within 2 s of its length). A post's views over that median is its outlier score, written "N× outlier": "got 5,974,383 views, a 6.9× outlier: the account's median is 868,629 (its 33 Reels at least 7 days old among the last 40)". Under 1× it's "0.4× outlier" or "under the median". Say "median" and "outlier" even where Vamos's answer says "usual". A younger post that already beats the median shows as "N× outlier so far"; one that doesn't is too early to judge. Elsewhere use Vamos's multiple as the outlier score and say so.
 - **Fresh reads.** A cold read is a fresh subagent that sees only the text. Where the host has no subagents, do the same check yourself in a separate pass that reads only that text. The check is your working: the reply carries what passed.
 
 **Where things live.** The user's state is in Vamos, where every host and every Vamos chat can read it and the user can edit it at `https://app.getvamos.ai/brain`: the profile, pillars and Voice page; the Brain files Tracked accounts, Voice examples, Things you've said, What works for me, Marketing plan, Vamos settings, and one dated "Playbook: [brand]" per brand taken apart; and a Brain skill per structure, each named "Structure: [name]". The board (Notion, a Google Sheet, `vamos/board.md` or a Brain file, as Vamos settings says) holds the ideas, hooks, lessons and reviews. To read a Brain file or skill (the voice guide is a file, a structure is a skill), call `get_workspace` with `file` set to its title, without the summary `files` or `skills` shows after it: free, and the full text. Never spend a turn reading one.
@@ -28,16 +28,16 @@ description: "Finds creators for a brand to work with: UGC creators or influence
 **Needs:** what the brand sells ("protein bars" is enough). When neither the ask nor the workspace brand gives it, ask for it in one short question before you send, because Vamos can't ask once it's working. `create_chat` shows the brand their Vamos workspace holds; use it rather than asking, and name a different brand in the ask when theirs is about one.
 
 **Ask Vamos**, with `include_data: true`:
-> Find [UGC creators / influencers] for [brand, product] on [platform] who get views [under N followers], starting with people already posting about [brand], with their usual views, the contact in their bio and any brand deals.
+> Find [UGC creators / influencers] for [brand, product] on [platform] who get views [under N followers], starting with people already posting about [brand], with their median views, the contact in their bio and any brand deals.
 
-The list is the deliverable, so build it as a sheet from the rows: in Google Sheets when it's connected, else the host's own sheet, else `creators-[brand].csv`. One row per creator, best fit first, and every cell short enough for one line, so the team can scan the sheet and work down it. A creator on two platforms gets the row with the higher typical views, the account Vamos's results view leads with, and the other goes in Why them ("also TikTok, 19.4K"):
+The list is the deliverable, so build it as a sheet from the rows: in Google Sheets when it's connected, else the host's own sheet, else `creators-[brand].csv`. One row per creator, best fit first, and every cell short enough for one line, so the team can scan the sheet and work down it. A creator on two platforms gets the row with the higher median views, the account Vamos's results view leads with, and the other goes in Why them ("also TikTok, 19.4K"):
 
 | Column | What goes in it |
 |---|---|
 | Creator | their name and @handle, linked to the profile |
 | Platform | TikTok, Instagram or YouTube |
 | Followers | as the row gives it |
-| Typical views | as the row gives it |
+| Median views | as the row gives it (its `typical_views`) |
 | Contact | the bio's email or link exactly as Vamos gave it, else "DM" |
 | Why them | up to 15 words: what they post, and any brand deal, marked "competitor" when it is one |
 | Draft DM | two sentences the user sends from their own account: something real from their posts, what [brand] is, and whether they'd make a paid video |

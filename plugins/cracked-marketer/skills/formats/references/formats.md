@@ -3,7 +3,7 @@
 ## The gate
 
 A format is ranked only when all of these hold; the rest go under More, each with its reason in a few words.
-- **Proof:** 3 or more unrelated creators at 5× their usual in 60 days, or its `status` is early or trending.
+- **Proof:** 3 or more unrelated creators with a 5× outlier in 60 days, or its `status` is early or trending.
 - **Examples that open:** at least one example links a post. A profile link is not an example.
 - **No hard clash with their limits:** before-and-after for a brand that rules it out. A face limit in Vamos settings is the team's: their creators show their own faces, so a face format ranks as one their creators film. A soft clash (a face format that also works with hands and product) ranks, with how to make it their way.
 - **Not marked Not for me or done** in Vamos settings.

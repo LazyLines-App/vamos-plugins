@@ -6,7 +6,7 @@
 rows.json is a Vamos poll answer (its data.videos), the data file a poll's json_url links to, or a list
 of rows. --board is any text holding the board: a post whose link or id is in it is already there.
 
-Keeps a post with views at the floor or over, 2x its creator's usual or more, 150 s or less, posted
+Keeps a post with views at the floor or over, a 2x outlier or more (outlier_score), 150 s or less, posted
 within 21 days of the day its numbers were read (counts_as_of; else --today; else today), not on the
 board. The same video on two platforms (one creator, lengths within 2 s) is one find: the one with more
 views stays. Labels, never drops: "unscored" (no multiple), "long" (over 80 s: its hook or topic only),
@@ -53,7 +53,7 @@ def main(argv):
         handle = (r.get("creator") or {}).get("handle") or ""
         why = (
             f"under {a.min_views:,} views" if views < a.min_views else
-            f"under {MIN_X:g}x its creator's usual" if x is not None and x < MIN_X else
+            f"under a {MIN_X:g}x outlier" if x is not None and x < MIN_X else
             f"over {MAX_SECONDS} s" if secs and secs > MAX_SECONDS else
             f"posted {days} days before the read, over {MAX_DAYS}" if days is not None and days > MAX_DAYS else
             "already on the board" if board and post_id(url) and re.search(r"(?<![\w-])" + re.escape(post_id(url)) + r"(?![\w-])", board) else ""

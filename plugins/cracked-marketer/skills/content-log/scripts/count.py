@@ -14,28 +14,28 @@ tags.json maps a post id (or url) to its tags, e.g.
 Length is tagged from the row. Standard library only.
 
 Creators the brand pays: tag each post made for the brand {"ours": true, "creator": "@handle",
-"hook": "the brief's hook it used"}, on the creator's account or the brand's. An ours post is judged
-against the usual of the account it posted on, even when tagged paid, and never counts toward that
-usual. pay.json holds each creator's deal from the creator program:
+"hook": "the brief's hook it used"}, on the creator's account or the brand's. An ours post gets its outlier score
+against the median of the account it posted on, even when tagged paid, and never counts toward that
+median. pay.json holds each creator's deal from the creator program:
 {"@handle": {"base": 60, "bonus": [[12600, 60], [42000, 120]], "due": 4, "sales": 3}},
 where bonus is [views reached, dollars added], due the videos agreed for the period, and sales (or
 signups) the user's own count from a code or link; a post's "paid" tag replaces the worked-out cost.
 A top-level "pool": 500 caps the bonuses, paid in posting order until it's spent.
 
-Prints, per account: the usual and what was set aside, each post since --since
-(default: 7 days before the read) with its multiple, "so far" or "too early", the hit
-rate, each tag counted against the misses, and with --ads the posts that pass
-the ad rule. The usual and every count rest on posts at least 7 days old, as Vamos's
-own usual does, because views still climb before then; a younger post that already
-beats the usual shows its multiple "so far" (it can only rise), and one that doesn't
-is too early.
+Prints, per account: the median views and what was set aside, each post since --since
+(default: 7 days before the read) with its outlier score ("5.2x outlier"), "so far" or
+"too early", the hit rate, each tag counted against the misses, and with --ads the posts
+that pass the ad rule. The median and every count rest on posts at least 7 days old, as
+Vamos's own median does, because views still climb before then; a younger post that
+already beats the median shows its outlier score "so far" (it can only rise), and one
+that doesn't is too early.
 """
 import argparse, json, math, os, re, statistics as st, sys
 from datetime import datetime, timedelta, timezone
 from urllib.request import Request, urlopen
 
 NAMES = {'tiktok': 'TikTok', 'youtube': 'YouTube', 'linkedin': 'LinkedIn'}
-SETTLED = 7  # days; Vamos's usual counts posts this old (Chat EARLY_COUNT_DAYS, Watchlist USUAL_SETTLED_DAYS)
+SETTLED = 7  # days; Vamos's median counts posts this old (Chat EARLY_COUNT_DAYS, Watchlist USUAL_SETTLED_DAYS)
 PAID = re.compile(r'#ad\b|#sponsored|paid partnership|\bsponsored\b|#partner', re.I)
 
 
@@ -124,7 +124,7 @@ def account(posts, tags, since, ads):
                     why = f"repost of {p['id']}"
                     break
         seen.append(r)
-        if not why and age < SETTLED:  # judged below, once the usual is known
+        if not why and age < SETTLED:  # judged below, once the median is known
             r['_young'], r['_aside'] = True, None
             young.append(r)
             continue
@@ -151,20 +151,20 @@ def account(posts, tags, since, ads):
     usual_cpk = st.median(cpk(r) for r in judged)
     for r in posts:
         r['_x'] = r['views'] / usual if usual else 0.0
-    print(f'  usual: {num(usual)} views, the median of {len(judged)} posts read on {posts[-1]["counts_as_of"][:10]}'
+    print(f'  median: {num(usual)} views, over {len(judged)} posts at least {SETTLED} days old, read on {posts[-1]["counts_as_of"][:10]}'
           + (' (thin: under 10 posts)' if len(judged) < 10 else ''))
     for r in aside:
         if not r['_aside'].startswith('too early'):
             print(f"  set aside: {r['id']} {num(r['views'])} views, {r['_aside']}")
     last = judged[-20:]
     xs = [r['_x'] for r in last]
-    print(f'  hit rate, last {len(last)}: {sum(x > 1 for x in xs)} above 1x, {sum(x > 2 for x in xs)} above 2x, median {st.median(xs):.1f}x')
-    print(f'  comments per 1,000 views: usual {usual_cpk:.2f}')
+    print(f'  hit rate, last {len(last)}: {sum(x > 1 for x in xs)} above 1x, {sum(x > 2 for x in xs)} above 2x, median {st.median(xs):.1f}x outlier')
+    print(f'  comments per 1,000 views: median {usual_cpk:.2f}')
     print(f'  since {since:%Y-%m-%d}:')
     for r in posts:
         if ts(r['posted_at']) < since:
             continue
-        state = r['_aside'] or f"{r['_x']:.1f}x" + (' so far' if r.get('_floor') else '')
+        state = r['_aside'] or f"{r['_x']:.1f}x outlier" + (' so far' if r.get('_floor') else '')
         mark = f" [ours, by {tag_of(tags, r).get('creator') or '?'}]" if r.get('_ours') else ''
         print(f"    {r['posted_at'][:10]} {r['id']}{mark} {num(r['views'])} views, {state}, {cpk(r):.1f} comments per 1,000, {r['_age']:.1f} days old | {(r.get('caption_head') or '')[:70]}")
     keys = sorted({k for t in tags.values() for k in t if k != 'intent'} | {'length'})
@@ -180,10 +180,10 @@ def account(posts, tags, since, ads):
         for v, rs in sorted(groups.items(), key=lambda kv: -st.median(r['_x'] for r in kv[1])):
             up = [r for r in rs if r['_x'] > 1]
             weeks = len({ts(r['posted_at']).isocalendar()[:2] for r in rs})
-            print(f"    {v}: {len(up)} of {len(rs)} above usual, median {st.median(r['_x'] for r in rs):.1f}x, from {weeks} week{'s' if weeks > 1 else ''}"
+            print(f"    {v}: {len(up)} of {len(rs)} above the median, median {st.median(r['_x'] for r in rs):.1f}x outlier, from {weeks} week{'s' if weeks > 1 else ''}"
                   + ('' if len(rs) >= 3 else ' (a Hunch: under 3 posts)'))
     if ads:
-        # Comments per 1,000 views fall as views grow (on 9 brand accounts, 11-12, a 5x post sat near 0.6x the usual rate),
+        # Comments per 1,000 views fall as views grow (on 9 brand accounts, 11-12, a 5x outlier sat near 0.6x the median rate),
         # so a breakout is held to the rate this account's posts of its size get: the line through log rate on log views.
         fit = [(math.log(r['views']), math.log(cpk(r))) for r in judged if r['views'] and cpk(r) > 0]
         mx, my = (st.mean(x for x, _ in fit), st.mean(y for _, y in fit)) if fit else (0, 0)
@@ -192,11 +192,11 @@ def account(posts, tags, since, ads):
             slope = sum((x - mx) * (y - my) for x, y in fit) / sxx
             expect, against = (lambda r: math.exp(my + slope * (math.log(r['views']) - mx))), 'what their posts that size get'
         else:
-            expect, against = (lambda r: usual_cpk), 'usual (under 10 posts with comments, too few to read by size)'
-        # a post under 7 days counts once it already beats the usual (its multiple can only rise)
+            expect, against = (lambda r: usual_cpk), 'the median (under 10 posts with comments, too few to read by size)'
+        # a post under 7 days counts once it already beats the median (its multiple can only rise)
         hits = [r for r in posts if (r in judged or (r.get('_floor') and not r.get('_ours'))) and ts(r['posted_at']) >= since and r['_x'] >= 5 and r['views'] >= 10000 and cpk(r) >= expect(r)]
-        print(f'  turn into an ad (5x or more, 10,000+ views, comments per 1,000 at or above {against}): '
-              + (', '.join(f"{r['id']} ({r['_x']:.1f}x{' so far' if r.get('_floor') else ''}, {num(r['views'])} views, {cpk(r):.1f} per 1,000 against {expect(r):.1f})" for r in hits) or 'none'))
+        print(f'  turn into an ad (a 5x outlier or more, 10,000+ views, comments per 1,000 at or above {against}): '
+              + (', '.join(f"{r['id']} ({r['_x']:.1f}x outlier{' so far' if r.get('_floor') else ''}, {num(r['views'])} views, {cpk(r):.1f} per 1,000 against {expect(r):.1f})" for r in hits) or 'none'))
 
 
 def band(r):
@@ -208,7 +208,7 @@ def band(r):
         return '1,000 to 10,000: people left before the product'
     if v >= 100000:
         return '100,000+: judge it on sales or signups'
-    return '10,000 to 100,000: judge it against the usual'
+    return '10,000 to 100,000: judge it against the median'
 
 
 def cost(r, deal, tag, pool):
@@ -242,7 +242,7 @@ def creators(rows, tags, pay):
         return
     who = lambda r: (tag_of(tags, r).get('creator') or '@' + handle_of(r)).lower()
     deals = {k.lower(): v for k, v in (pay or {}).items() if isinstance(v, dict)}
-    print("creators: the posts made for the brand, each against the usual of the account it posted on;"
+    print("creators: the posts made for the brand, each an outlier score against the median of the account it posted on;"
           " bonuses are worked out from the views at the read, so for a post past 7 days check its day-7 views")
     pool = (pay or {}).get('pool')
     if pool is not None:
@@ -271,9 +271,10 @@ def creators(rows, tags, pay):
                 state = r['_aside']
             elif usual:
                 judged.append(r)
-                state = f"{r['views'] / usual:.1f}x the usual of {num(usual)}" + (' so far' if r.get('_floor') else '' if r['views'] >= usual else f", {band(r)}")
+                state = (f"{r['views'] / usual:.1f}x outlier" + (' so far' if r.get('_floor') else '') + f" (median {num(usual)})"
+                         + ('' if r.get('_floor') or r['views'] >= usual else f", {band(r)}"))
             else:
-                state = 'no usual for this account'
+                state = 'no median for this account'
             boost = ', likes under 0.5%: views may include paid' if r.get('_boost') else ''
             label = '' if (r.get('paid_partnership') or PAID.search(r.get('caption_head') or '')) else ', no paid-partnership label in the row and no #ad in the caption read: check the post'
             sofar = ' so far' if r.get('_young') else ''
@@ -286,8 +287,8 @@ def creators(rows, tags, pay):
         line = f"    scorecard: {len(rs)} posted" + (f" of {due} due" if due else '')
         if xs:
             early = sum(1 for r in judged if r.get('_floor'))
-            line += (f", {sum(x > 1 for x in xs)} of {len(xs)} judged above usual" + (f" ({early} so far)" if early else '')
-                     + f", median {st.median(xs):.1f}x")
+            line += (f", {sum(x > 1 for x in xs)} of {len(xs)} judged above the median" + (f" ({early} so far)" if early else '')
+                     + f", median {st.median(xs):.1f}x outlier")
         if spent and views:
             line += f"; paid ${num(spent)} for {num(views)} views, ${spent / views * 1000:,.2f} per 1,000"
         for word in ('sales', 'signups'):
@@ -310,9 +311,9 @@ def creators(rows, tags, pay):
             up = [r for r in rs if not r['_aside'] and r.get('_usual') and r['views'] > r['_usual']]
             early = sum(1 for r in rs if r['_aside'])
             dead = len(rs) >= 5 and max(r['views'] for r in rs) < 10000
-            bx = '' if not best.get('_usual') else ', too early' if best['_aside'] else f", {best['views'] / best['_usual']:.1f}x{' so far' if best.get('_floor') else ''}"
+            bx = '' if not best.get('_usual') else ', too early' if best['_aside'] else f", {best['views'] / best['_usual']:.1f}x outlier{' so far' if best.get('_floor') else ''}"
             print(f"    \"{h}\": {len(rs)} tr{'y' if len(rs) == 1 else 'ies'} by {len({who(r) for r in rs})} creator{'s' if len({who(r) for r in rs}) > 1 else ''}, "
-                  f"{len(up)} above usual{f', {early} too early' if early else ''}, best {num(best['views'])}{bx} ({who(best)})"
+                  f"{len(up)} above the median{f', {early} too early' if early else ''}, best {num(best['views'])}{bx} ({who(best)})"
                   + (' DEAD: 5+ tries, none past 10,000' if dead else ''))
 
 

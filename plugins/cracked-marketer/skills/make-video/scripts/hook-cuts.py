@@ -214,7 +214,7 @@ def main():
             done = manifest[k - 1]['checks'] if k <= len(manifest) else 'not rendered yet'
             print(f"| {k} | {c['line']} | {os.path.splitext(os.path.basename(c['opening']))[0]} | {src} | {mult} | {done} |")
         print('NEXT: content-log, once the posts are 7 days old, puts each cut\'s multiple in its Hooks-tab row '
-              '(a cut already past the usual shows as "so far" sooner; Result "test: same demo, the hook changes"); '
+              '(a cut already past the median shows as "so far" sooner; Result "test: same demo, the hook changes"); '
               'the next ten lines start from the winner.')
         sys.exit(1 if failed else 0)
     finally:

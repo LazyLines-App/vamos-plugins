@@ -21,7 +21,7 @@ Published deals, each with whose it is and when. They're their claims, not facts
 
 | Model | Suits | Risk | Needs |
 |---|---|---|---|
-| **Base per video + first-week bonus at multiples of the creator's usual, capped** (our default) | Posts on creators' own accounts, any product | Bonus spend you can't tie to sales | Their usual from their last 30 posts; views read at day 7 |
+| **Base per video + first-week bonus at multiples of the creator's median views, capped** (our default) | Posts on creators' own accounts, any product | Bonus spend you can't tie to sales | Their median from their last 30 posts; views read at day 7 |
 | Flat per video | Ad files, no posting; a first paid test | Pays the same for a flop | A clear brief and one revision round |
 | Per video past a view floor (Lawton) | Many small creators, apps | New accounts miss the floor at first | Views read at a set day |
 | Commission or a share of sales on top | A product sold online with tracked links or codes | Creators push back on commission alone ("MOST OF IT IS COMMISSION BASED IM NOT DOING THAT", 43 likes) | A code or link per creator |

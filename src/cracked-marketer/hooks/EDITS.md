@@ -5,11 +5,11 @@ Each edit below is Content System's words in `plugins/vamos/skills/hooks`, then 
 A brand writes hooks for its ads as well as its posts, so the proven lines include the opening lines of the Meta ads its category keeps paying to run, and a hook a creator will film goes to a brief.
 
 ~~~old SKILL.md
-built from real hooks that beat their creators' usual in that format, niche and kind of product. Also
+built from real hooks that beat their creators' median views in that format, niche and kind of product. Also
 ~~~
 
 ~~~new
-built from real hooks that beat their creators' usual in that format, niche and kind of product, and from the opening lines of the Meta ads your category keeps running. Also
+built from real hooks that beat their creators' median views in that format, niche and kind of product, and from the opening lines of the Meta ads your category keeps running. Also
 ~~~
 
 ~~~old SKILL.md

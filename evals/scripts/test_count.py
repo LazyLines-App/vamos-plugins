@@ -52,8 +52,8 @@ class CountDownload(unittest.TestCase):
     def test_link_downloads_past_the_user_agent_check(self):
         out = self.run_count(self.base + '/data/rows.json?e=1&s=2')
         self.assertEqual(out.returncode, 0, out.stderr)
-        self.assertIn('usual: 37,629.5 views, the median of 30 posts', out.stdout)
-        self.assertRegex(out.stdout, r'16\.3\s?x so far')
+        self.assertIn('median: 37,629.5 views, over 30 posts at least 7 days old', out.stdout)
+        self.assertRegex(out.stdout, r'16\.3\s?x outlier so far')
 
     def test_failed_download_says_what_to_do_in_one_line(self):
         out = self.run_count(self.base + '/data/missing.json')
@@ -71,14 +71,14 @@ def row(handle, i, day, views, likes=None, paid=False, caption='a post'):
 
 
 class CreatorResults(unittest.TestCase):
-    """Creators the brand pays: their posts for the brand are judged against the account's own usual, never part of it."""
+    """Creators the brand pays: their posts for the brand are judged against the account's own median, never part of it."""
 
     @classmethod
     def setUpClass(cls):
         import tempfile
         d = tempfile.mkdtemp()
-        own = [row('maker', i, f'10-{10 + i:02d}', 1000 * (i + 1)) for i in range(11)]  # usual 6,000
-        brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # usual 20,000
+        own = [row('maker', i, f'10-{10 + i:02d}', 1000 * (i + 1)) for i in range(11)]  # median 6,000
+        brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # median 20,000
         ours = [row('maker', 20, '11-03', 30000, paid=True, caption='#ad trying Potly'),  # 5x, tagged paid
                 row('maker', 21, '11-04', 900, likes=2, paid=True, caption='#ad Potly'),  # 7 days: settled; under 1,000, likes 0.2%
                 row('maker', 22, '11-10', 4000, paid=True),                              # too early
@@ -101,20 +101,20 @@ class CreatorResults(unittest.TestCase):
     def test_runs(self):
         self.assertEqual(self.out.returncode, 0, self.out.stderr)
 
-    def test_usual_leaves_out_the_posts_for_the_brand(self):
-        self.assertIn('usual: 6,000 views, the median of 11 posts', self.out.stdout)
-        self.assertIn('usual: 20,000 views, the median of 10 posts', self.out.stdout)
+    def test_median_leaves_out_the_posts_for_the_brand(self):
+        self.assertIn('median: 6,000 views, over 11 posts at least 7 days old', self.out.stdout)
+        self.assertIn('median: 20,000 views, over 10 posts at least 7 days old', self.out.stdout)
 
     def test_a_paid_post_for_the_brand_is_judged_not_set_aside(self):
-        self.assertRegex(self.out.stdout, r'maker20 on @maker: 30,000 views, 5\.0x the usual of 6,000')
+        self.assertRegex(self.out.stdout, r'maker20 on @maker: 30,000 views, 5\.0x outlier \(median 6,000\)')
         self.assertNotIn('maker20 30,000 views, tagged paid', self.out.stdout)
 
-    def test_the_brand_account_post_is_against_the_brand_usual(self):
-        self.assertRegex(self.out.stdout, r'brand23 on @brand: 10,000 views, 0\.5x the usual of 20,000')
+    def test_the_brand_account_post_is_against_the_brand_median(self):
+        self.assertRegex(self.out.stdout, r'brand23 on @brand: 10,000 views, 0\.5x outlier \(median 20,000\), 10,000 to 100,000: judge it against the median')
         self.assertRegex(self.out.stdout, r'brand23[^\n]*no paid-partnership label in the row')
 
-    def test_a_young_post_above_the_usual_is_judged_so_far(self):
-        self.assertRegex(self.out.stdout, r'brand24 on @brand: 50,000 views, 2\.5x the usual of 20,000 so far')
+    def test_a_young_post_above_the_median_is_judged_so_far(self):
+        self.assertRegex(self.out.stdout, r'brand24 on @brand: 50,000 views, 2\.5x outlier so far \(median 20,000\),')
         self.assertRegex(self.out.stdout, r'maker22 on @maker: 4,000 views, too early \(under 7 days\)')
 
     def test_cost_from_the_deal(self):
@@ -125,13 +125,13 @@ class CreatorResults(unittest.TestCase):
         self.assertRegex(self.out.stdout, r'maker21[^\n]*under 1,000: the opening failed[^\n]*likes under 0\.5%')
 
     def test_scorecard(self):
-        self.assertRegex(self.out.stdout, r'scorecard: 3 posted of 4 due, 1 of 2 judged above usual[^\n]*paid \$240 for 34,900 views, \$6\.88 per 1,000; 6 sales from your numbers, \$40\.00 each')
+        self.assertRegex(self.out.stdout, r'scorecard: 3 posted of 4 due, 1 of 2 judged above the median, median [\d.]+x outlier[^\n]*paid \$240 for 34,900 views, \$6\.88 per 1,000; 6 sales from your numbers, \$40\.00 each')
         self.assertIn('@nobody:\n    scorecard: 0 posted of 2 due', self.out.stdout)
-        self.assertRegex(self.out.stdout, r'scorecard: 2 posted, 1 of 2 judged above usual \(1 so far\)')
+        self.assertRegex(self.out.stdout, r'scorecard: 2 posted, 1 of 2 judged above the median \(1 so far\)')
 
     def test_hooks_pooled_across_creators(self):
-        self.assertIn('"Payday in nine minutes": 3 tries by 2 creators, 1 above usual, 1 too early, best 30,000, 5.0x (@maker)', self.out.stdout)
-        self.assertIn('"Day ten and not broke": 2 tries by 2 creators, 1 above usual, best 50,000, 2.5x so far (@lee)', self.out.stdout)
+        self.assertIn('"Payday in nine minutes": 3 tries by 2 creators, 1 above the median, 1 too early, best 30,000, 5.0x outlier (@maker)', self.out.stdout)
+        self.assertIn('"Day ten and not broke": 2 tries by 2 creators, 1 above the median, best 50,000, 2.5x outlier so far (@lee)', self.out.stdout)
 
 class CreatorEdges(unittest.TestCase):
     """Share links, a post before --since, a capped bonus pool, an unmatched link, hooks ranked by multiple."""
@@ -140,8 +140,8 @@ class CreatorEdges(unittest.TestCase):
     def setUpClass(cls):
         import tempfile
         d = tempfile.mkdtemp()
-        own = [row('maker', i, f'10-{10 + i:02d}', 1000 * (i + 1)) for i in range(11)]  # usual 6,000
-        brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # usual 20,000
+        own = [row('maker', i, f'10-{10 + i:02d}', 1000 * (i + 1)) for i in range(11)]  # median 6,000
+        brand = [row('brand', i, f'10-{10 + i:02d}', 20000) for i in range(10)]          # median 20,000
         ours = [row('maker', 30, '10-25', 12000, caption='#ad'),                          # 2.0x, before --since
                 row('maker', 32, '11-04', 25000, caption='#ad'),                          # 4.2x
                 row('brand', 31, '11-04', 18000, caption='#ad')]                          # 0.9x on the brand's account
@@ -158,8 +158,8 @@ class CreatorEdges(unittest.TestCase):
                                  capture_output=True, text=True, timeout=60).stdout
 
     def test_a_share_link_before_the_period_still_counts(self):
-        self.assertRegex(self.out, r'maker30 on @maker: 12,000 views, 2\.0x the usual of 6,000')
-        self.assertIn('usual: 6,000 views, the median of 11 posts', self.out)
+        self.assertRegex(self.out, r'maker30 on @maker: 12,000 views, 2\.0x outlier \(median 6,000\)')
+        self.assertIn('median: 6,000 views, over 11 posts at least 7 days old', self.out)
 
     def test_the_pool_caps_the_bonuses_in_posting_order(self):
         self.assertIn('bonus pool $150: the tiers reached add $300, $150 past the pool', self.out)
@@ -171,7 +171,7 @@ class CreatorEdges(unittest.TestCase):
         self.assertIn('tags that match no row', self.out)
         self.assertIn('ZMabc', self.out)
 
-    def test_hooks_rank_by_beating_the_usual_not_raw_views(self):
+    def test_hooks_rank_by_beating_the_median_not_raw_views(self):
         c, b, a = (self.out.index(f'    "{h}":') for h in 'CBA')
         self.assertLess(c, b)
         self.assertLess(b, a)
@@ -179,7 +179,7 @@ class CreatorEdges(unittest.TestCase):
 
 class AdRule(unittest.TestCase):
     """--ads holds a breakout to the comment rate of the account's posts its size, since that rate falls as views grow.
-    On 10 brand accounts (11-12) the old test, the account's plain usual rate, passed 14 breakouts and the new one 32."""
+    On 10 brand accounts (11-12) the old test, the account's plain median rate, passed 14 breakouts and the new one 32."""
 
     def rows(self, path):
         rows = []
@@ -205,23 +205,23 @@ class AdRule(unittest.TestCase):
                                  capture_output=True, text=True, timeout=60).stdout
         line = next(l for l in out.splitlines() if 'turn into an ad' in l)
         self.assertIn('what their posts that size get', line)
-        self.assertIn(' sells (', line)  # 2.0 per 1,000: under the usual 3.1, above the 1.2 its size gets
+        self.assertIn(' sells (', line)  # 2.0 per 1,000: under the median 3.1, above the 1.2 its size gets
         self.assertNotIn('only-reach', line)
-        self.assertRegex(line, r'young-sells \(\d+\.\dx so far, 100,000 views')  # under 7 days but past 5x already: its multiple can only rise
+        self.assertRegex(line, r'young-sells \(\d+\.\dx outlier so far, 100,000 views')  # under 7 days but past 5x already: its multiple can only rise
 
 
 class SevenDays(unittest.TestCase):
-    """The usual counts posts at least 7 days old, as Vamos's own usual does. A younger post is "so far" once it beats
-    the usual and too early under it; reposts and boosts are set aside at any age; a hook whose tries are all too early
+    """The median counts posts at least 7 days old, as Vamos's own median does. A younger post is "so far" once it beats
+    the median and too early under it; reposts and boosts are set aside at any age; a hook whose tries are all too early
     shows no multiple."""
 
     @classmethod
     def setUpClass(cls):
         import tempfile
         d = tempfile.mkdtemp()
-        rows = [row('acct', i, f'10-{10 + i:02d}', 1000 * (i + 1), caption=f'post {i}') for i in range(11)]  # usual 6,000
-        rows += [row('acct', 20, '11-06', 5900, caption='five days, under the usual'),
-                 dict(row('acct', 21, '11-07', 9000), caption_head='post 3 3', duration_seconds=34),  # 4 days, beats the usual, but a repost of acct3
+        rows = [row('acct', i, f'10-{10 + i:02d}', 1000 * (i + 1), caption=f'post {i}') for i in range(11)]  # median 6,000
+        rows += [row('acct', 20, '11-06', 5900, caption='five days, under the median'),
+                 dict(row('acct', 21, '11-07', 9000), caption_head='post 3 3', duration_seconds=34),  # 4 days, beats the median, but a repost of acct3
                  row('acct', 22, '11-08', 40000, likes=100, caption='three days, boosted'),
                  row('acct', 23, '11-09', 18000, caption='two days, 3x so far')]
         tags = {'acct20': {'ours': True, 'creator': '@c', 'hook': 'H'}, 'acct23': {'hook': 'H'}}
@@ -231,12 +231,12 @@ class SevenDays(unittest.TestCase):
         cls.out = subprocess.run([sys.executable, '-I', COUNT, os.path.join(d, 'rows.json'), '--since', '2026-11-01',
                                   '--tags', os.path.join(d, 'tags.json')], capture_output=True, text=True, timeout=60).stdout
 
-    def test_the_usual_rests_on_settled_posts_only(self):
-        self.assertIn('usual: 6,000 views, the median of 11 posts', self.out)
+    def test_the_median_rests_on_settled_posts_only(self):
+        self.assertIn('median: 6,000 views, over 11 posts at least 7 days old', self.out)
         self.assertIn('hit rate, last 11:', self.out)
 
     def test_young_posts_by_the_floor_rule(self):
-        self.assertRegex(self.out, r'acct23 18,000 views, 3\.0x so far')
+        self.assertRegex(self.out, r'acct23 18,000 views, 3\.0x outlier so far')
         self.assertRegex(self.out, r'acct20 \[ours, by @c\] 5,900 views, too early \(under 7 days\)')
 
     def test_reposts_and_boosts_are_set_aside_at_any_age(self):
@@ -244,7 +244,7 @@ class SevenDays(unittest.TestCase):
         self.assertIn('set aside: acct22 40,000 views, likely boosted (0.25% likes)', self.out)
 
     def test_a_hook_with_every_try_too_early_shows_no_multiple(self):
-        self.assertIn('"H": 1 try by 1 creator, 0 above usual, 1 too early, best 5,900, too early (@c)', self.out)
+        self.assertIn('"H": 1 try by 1 creator, 0 above the median, 1 too early, best 5,900, too early (@c)', self.out)
 
 
 if __name__ == '__main__':

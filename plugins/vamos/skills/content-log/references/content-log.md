@@ -3,18 +3,18 @@
 ## The numbers
 
 `scripts/count.py` does all of these from the rows. By hand, the rules are:
-- **Usual:** the median views of their posts at least 7 days old, per account and platform, since views still climb before then. Set aside, each with a line: boosts (likes under 0.5% of views, or tagged paid) and reposts (the same caption within 2 s of the same length as an earlier post). A re-cut counts. A creator's posts are against that creator's usual.
-- **× usual** for each post, with its age when read. A post under 7 days that already beats the usual is "N× so far" and can go on Repeat or the ad list; one that doesn't is "too early". Neither counts toward the hit rate, a pattern or a lesson until it's 7 days old.
-- **Hit rate:** the share of their last 20 judged posts above 1× and above 2×, and the median ×. One row a week on the Reviews tab, so it shows as a line over time.
+- **Median:** the median views of their posts at least 7 days old, per account and platform, since views still climb before then. Set aside, each with a line: boosts (likes under 0.5% of views, or tagged paid) and reposts (the same caption within 2 s of the same length as an earlier post). A re-cut counts. A creator's posts are against that creator's median.
+- **Outlier score** for each post, its views over the median ("N× outlier"), with its age when read. A post under 7 days that already beats the median is "N× outlier so far" and can go on Repeat or the ad list; one that doesn't is "too early". Neither counts toward the hit rate, a pattern or a lesson until it's 7 days old.
+- **Hit rate:** the share of their last 20 judged posts above a 1× and a 2× outlier, and the median outlier score. One row a week on the Reviews tab, so it shows as a line over time.
 - **Private numbers** (saves, reach, watch time, profile visits, link clicks): only what an Insights screenshot shows, marked "from your screenshot" with its date.
 
 ## Each post on its job
 
-Each post's stage (reach, trust, buy) comes from the Marketing plan, and it's judged on that stage's number against posts of the same stage: reach on × usual; trust on saves and shares per 1,000 views; buy on profile visits, link clicks and buying-intent comments per 1,000 views. Without a screenshot, trust posts are judged on shares and buy posts on comments; say so in one line.
+Each post's stage (reach, trust, buy) comes from the Marketing plan, and it's judged on that stage's number against posts of the same stage: reach on its outlier score; trust on saves and shares per 1,000 views; buy on profile visits, link clicks and buying-intent comments per 1,000 views. Without a screenshot, trust posts are judged on shares and buy posts on comments; say so in one line.
 
 ## The patterns
 
-Tag every post on its hook shape ("Claude just killed [X]", a number first, a question), format, angle (the idea underneath, in four words), first frame (a face, text, the product, a result), stage and creator; `count.py` adds length. Each pattern reads "N of M above usual, median ×, against N of M under it", over posts at least 7 days old; a younger one is named beside it as pending, never as a miss. Under 3 posts is a Hunch.
+Tag every post on its hook shape ("Claude just killed [X]", a number first, a question), format, angle (the idea underneath, in four words), first frame (a face, text, the product, a result), stage and creator; `count.py` adds length. Each pattern reads "N of M above the median, median N× outlier, against N of M under it", over posts at least 7 days old; a younger one is named beside it as pending, never as a miss. Under 3 posts is a Hunch.
 
 ## The report, in order
 
@@ -38,4 +38,4 @@ One row per lesson on the board's Lessons tab: the lesson with its numbers, the 
 
 ## What works for me
 
-After each review, rewrite the Brain file from the Confirmed and Testing lessons, under about 400 words: their usual and hit rate with dates, what to make more of, what to stop, what's being tested.
+After each review, rewrite the Brain file from the Confirmed and Testing lessons, under about 400 words: their median views and hit rate with dates, what to make more of, what to stop, what's being tested.

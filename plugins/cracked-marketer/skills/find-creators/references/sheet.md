@@ -1,6 +1,6 @@
 # The creator sheet
 
-One row per creator, Main list first, best fit first, then Near miss. A creator on two platforms gets the row with the higher usual views, the account Vamos's results view leads with, and the other goes in why they fit ("also TikTok, 19.4K"). In Google Sheets, Main and Near miss are two tabs; in a CSV, the `list` column holds which.
+One row per creator, Main list first, best fit first, then Near miss. A creator on two platforms gets the row with the higher median views, the account Vamos's results view leads with, and the other goes in why they fit ("also TikTok, 19.4K"). In Google Sheets, Main and Near miss are two tabs; in a CSV, the `list` column holds which.
 
 | Column | What goes in it |
 |---|---|
@@ -9,7 +9,7 @@ One row per creator, Main list first, best fit first, then Near miss. A creator 
 | platform | TikTok, Instagram or YouTube |
 | tier | small (under 10K followers), mid (10K to 100K), big (over 100K) |
 | followers | as Vamos gave it |
-| usual views | Vamos's figure, as given ("not computed" when Vamos said so) |
+| median views | Vamos's figure, as given ("not computed" when Vamos said so) |
 | country | as Vamos gave it |
 | on topic | "4 of 6", or "not checked" |
 | talks to camera | "5 of 6", or "not checked" |
@@ -18,7 +18,7 @@ One row per creator, Main list first, best fit first, then Near miss. A creator 
 | contact | the bio email exactly as Vamos gave it; else the link in bio; else DM |
 | contact source | bio, link in bio, contact button (Apify), or none |
 | outreach | Email, Instagram DM, or DM first (EU and UK creators, since cold email to a personal address is weak ground under GDPR) |
-| best recent post | its multiple and date as Vamos gave them, and the days since it, counted in code. At 5× their usual or more it's a breakout, and within 14 days of one a creator is worth messaging soon (our guess, not measured) |
+| best recent post | its multiple and date as Vamos gave them, and the days since it, counted in code. At a 5× outlier or more it's a breakout, and within 14 days of one a creator is worth messaging soon (our guess, not measured) |
 | found as | posting about the brand, posted for a competitor, works with 2+ brands, breakout, or lookalike |
 | why they fit | Vamos's reason, short |
 | first message | below |

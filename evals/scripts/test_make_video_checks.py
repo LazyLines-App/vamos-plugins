@@ -64,7 +64,7 @@ class MakeVideoChecks(unittest.TestCase):
         # a typed ask on a flat colour is a cover too, even when a busy screen lands right after it
         typed = self.path('typed.mp4')
         ff('-i', scene, '-vf', "drawbox=c=white:t=fill:enable='lt(t,0.4)',"
-           "drawtext=text='Find me hooks beating their usual':fontsize=44:x=120:y=900:fontcolor=black:enable='lt(t,0.4)'",
+           "drawtext=text='Find me the outlier hooks':fontsize=44:x=120:y=900:fontcolor=black:enable='lt(t,0.4)'",
            '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'copy', typed)
         self.assertNotIn('DEFECT frame 0', check_video(typed))
 
@@ -121,8 +121,8 @@ class MakeVideoChecks(unittest.TestCase):
     def test_captions_break_at_phrases(self):
         """No caption ends on a word that needs the next one ('are', 'their', 'can', 'the')."""
         text = ("Most hooks you scroll past are guesses. The ones that work can be measured. Vamos compares each "
-                "video's views with its creator's usual, and finds the videos in your niche that did twenty or "
-                "thirty times their creator's usual.")
+                "video's views with its creator's median, and finds the videos in your niche that did twenty or "
+                "thirty times their creator's median.")
         out = captions.cues(captions.phrases(captions.display_words(words(text), text)))
         for q in out:
             last = q['text'].split()[-1]
@@ -134,8 +134,8 @@ class MakeVideoChecks(unittest.TestCase):
         for q in captions.cues(captions.phrases(captions.display_words(words(text), text), max_words=3)):
             last = q['text'].split()[-1]
             self.assertFalse(captions.bare(last) in captions.NEEDS_NEXT and not captions.ends_phrase(last), q['text'])
-        # a pause after a little word ("her ... usual") is not a place to break
-        w = words('This skincare hook did thirty times her usual.')
+        # a pause after a little word ("her ... median") is not a place to break
+        w = words('This skincare hook did thirty times her median.')
         for x in w[-1:]:
             x['start'] += 0.5
             x['end'] += 0.5

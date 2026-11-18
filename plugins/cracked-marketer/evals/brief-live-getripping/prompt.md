@@ -1,5 +1,5 @@
 ---
-description: "Live run 2026-11-11 on vamos-demo (demo1, test brand RIP, @getripping), saved as this case's mocks: one research turn, 9 credits. Two creators briefed on the idea Levi's judge marked good in the ideas live run: 'Launched, zero users? Make these 3 videos first.', from @prachinskillsdesign's no-face reel (54,556 views, about 32x its usual). The poll keeps 20 of the 200 rows read (the 3 cited, then the 17 highest outlier scores). The prompt names no weekday: the old ones were 2025's, and briefs copied a date that contradicted itself."
+description: "Live run 2026-11-11 on vamos-demo (demo1, test brand RIP, @getripping), saved as this case's mocks: one research turn, 9 credits. Two creators briefed on the idea Levi's judge marked good in the ideas live run: 'Launched, zero users? Make these 3 videos first.', from @prachinskillsdesign's no-face reel (54,556 views, about a 32x outlier). The poll keeps 20 of the 200 rows read (the 3 cited, then the 17 highest outlier scores). The prompt names no weekday: the old ones were 2025's, and briefs copied a date that contradicted itself."
 tags: [brief, app, instagram, live]
 runs: 1
 model: sonnet
