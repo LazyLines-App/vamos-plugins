@@ -35,7 +35,7 @@ Needs the idea and the format: take them from the board, the formats reply or th
 From the board, take the idea's row and the Hooks tab: Hook, On screen, Format, Niche, Shape, Source (link, views, multiple, date read), Added, Result. The Hooks tab is the user's hook database.
 
 **2. Proven hooks.** When the Hooks tab has 10 or more proven hooks (Source a post, not an idea) from the last 14 days in their niche, write from those and spend nothing. Otherwise ask Vamos once, with `include_data: true`:
-> For [brand], which sells [what they sell] in [niche], on [platforms]: the 30 most-viewed outlier hooks of the last 90 days (above their creator's median views), from [format] posts made for [their buyer] in my niche or any niche that sells to the same buyer, then any format in my niche. Rank by views and give each one's outlier score. Leave out paid partnerships, and give only the posts' own first lines, none written for me. Give each one: the first line word for word, the text on screen in the first frame, what's shown, the format, the niche, views, the multiple, the link and the date.
+> For [brand], which sells [what they sell] in [niche], on [platforms]: the 30 most-viewed hooks of the last 90 days above their creator's median views, from [format] posts made for [their buyer] in my niche or any niche that sells to the same buyer, then any format in my niche. Rank by views and give each one's outlier score. Leave out paid partnerships, and give only the posts' own first lines, none written for me. Give each one: the first line word for word, the text on screen in the first frame, what's shown, the format, the niche, views, the multiple, the link and the date.
 
 The words are in the answer's text; the views and links are in its rows.
 

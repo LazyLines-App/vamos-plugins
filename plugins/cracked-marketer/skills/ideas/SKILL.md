@@ -53,7 +53,7 @@ When they ask about one competitor's comments or ads, send only that, naming the
 > For [brand], [what they sell] to [who], on [platforms]: is each of these worth posting? [their ideas, numbered]. For each, read lookalikes on its topic and format (the format in any niche), each against its creator's median views: how many you read, how many beat their median, and the best 3 and the worst 3 by outlier score, linked.
 
 Each idea gets a verdict from both sides, in Vamos's own counts, and "too few to judge" under 3 lookalikes:
-> **1. Sourdough starter mistakes: worth making.** 5 of 8 lookalikes beat their creator's median. Best outliers: [@a](link) 22×, [@b](link) 9×, [@c](link) 4×. Worst: [@d](link) 0.4×, [@e](link) 0.6×, [@f](link) 0.9×.
+> **1. Sourdough starter mistakes: worth making.** 5 of 8 lookalikes beat their creator's median. Best: [@a](link) 22× outlier, [@b](link) 9×, [@c](link) 4×. Worst: [@d](link) 0.4× outlier, [@e](link) 0.6×, [@f](link) 0.9×.
 
 Then check it against the bar in [references/ideas.md](references/ideas.md), their calls and the board, say plainly which is worth making and why, and give the best ways to make it theirs.
 
