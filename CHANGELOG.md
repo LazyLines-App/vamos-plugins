@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## vamos 0.2.25
+- formats checks its draft against `price.py` before it sends it. A live demo1 run (AI tools for creators, 2026-11-20) retyped two of its 192 week lines: "1/37" under On Camera Test, and a next-door niche's "0/1" under Voiceover Hook Demo's business week, where the rows say 0/37 for both. Step 5 now runs `price.py` once with every ranked card's id in card order, writes the draft to `reply.md` and runs the same command with `--check reply.md`, which finds each card's block by its numbers and charts (translated labels pass), names every changed or missing line and prints the block to put back. Six script tests (the live run's two lines among them) and the case `formats-price-check-ai-tools`, a real mock from that run.
+
+## cracked-marketer 0.2.23
+- The shared formats draft check above.
+
 ## vamos 0.2.24
 - A post's multiple of its account's median views is its outlier score, written "N× outlier", and the baseline is the median, never "usual" (Levi, 2026-11-18). A live analyze answer said "That's 6.9× the account's usual of 868,629"; it now reads "got 5,974,383 views, a 6.9× outlier: the account's median is 868,629 (its 33 Reels at least 7 days old among the last 40)". Under 1× is "0.4× outlier" or "under the median". The shared Numbers rule, analyze, playbook, content-log (its `count.py` prints "median:" and "N.Nx outlier"), ideas (its Vamos asks are for the biggest outliers; `filter.py` says "under a 2x outlier"), hooks, formats, setup, the board's Reviews row and the READMEs all say it, and the skills say it even where Vamos's answer says "usual". creator-research's sheet column is Median views (was Typical views). Graders named usual-by-the-rule are median-by-the-rule and expect "median" beside the number; analyze-video-instagram-getripping, analyze-video-tiktok-chloejp and content-log-week-opusjake get `says-outlier` and `never-usual`.
 

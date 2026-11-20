@@ -4,6 +4,7 @@ import json
 import pathlib
 import subprocess
 import sys
+import tempfile
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -167,6 +168,69 @@ class FormatPrice(unittest.TestCase):
         empty = next(n for f in summary['formats'] if f['name'] == 'Meme Cut'
                      for n in f['niches'] if n['role'] == 'yours')['summary']
         self.assertEqual((empty['posts'], empty['median_views'], empty['views_posts']), (0, None, 0))
+
+    def test_check_passes_a_faithful_reply_and_translated_labels(self):
+        summary = PRICE.summarise(data(row(), row(week_start='2026-10-19', median_views=400000)))
+        block = PRICE.to_markdown(summary, compact=True)
+        reply = f"**1. Action Label Montage** · Rising\nWhy it's first.\n\n{block}\n\n> **Made:** 1 format · **Credits:** 21 used"
+        self.assertEqual(PRICE.check(summary, reply, ['f1'], compact=True), [])
+        german = block.replace('library posts', 'Bibliotheksbeiträge').replace('200,000.5', '200.000,5')
+        self.assertEqual(PRICE.check(summary, german, ['f1'], compact=True), [])
+
+    def test_check_names_a_changed_count_and_hands_back_the_block(self):
+        summary = PRICE.summarise(data(row(), row(week_start='2026-10-19')))
+        block = PRICE.to_markdown(summary, compact=True)
+        problems = PRICE.check(summary, block.replace('2/40 library posts', '1/40 library posts', 1), ['f1'], compact=True)
+        self.assertEqual([p['kind'] for p in problems], ['changed'])
+        self.assertIn('2/40', problems[0]['lines'][0][0])
+        self.assertIn('1/40', problems[0]['lines'][0][1])
+        self.assertIn('Put the block back', PRICE.check_report(problems, 1))
+
+    def test_check_finds_a_missing_block(self):
+        summary = PRICE.summarise(data(row()))
+        problems = PRICE.check(summary, '**1. Action Label Montage** · Rising\nNo measurements here.', ['f1'], compact=True)
+        self.assertEqual([p['kind'] for p in problems], ['missing'])
+
+    def test_check_reads_identical_blocks_in_card_order(self):
+        source = {'schema_version': 1,
+                  'formats': [{'format_id': 'f1', 'name': 'One'}, {'format_id': 'f2', 'name': 'Two'}],
+                  'format_weeks': [row(posts=0, median_views=None, views_posts=0, median_multiple=None,
+                                       multiple_posts=0, views_age_days=None, share=0, format_id=f, name=n)
+                                   for f, n in (('f1', 'One'), ('f2', 'Two'))]}
+        summary = PRICE.summarise(source)
+        one = '\n'.join(PRICE.format_lines(summary['formats'][0], compact=True))
+        self.assertEqual([p['kind'] for p in PRICE.check(summary, one, ['f1', 'f2'], compact=True)], ['missing'])
+        self.assertEqual(PRICE.check(summary, one + '\n' + one, ['f1', 'f2'], compact=True), [])
+
+    def test_check_catches_the_live_run_s_two_retyped_lines(self):
+        source = json.loads((ROOT / 'evals/scripts/fixtures/format-weeks-ai-tools-1120.json').read_text())
+        reply = (ROOT / 'evals/scripts/fixtures/format-weeks-ai-tools-1120-reply.md').read_text()
+        order = ['ed2fc306-517b-404f-affc-fb6d99b1b647', '8d2732d9-5add-4360-98bb-2cfa33a09381',
+                 'bbfb403e-eb07-46d6-86b1-c46501ea6b17', '75442f66-7bd1-4714-b20a-be483ccaef56',
+                 '8fa0bc9d-0ea3-482d-b527-952ffc3e1c9b', 'd88e0316-acf7-40fc-9ada-8816231d48c1',
+                 '18892ea3-1b0d-4002-87a0-346fa371a9d0', 'e3decb76-15ea-45db-bb52-571d56b31435']
+        summary = PRICE.summarise(source, set(order))
+        problems = PRICE.check(summary, reply, order, compact=True)
+        self.assertEqual([(p['name'], p['kind']) for p in problems],
+                         [('On Camera Test', 'changed'), ('Voiceover Hook Demo', 'changed')])
+        self.assertEqual([(e.strip(), s.strip()) for p in problems for e, s in p['lines']],
+                         [('- 2026-11-16: 0/37 library posts; too new; not measured.',
+                           '- 2026-11-16: 1/37 library posts; too new; not measured.'),
+                          ('- 2026-11-16: 0/37 library posts; too new; not measured.',
+                           '- 2026-11-16: 0/1 library posts; too new; not measured.')])
+
+    def test_check_cli_exits_one_until_the_reply_matches(self):
+        summary_source = data(row())
+        with tempfile.TemporaryDirectory() as folder:
+            rows_path = pathlib.Path(folder, 'rows.json')
+            rows_path.write_text(json.dumps(summary_source))
+            reply_path = pathlib.Path(folder, 'reply.md')
+            block = PRICE.to_markdown(PRICE.summarise(summary_source), compact=True)
+            for text, code in ((block.replace('2/40', '3/40'), 1), (block, 0)):
+                reply_path.write_text(text)
+                run = subprocess.run([sys.executable, str(SCRIPT), str(rows_path), '--compact', '--format-id', 'f1',
+                                      '--check', str(reply_path)], capture_output=True, text=True)
+                self.assertEqual(run.returncode, code, run.stdout + run.stderr)
 
     def test_boolean_schema_version_is_not_the_number_one(self):
         source = data(row())
