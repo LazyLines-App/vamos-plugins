@@ -155,51 +155,118 @@ def spark(values):
 
 def to_markdown(summary, compact=False):
     """Render measured library supply and views without changing the format recommendation order."""
-    sections = []
-    for item in summary['formats']:
-        lines = [f"## {markdown(item['name'])}"]
-        for niche in item['niches']:
-            role = 'yours' if niche['role'] == 'yours' else 'next door'
-            lines.extend(['', f"### {markdown(niche['niche'].replace('_', ' '))} · {role}", '', 'Views are the latest stored counts, not a measurement at seven days.'])
-            pooled = niche['summary']
-            if pooled:
-                share = 'not measured' if pooled['share'] is None else f"{pooled['share'] * 100:g}%"
-                lines.append(f"{pooled['weeks']} readable weeks: {pooled['posts']:,}/{pooled['niche_posts']:,} library posts, share {share}. "
-                             f"{views(pooled)}; {multiple(pooled)}.")
-                if pooled['views_age_days'] is not None:
-                    lines.append(f"When views were recorded, posts were a median {number(pooled['views_age_days'])} days old.")
-            weekly = niche['weekly']
-            by_week = {row['week_start']: row for row in weekly}
-            weeks = week_span(weekly)
-            if not weeks:
-                continue
-            view_values = [by_week[week]['median_views'] if week in by_week and not by_week[week]['too_new'] else None for week in weeks]
-            post_values = [by_week[week]['posts'] if week in by_week else None for week in weeks]
-            lines.extend(['', f"Published weeks {weeks[0]} to {weeks[-1]}:", '```text',
-                          'Views  ' + spark(view_values), 'Posts  ' + spark(post_values), '```',
-                          'Each line scales from zero to its own maximum. · means no measurement; it is not zero.'])
-            if compact:
-                lines.append('')
-                for week in weeks:
-                    row = by_week.get(week)
-                    if row is None:
-                        lines.append(f'- {week}: not supplied.')
-                        continue
-                    age = '' if row['views_age_days'] is None else f"; post age {number(row['views_age_days'])}d"
-                    lines.append(f"- {week}: {row['posts']:,}/{row['niche_posts']:,} library posts; {views(row)}{age}; {multiple(row)}.")
-                continue
-            lines.extend(['',
-                          '| Published week | Library posts | Stored median views | Multiple |',
-                          '| --- | --- | --- | --- |'])
+    return '\n\n'.join('\n'.join([f"## {markdown(item['name'])}", *format_lines(item, compact)]) for item in summary['formats'])
+
+
+def format_lines(item, compact=False):
+    """One format's measurement block under its heading: each niche's pooled line, chart and weeks."""
+    lines = []
+    for niche in item['niches']:
+        role = 'yours' if niche['role'] == 'yours' else 'next door'
+        lines.extend(['', f"### {markdown(niche['niche'].replace('_', ' '))} · {role}", '', 'Views are the latest stored counts, not a measurement at seven days.'])
+        pooled = niche['summary']
+        if pooled:
+            share = 'not measured' if pooled['share'] is None else f"{pooled['share'] * 100:g}%"
+            lines.append(f"{pooled['weeks']} readable weeks: {pooled['posts']:,}/{pooled['niche_posts']:,} library posts, share {share}. "
+                         f"{views(pooled)}; {multiple(pooled)}.")
+            if pooled['views_age_days'] is not None:
+                lines.append(f"When views were recorded, posts were a median {number(pooled['views_age_days'])} days old.")
+        weekly = niche['weekly']
+        by_week = {row['week_start']: row for row in weekly}
+        weeks = week_span(weekly)
+        if not weeks:
+            continue
+        view_values = [by_week[week]['median_views'] if week in by_week and not by_week[week]['too_new'] else None for week in weeks]
+        post_values = [by_week[week]['posts'] if week in by_week else None for week in weeks]
+        lines.extend(['', f"Published weeks {weeks[0]} to {weeks[-1]}:", '```text',
+                      'Views  ' + spark(view_values), 'Posts  ' + spark(post_values), '```',
+                      'Each line scales from zero to its own maximum. · means no measurement; it is not zero.'])
+        if compact:
+            lines.append('')
             for week in weeks:
                 row = by_week.get(week)
                 if row is None:
-                    lines.append(f'| {week} | not supplied | not supplied | not supplied |')
+                    lines.append(f'- {week}: not supplied.')
                     continue
                 age = '' if row['views_age_days'] is None else f"; post age {number(row['views_age_days'])}d"
-                lines.append(f"| {week} | {row['posts']:,}/{row['niche_posts']:,} | {views(row)}{age} | {multiple(row)} |")
-        sections.append('\n'.join(lines))
-    return '\n\n'.join(sections)
+                lines.append(f"- {week}: {row['posts']:,}/{row['niche_posts']:,} library posts; {views(row)}{age}; {multiple(row)}.")
+            continue
+        lines.extend(['',
+                      '| Published week | Library posts | Stored median views | Multiple |',
+                      '| --- | --- | --- | --- |'])
+        for week in weeks:
+            row = by_week.get(week)
+            if row is None:
+                lines.append(f'| {week} | not supplied | not supplied | not supplied |')
+                continue
+            age = '' if row['views_age_days'] is None else f"; post age {number(row['views_age_days'])}d"
+            lines.append(f"| {week} | {row['posts']:,}/{row['niche_posts']:,} | {views(row)}{age} | {multiple(row)} |")
+    return lines
+
+
+# A number with any grouping or decimal marks, compared by its digits so translated labels and separators still match;
+# a chart line, compared as drawn.
+TOKEN = re.compile('\\d(?:[\\d,.  \']*\\d)?|[' + BLOCKS + '·]{2,}')
+
+
+def tokens(lines):
+    """The values a block carries, in order, each with the line it sits on: everything a reader could copy wrongly."""
+    return [(re.sub(r'\D', '', m.group(0)) if m.group(0)[0].isdigit() else m.group(0), number_line)
+            for number_line, line in enumerate(lines) for m in TOKEN.finditer(line)]
+
+
+def check(summary, reply, order=None, compact=False):
+    """Find each format's generated block in a drafted reply, in card order, and name every line whose values changed."""
+    items = summary['formats']
+    if order:
+        items = sorted(items, key=lambda item: order.index(item['format_id']) if item['format_id'] in order else len(order))
+    reply_lines = reply.split('\n')
+    found = tokens(reply_lines)
+    values = [value for value, _ in found]
+    cursor, problems = 0, []
+    for item in items:
+        block = format_lines(item, compact)
+        wanted = tokens(block)
+        size = len(wanted)
+        best, at = -1, cursor
+        for start in range(cursor, max(cursor, len(values) - size) + 1):
+            score = sum(1 for k, (value, _) in enumerate(wanted) if start + k < len(values) and values[start + k] == value)
+            if score > best:
+                best, at = score, start
+            if best == size:
+                break
+        if size and best == size:
+            cursor = at + size
+            continue
+        if best * 2 < size:
+            problems.append({'name': item['name'], 'kind': 'missing', 'block': block, 'lines': []})
+            continue
+        differ = []
+        for k, (value, line) in enumerate(wanted):
+            if at + k >= len(values) or values[at + k] != value:
+                reply_line = reply_lines[found[at + k][1]] if at + k < len(found) else ''
+                if not differ or differ[-1][0] != line:
+                    differ.append((line, reply_line))
+        problems.append({'name': item['name'], 'kind': 'changed', 'block': block,
+                         'lines': [(block[line], reply_line) for line, reply_line in differ]})
+        cursor = at + size
+    return problems
+
+
+def check_report(problems, count):
+    """What to fix, in words the reply's writer can act on: each block's changed lines, then the block to put back."""
+    if not problems:
+        return f'All {count} measurement blocks match price.py.'
+    out = []
+    for problem in problems:
+        if problem['kind'] == 'missing':
+            out.append(f"Missing: {problem['name']}. The reply has no copy of its block; insert it under its card:")
+        else:
+            out.append(f"Changed: {problem['name']}. These lines differ from price.py:")
+            out.extend(f"  price.py: {expected.strip()}\n  reply:    {seen.strip()}" for expected, seen in problem['lines'])
+            out.append('Put the block back exactly as generated:')
+        out.extend(['', *problem['block'], ''])
+    return '\n'.join(out)
 
 
 def main():
@@ -209,6 +276,7 @@ def main():
     parser.add_argument('--json', action='store_true', help='Emit structured rows instead of Markdown')
     parser.add_argument('--format-id', action='append', help='Only emit these named formats; repeat for several')
     parser.add_argument('--compact', action='store_true', help='Keep weekly values in short lines instead of the full table')
+    parser.add_argument('--check', metavar='REPLY', help='Check a drafted reply holds each block unchanged, in --format-id order')
     args = parser.parse_args()
     try:
         if args.rows == '-':
@@ -219,6 +287,11 @@ def main():
         if len(raw) > MAX_BYTES:
             raise ValueError('Export exceeds 16 MiB')
         summary = summarise(json.loads(raw), set(args.format_id) if args.format_id else None)
+        if args.check:
+            reply = pathlib.Path(args.check).read_text(encoding='utf-8')
+            problems = check(summary, reply, args.format_id, compact=args.compact)
+            print(check_report(problems, len(summary['formats'])))
+            return 1 if problems else 0
         if args.json:
             print(json.dumps(summary, ensure_ascii=False, allow_nan=False))
         else:
