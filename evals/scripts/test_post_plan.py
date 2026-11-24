@@ -4,20 +4,20 @@
 
 Each test is a promise the skill makes before anything is sent: the AI label goes on for AI footage, the
 disclosure line is in the caption, a real person's likeness is never posted, a platform with no label field
-gets AI footage only by hand, the caps hold, and a reposted video is flagged before the yes.
+gets AI footage only by hand, the caps hold, a reposted video is flagged before the yes, and a post that asks for a
+comment word gets its keyword rule (or the ask for one) in the same table.
 """
 import json, os, shutil, subprocess, sys, tempfile, unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PLAN = os.path.join(ROOT, 'plugins', 'vamos', 'skills', 'post', 'scripts', 'plan.py')
 NOW = '2026-11-13T10:00:00+01:00'
-ACCOUNTS = [{'id': 'x1', 'platform': 'twitter', 'handle': '@brandx'},
-            {'id': 'ig1', 'platform': 'instagram', 'handle': '@brand'},
-            {'id': 'ig2', 'platform': 'instagram', 'handle': '@brand.two'},
-            {'id': 'tt1', 'platform': 'tiktok', 'handle': '@brand.tt'},
-            {'id': 'yt1', 'platform': 'youtube', 'handle': '@brandyt'},
-            {'id': 'fb1', 'platform': 'facebook', 'handle': 'Brand Page'}]
-
+ACCOUNTS = [{'id': 'x1', 'platform': 'twitter', 'handle': '@brandx', 'profile': 'pr1'},
+            {'id': 'ig1', 'platform': 'instagram', 'handle': '@brand', 'profile': 'pr1'},
+            {'id': 'ig2', 'platform': 'instagram', 'handle': '@brand.two', 'profile': 'pr1'},
+            {'id': 'tt1', 'platform': 'tiktok', 'handle': '@brand.tt', 'profile': 'pr1'},
+            {'id': 'yt1', 'platform': 'youtube', 'handle': '@brandyt', 'profile': 'pr1'},
+            {'id': 'fb1', 'platform': 'facebook', 'handle': 'Brand Page', 'profile': 'pr1'}]
 
 N = iter(range(1, 10 ** 6))
 
@@ -217,6 +217,131 @@ class Plan(unittest.TestCase):
                                 {'xx.mp4': {'caption': 'x', 'ai': False, 'people': 'none'}})
         self.assertEqual(r.returncode, 0, r.stdout)
         self.assertIn('X bills $0.015', r.stdout)
+
+
+class KeywordPlan(unittest.TestCase):
+    setUp = Plan.setUp
+    tearDown = Plan.tearDown
+    run_plan = Plan.run_plan
+
+    def keyword_plan(self, caption='Comment GUIDE and I will send it', comment_dm=None,
+                     to=None, post_extra=None, sheet_extra=None, **extra):
+        post = {'file': 'keyword.mp4', 'to': to or ['ig1']}
+        if comment_dm is not None:
+            post['comment_dm'] = comment_dm
+        post.update(post_extra or {})
+        sheet = {'caption': caption, 'ai': False, 'people': 'none', **(sheet_extra or {})}
+        return self.run_plan([post], {'keyword.mp4': sheet}, **extra)
+
+    def test_rules_on_instagram_tiktok_and_x(self):
+        dm = {'word': 'guide', 'dm': 'Here is the full guide: https://example.com', 'reply': 'Find it in bio',
+              'reply_after_dm': 'Sent, check your DMs'}
+        r, plan = self.keyword_plan(comment_dm=dm, to=['ig1', 'tt1', 'x1'])
+        self.assertEqual(r.returncode, 0, r.stdout)
+        ig, tt, x = plan['rows']
+        args = ig['dm_rule']['arguments']
+        self.assertEqual((args['dm_message'], args['comment_reply'], args['match_mode'], args['post_id'], args['profile_id']),
+                         (dm['dm'], dm['reply_after_dm'], 'word', 'POST_ID', 'pr1'))
+        self.assertEqual(args['keywords'], ['guide'])
+        self.assertEqual(tt['dm_rule']['arguments']['comment_reply'], dm['reply'])
+        self.assertNotIn('dm_message', tt['dm_rule']['arguments'])
+        self.assertNotIn('dm_rule', x)
+        self.assertIn('twitter can\'t answer', r.stdout)
+        self.assertIn('KEYWORD keyword.mp4:', r.stdout)
+        self.assertIn(dm['dm'], r.stdout)
+        self.assertIn('2 keyword rule(s)', r.stdout)
+
+    def test_ask_holds_its_rows_and_plans_the_rest(self):
+        r, plan = self.run_plan([{'file': 'k.mp4', 'to': ['ig1', 'tt1']}, {'file': 'o.mp4', 'to': ['ig1']}],
+                                {'k.mp4': {'caption': 'Comment GUIDE and I will send it', 'ai': False, 'people': 'none'},
+                                 'o.mp4': {'caption': 'Another one', 'ai': False, 'people': 'none'}})
+        self.assertEqual(r.returncode, 0, r.stdout)   # a question for the user, not a fault in the plan
+        self.assertIn('ASK    k.mp4: the caption asks people to comment GUIDE', r.stdout)
+        waiting, waiting_tt, other = plan['rows']
+        for row in (waiting, waiting_tt):
+            self.assertIn('validate', row)             # still checked with Zernio before the yes
+            self.assertNotIn('create', row)            # never sent before the answer
+            self.assertNotIn('dry_run', row)
+            self.assertTrue(row['how'].startswith('waits'))
+        self.assertIn('create', other)
+        self.assertIn('2 waiting for an answer', r.stdout)
+
+    def test_none_is_an_explicit_answer(self):
+        r, plan = self.keyword_plan(comment_dm='none')
+        self.assertEqual(r.returncode, 0, r.stdout)
+        self.assertNotIn('dm_rule', plan['rows'][0])
+
+    def test_batch_wins_over_sheet(self):
+        r, plan = self.keyword_plan(comment_dm={'word': 'BATCH', 'dm': 'batch'},
+                                    sheet_extra={'comment_dm': {'word': 'SHEET', 'dm': 'sheet'}})
+        self.assertEqual(r.returncode, 0, r.stdout)
+        self.assertEqual(plan['rows'][0]['dm_rule']['arguments']['keywords'], ['BATCH'])
+
+    def test_not_asks(self):
+        for caption in ["Comment below what you'd add", 'comment your thoughts', 'Tell me in the comments', 'COMMENT BELOW']:
+            with self.subTest(caption=caption):
+                r, _ = self.keyword_plan(caption=caption)
+                self.assertEqual(r.returncode, 0, r.stdout)
+                self.assertNotIn('ASK', r.stdout)
+
+    def test_asks(self):
+        for caption, word in [('comment "guide"', 'GUIDE'), ('Comment the word HOOKS', 'HOOKS'),
+                              ('Drop RIP in the comments', 'RIP'), ('type “template” below', 'TEMPLATE')]:
+            with self.subTest(caption=caption):
+                r, _ = self.keyword_plan(caption=caption)
+                self.assertIn(f'ASK    keyword.mp4: the caption asks people to comment {word}', r.stdout)
+
+    def test_missing_reply_flags_tiktok_only(self):
+        r, plan = self.keyword_plan(comment_dm={'word': 'GUIDE', 'dm': 'Here', 'reply_after_dm': 'Sent'}, to=['ig1', 'tt1'])
+        self.assertEqual(r.returncode, 0, r.stdout)
+        self.assertIn('dm_rule', plan['rows'][0])
+        self.assertNotIn('dm_rule', plan['rows'][1])
+        self.assertIn("tiktok can't DM", r.stdout)
+
+    def test_instagram_reply_only_after_dm_when_given(self):
+        r, plan = self.keyword_plan(comment_dm={'word': 'GUIDE', 'dm': 'Here', 'reply': 'In my bio'}, to=['ig1'])
+        self.assertEqual(r.returncode, 0, r.stdout)
+        self.assertNotIn('comment_reply', plan['rows'][0]['dm_rule']['arguments'])   # reply is for platforms with no DM
+
+    def test_missing_dm_is_a_defect(self):
+        r, plan = self.keyword_plan(comment_dm={'word': 'GUIDE'})
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("needs the DM's words", r.stdout)
+        self.assertNotIn('dm_rule', plan['rows'][0])
+
+    def test_long_dm_is_a_defect(self):
+        r, plan = self.keyword_plan(comment_dm={'word': 'GUIDE', 'dm': 'x' * 1001})
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("DM is 1001 characters, over Zernio's 1000", r.stdout)
+        self.assertNotIn('dm_rule', plan['rows'][0])
+
+    def test_missing_profile_is_a_defect(self):
+        account = {'id': 'nop', 'platform': 'instagram', 'handle': '@nop'}
+        r, plan = self.keyword_plan(comment_dm={'word': 'GUIDE', 'dm': 'Here'}, to=['nop'], accounts=[account])
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("@nop: the keyword rule needs the account's profile id", r.stdout)
+        self.assertNotIn('dm_rule', plan['rows'][0])
+
+    def test_tiktok_draft_has_no_rule(self):
+        r, plan = self.keyword_plan(comment_dm={'word': 'GUIDE', 'dm': 'Here', 'reply': 'Here'},
+                                    to=['tt1'], tiktok_drafts=True)
+        self.assertEqual(r.returncode, 0, r.stdout)
+        self.assertNotIn('dm_rule', plan['rows'][0])
+        self.assertIn('TikTok inbox draft is posted by you', r.stdout)
+
+    def test_facebook_ai_posted_by_hand_has_no_keyword_flag(self):
+        r, plan = self.keyword_plan(comment_dm={'word': 'GUIDE', 'dm': 'Here'}, to=['fb1'],
+                                    sheet_extra={'ai': True, 'people': 'made'})
+        self.assertEqual(r.returncode, 0, r.stdout)
+        self.assertTrue(plan['rows'][0]['how'].startswith('by hand'))
+        self.assertNotIn('dm_rule', plan['rows'][0])
+        self.assertNotIn('FLAG', r.stdout)
+
+    def test_existing_row_has_no_keyword_fields(self):
+        r, plan = self.keyword_plan(caption='A regular post')
+        self.assertEqual(r.returncode, 0, r.stdout)
+        for key in ('dm_rule', 'keyword', 'answer'):
+            self.assertNotIn(key, plan['rows'][0])
 
 
 if __name__ == '__main__':

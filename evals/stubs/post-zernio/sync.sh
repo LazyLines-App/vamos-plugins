@@ -3,6 +3,6 @@
 # reads outside the plugin under test, so the skill's references and plan.py must sit inside this folder.
 set -e
 cd "$(dirname "$0")"
-rm -rf skills/post
+rm -rf skills/post && mkdir -p skills
 cp -R ../../../plugins/vamos/skills/post skills/post
 echo "skills/post copied from plugins/vamos"
