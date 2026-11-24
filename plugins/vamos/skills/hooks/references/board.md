@@ -63,4 +63,4 @@ A lesson moves up only when a new post at least 7 days old backs it. One flop ma
 
 ## Reviews
 
-One row a week from `/vamos:content-log` (a second run that week updates it): the date and period, the median views, the hit rate (share of the last 20 posts above a 1× and a 2× outlier) and the median outlier score, the predictions made for next time, the ad ids seen per tracked brand, and, with an Ads Manager export, the Ad week: spend, CPA and ROAS, and each concept code that ran with its CPA.
+One row a week from `/vamos:content-log` (a second run that week updates it): the date and period, the median views, the hit rate (share of the last 20 posts above a 1× and a 2× outlier) and the median outlier score, each account's followers and their change in the period when Zernio is connected, the predictions made for next time, the ad ids seen per tracked brand, and, with an Ads Manager export, the Ad week: spend, CPA and ROAS, and each concept code that ran with its CPA.

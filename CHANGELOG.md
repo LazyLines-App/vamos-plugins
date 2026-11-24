@@ -2,6 +2,12 @@
 
 One line per change, under the version it ships in. See [MAINTAINING.md](MAINTAINING.md).
 
+## vamos 0.2.26
+- content-log reads the user's own numbers from their Zernio when it's connected, so no Insights screenshots: each post's reach, saves, shares and watch time, where viewers left (the second-by-second curve on TikTok and Facebook Reels, YouTube's own curve), and each account's follower growth beside the same span before, for posts made anywhere, not only through Zernio. `references/zernio.md` holds the reads (`analytics_get_analytics` per account, `accounts_get_follower_stats`, `analytics_get_you_tube_video_retention`, through `call_tool`, snake_case arguments) and what each platform gives; Instagram gives averages only, so a Reel's curve stays a screenshot. `count.py` takes several sources: Zernio's post analytics (a list or one post), follower stats and YouTube retention beside Vamos's rows, merged by post with Zernio's numbers winning and Zernio's paid flag (`isAd`) setting a post aside; Vamos-only output is byte-identical. The board's Reviews row records each account's followers and their change. New script test `evals/scripts/test_count_zernio.py` and the case `content-log-zernio-numbers` (real readings of two of our accounts, renamed; run on a copy with the zernio server added, `scripts/with-server.py`). A routing case for "how many followers did I gain". `content-log-quiet-week-vamos`'s `says-nothing-posted` also takes "posted no Reels", which a correct reply said in the regression run.
+
+## cracked-marketer 0.2.24
+- The shared content-log Zernio reads above.
+
 ## vamos 0.2.25
 - formats checks its draft against `price.py` before it sends it. A live demo1 run (AI tools for creators, 2026-11-20) retyped two of its 192 week lines: "1/37" under On Camera Test, and a next-door niche's "0/1" under Voiceover Hook Demo's business week, where the rows say 0/37 for both. Step 5 now runs `price.py` once with every ranked card's id in card order, writes the draft to `reply.md` and runs the same command with `--check reply.md`, which finds each card's block by its numbers and charts (translated labels pass), names every changed or missing line and prints the block to put back. Six script tests (the live run's two lines among them) and the case `formats-price-check-ai-tools`, a real mock from that run.
 

@@ -1,0 +1,58 @@
+{
+ "overview": {
+  "totalPosts": 1,
+  "publishedPosts": 1,
+  "scheduledPosts": 0,
+  "lastSync": "2026-06-09T08:00:00Z"
+ },
+ "posts": [
+  {
+   "_id": "65f1c0a9e2b5af0012ab3401",
+   "latePostId": null,
+   "content": "what's your choice?",
+   "scheduledFor": "2026-05-20T12:00:00Z",
+   "publishedAt": "2026-05-20T12:00:00Z",
+   "status": "published",
+   "analytics": {
+    "impressions": 0,
+    "reach": 0,
+    "likes": 1200,
+    "comments": 80,
+    "shares": 30,
+    "saves": 0,
+    "clicks": 0,
+    "views": 480000,
+    "follows": 0,
+    "igReelsAvgWatchTime": 0,
+    "reelsSkipRate": 0,
+    "completionRate": 0,
+    "retentionCurve": {},
+    "videoDurationSeconds": 24,
+    "lastUpdated": "2026-06-09T08:00:00Z"
+   },
+   "platforms": [
+    {
+     "platform": "youtube",
+     "status": "published",
+     "platformPostId": "zF7Gp4jnDa0",
+     "accountId": "65f1a2b3c4d5e6f7a8b9c0d1",
+     "accountUsername": "@demochannel",
+     "analytics": null,
+     "syncStatus": "synced",
+     "platformPostUrl": "https://www.youtube.com/watch?v=zF7Gp4jnDa0",
+     "errorMessage": null
+    }
+   ],
+   "platform": "youtube",
+   "platformPostUrl": "https://www.youtube.com/watch?v=zF7Gp4jnDa0",
+   "isExternal": true,
+   "isAd": false
+  }
+ ],
+ "pagination": {
+  "page": 1,
+  "limit": 50,
+  "total": 1,
+  "pages": 1
+ }
+}

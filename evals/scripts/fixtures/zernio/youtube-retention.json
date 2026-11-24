@@ -1,0 +1,38 @@
+{
+ "success": true,
+ "accountId": "65f1a2b3c4d5e6f7a8b9c0d1",
+ "videoId": "zF7Gp4jnDa0",
+ "title": "what's your choice?",
+ "publishedAt": "2026-05-20T12:00:00Z",
+ "durationSeconds": 24,
+ "dateRange": {
+  "startDate": "2026-05-20",
+  "endDate": "2026-06-09"
+ },
+ "retentionCurve": [
+  {
+   "elapsedVideoTimeRatio": 0.01,
+   "audienceWatchRatio": 1.6956,
+   "relativeRetentionPerformance": 0.73665
+  },
+  {
+   "elapsedVideoTimeRatio": 0.02,
+   "audienceWatchRatio": 1.678,
+   "relativeRetentionPerformance": 0.73865
+  },
+  {
+   "elapsedVideoTimeRatio": 0.5,
+   "audienceWatchRatio": 0.85,
+   "relativeRetentionPerformance": 0.61
+  },
+  {
+   "elapsedVideoTimeRatio": 1.0,
+   "audienceWatchRatio": 0.4,
+   "relativeRetentionPerformance": 0.55
+  }
+ ],
+ "segmentMetricsAvailable": false,
+ "scopeStatus": {
+  "hasAnalyticsScope": true
+ }
+}
