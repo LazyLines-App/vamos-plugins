@@ -1,11 +1,11 @@
 ---
 name: "post"
-description: "Posts your finished videos to your own accounts through your own Zernio: many accounts, many a day, at the times you pick, and while you're away, after one yes for the batch. Shows the batch as one table first (account, time, file, caption, AI label, disclosure), checks every post with Zernio before it goes, switches on each platform's AI label for AI footage and never posts an AI likeness of a real person. When a post asks viewers to comment a word, the same yes sets the DM everyone who comments it gets. Use for \"post these\", \"schedule this week's videos\", \"post to all my accounts\", \"post 3 a day\", \"let Claude post for me\", \"run my Instagram\", \"DM everyone who comments GUIDE\", \"what's scheduled\", or to move or cancel a scheduled post."
+description: "Posts your finished videos to your own accounts through your own Zernio: many accounts, many a day, at the times you pick, and while you're away, after one yes for the batch. Shows the batch as one table first (account, time, file, caption, AI label, disclosure), checks every post with Zernio before it goes, switches on each platform's AI label for AI footage and never posts an AI likeness of a real person. When a post asks viewers to comment a word, the same yes sets the DM everyone who comments it gets, and it answers your comments in your voice after a yes. Use for \"post these\", \"schedule this week's videos\", \"post to all my accounts\", \"post 3 a day\", \"let Claude post for me\", \"run my Instagram\", \"DM everyone who comments GUIDE\", \"reply to my comments\", \"what's scheduled\", or to move or cancel a scheduled post."
 ---
 
 # Post
 
-**The job:** the videos the user approves go out on their own accounts at the times they pick, with each platform's AI label and the disclosure line where they belong, after one yes to one table. When a post asks viewers to comment a word, that yes also sets the answer: Zernio DMs everyone who comments it, or replies under the comment where the platform has no DM. It runs on the user's own Zernio, which posts at the set times with their laptop closed. Vamos never sees their Zernio sign-in or their accounts' tokens. The videos are `/cracked-marketer:make-video`'s, each with its post sheet, or the user's own edits.
+**The job:** the videos the user approves go out on their own accounts at the times they pick, with each platform's AI label and the disclosure line where they belong, after one yes to one table. When a post asks viewers to comment a word, that yes also sets the answer: Zernio DMs everyone who comments it, or replies under the comment where the platform has no DM. It runs on the user's own Zernio, which posts at the set times with their laptop closed. It also answers the comments on their posts: a reply in their voice to each comment still waiting, in one table, sent after their yes. Vamos never sees their Zernio sign-in or their accounts' tokens. The videos are `/cracked-marketer:make-video`'s, each with its post sheet, or the user's own edits.
 
 The Zernio calls, the upload and the hand-off: [references/zernio.md](references/zernio.md).
 
@@ -67,6 +67,22 @@ Wait for it. A yes covers that table only: a row changed after it ("move 3 to 18
 **Check before the recap:** nothing was created before the yes to its table; every created row went out with plan.py's arguments unchanged, and every `dm_rule` after its post, with that post's id; every AI row has its label on or is listed by hand; the recap counts what's scheduled, what's by hand and what was dropped.
 
 > **Made:** 12 posts scheduled on your Zernio, Sat 09:00 to Mon 19:00, 1 by hand on Facebook, the PENNY DM on 4 of them · **Credits:** 0 used, [left] left · **Board:** [link] · **Next:** each post's numbers at 2 and 7 days old (`/cracked-marketer:content-log`), from Monday
+
+## Replies to comments
+
+When the user asks to answer their comments: the calls, the files and what fails are in [references/replies.md](references/replies.md).
+
+1. **Read.** The posts with comments in the span they name (the last 7 days when they don't), then each post's comments, each answer saved as a file in `vamos/comments/`. From the folder that holds `vamos/`, so the earlier batches in `vamos/replied.json` count, `python3 scripts/replies.py pick vamos/comments --since <the span's first day> --words <their keyword DMs' words>` lists the comments still waiting, numbered, and prints how the user writes their own replies.
+2. **Draft.** Every comment a real person wrote gets a reply: a question gets its answer, a story or a compliment gets a line that picks up something in it. Write each reply the way their own replies read (YOUR REPLIES), as short and in their casing; with none yet, from the Voice guide, in a line or two. A reply says only what the user has said or Vamos holds on them: the profile, Things you've said and the Voice guide (`get_workspace` with `file`, free) and their site. A question whose answer isn't there is an `ask` for the user. Spam, bots and abuse are a `skip`.
+3. **Check in code.** Write `drafts.json` and run `python3 scripts/replies.py plan drafts.json`. It holds each platform's length, catches a slot left unfilled and a comment answered since, prints the table and writes `send.json`. Fix every DEFECT.
+4. **The yes.** Show the table as printed, each ASK under it as a question, and one line:
+> Yes sends these 14 replies from your accounts, word for word. Nothing goes out without it.
+
+An answered ask joins the drafts; run plan again and show the changed table for its own yes.
+
+5. **Send and record.** On the yes, send each of `send.json`'s calls through `call_tool` as it is, one a call. Add each sent reply to `vamos/replied.json` with the id Zernio returned, so no comment is answered twice.
+
+> **Made:** 14 replies on 5 posts, 2 wait on your answer · **Credits:** 0 used, [left] left · **Next:** the questions you answer, then the next batch (`/cracked-marketer:post`). Shall I?
 
 Vamos is needed for the Posting line and the board; with neither, the batch is the files the user names and the Posting answer stays in this chat.
 
