@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Count a content log from Vamos rows.
+"""Count a content log from Vamos rows and the user's own numbers from Zernio.
 
-    python3 count.py SOURCE [--tags tags.json] [--since YYYY-MM-DD] [--ads] [--pay pay.json]
+    python3 count.py SOURCE [SOURCE ...] [--tags tags.json] [--since YYYY-MM-DD] [--ads] [--pay pay.json]
 
-SOURCE is where the rows are, and count.py reads them itself:
+SOURCE is a Vamos rows source or a saved Zernio analytics, follower stats,
+or YouTube retention answer. Multiple sources are merged; stdin can appear once.
+Vamos rows can come from:
   - the poll's `data.json_url` (an http, https or file: link), downloaded here;
   - a saved poll answer (a file whose `data` holds the rows, or a `json_url`
     that is then downloaded), or the downloaded rows file;
@@ -25,7 +27,9 @@ A top-level "pool": 500 caps the bonuses, paid in posting order until it's spent
 Prints, per account: the median views and what was set aside, each post since --since
 (default: 7 days before the read) with its outlier score ("5.2x outlier"), "so far" or
 "too early", the hit rate, each tag counted against the misses, and with --ads the posts
-that pass the ad rule. The median and every count rest on posts at least 7 days old, as
+that pass the ad rule. Zernio's answers add, per post, its reach, saves, shares, watch time
+and where viewers left, and each account's follower growth; where Zernio and the rows hold the
+same post, Zernio's numbers count. The median and every count rest on posts at least 7 days old, as
 Vamos's own median does, because views still climb before then; a younger post that
 already beats the median shows its outlier score "so far" (it can only rise), and one
 that doesn't is too early.
@@ -33,8 +37,9 @@ that doesn't is too early.
 import argparse, json, math, os, re, statistics as st, sys
 from datetime import datetime, timedelta, timezone
 from urllib.request import Request, urlopen
+from urllib.parse import urlparse, parse_qs
 
-NAMES = {'tiktok': 'TikTok', 'youtube': 'YouTube', 'linkedin': 'LinkedIn'}
+NAMES = {'tiktok': 'TikTok', 'youtube': 'YouTube', 'linkedin': 'LinkedIn', 'twitter': 'X'}
 SETTLED = 7  # days; Vamos's median counts posts this old (Chat EARLY_COUNT_DAYS, Watchlist USUAL_SETTLED_DAYS)
 PAID = re.compile(r'#ad\b|#sponsored|paid partnership|\bsponsored\b|#partner', re.I)
 
@@ -61,11 +66,12 @@ def load(src, hops=0):
     blob = json.loads(text)
     if isinstance(blob, list) and blob and isinstance(blob[0], dict) and blob[0].get('type') == 'text':
         blob = json.loads(''.join(b.get('text', '') for b in blob))  # a host's saved tool result
-    data = blob.get('data', blob) if isinstance(blob, dict) else None
-    if isinstance(data, dict) and 'videos' not in data and 'rows' not in data and data.get('json_url'):
-        if hops:
-            sys.exit('the linked file holds another link, not rows')
-        return load(data['json_url'], 1)
+    candidates = (blob, blob.get('data'), blob.get('result')) if isinstance(blob, dict) else ()
+    for data in candidates:
+        if isinstance(data, dict) and 'videos' not in data and 'rows' not in data and data.get('json_url'):
+            if hops:
+                sys.exit('the linked file holds another link, not rows')
+            return load(data['json_url'], 1)
     return blob
 
 
@@ -74,6 +80,170 @@ def rows_of(blob):
         return blob
     data = blob.get('data', blob)
     return data.get('videos', data.get('rows', []))
+
+
+def shape(blob):
+    for b in (blob, blob.get('data') if isinstance(blob, dict) else None,
+              blob.get('result') if isinstance(blob, dict) else None):
+        if isinstance(b, list):
+            return 'vamos', b
+        if not isinstance(b, dict):
+            continue
+        if 'stats' in b and isinstance(b['stats'], dict) and isinstance(b.get('accounts'), list):
+            return 'followers', b
+        if 'videoId' in b and isinstance(b.get('retentionCurve'), list):
+            return 'retention', b
+        if 'postId' in b and 'platformAnalytics' in b:
+            return 'posts', dict(b, posts=[b])
+        if isinstance(b.get('posts'), list) and (not b['posts'] or any('analytics' in x or 'platforms' in x for x in b['posts'])):
+            return 'posts', b
+        if isinstance(b.get('videos'), list) or isinstance(b.get('rows'), list):
+            return 'vamos', b.get('videos', b.get('rows'))
+    if isinstance(blob, dict) and ('runId' in blob or 'chatId' in blob):
+        return 'vamos', []  # a Vamos answer with no rows: a quiet period
+    return None, None
+
+
+def zernio_rows(blob):
+    accounts = {a['_id']: a for a in blob.get('accounts', []) if a.get('_id')}
+    result = []
+    for p in blob['posts']:
+        if not p.get('publishedAt'):
+            continue
+        entries = p.get('platforms') or p.get('platformAnalytics') or [p]
+        for e in entries:
+            if e is not p and e.get('status') != 'published':
+                continue
+            a = e.get('analytics') or p.get('analytics') or {}
+            url = e.get('platformPostUrl') or p.get('platformPostUrl')
+            handle = e.get('accountUsername') or accounts.get(e.get('accountId'), {}).get('username') or '?'
+            r = {'platform': (e.get('platform') or p.get('platform') or '').lower(),
+                 'handle': handle.lstrip('@'), 'url': url, 'id': key(url) or e.get('platformPostId') or '?',
+                 'posted_at': p['publishedAt'], 'counts_as_of': a.get('lastUpdated'),
+                 'views': a.get('views') or a.get('impressions') or 0, 'caption_head': p.get('content'),
+                 'duration_seconds': a.get('videoDurationSeconds'), '_zernio': True, '_paid_zernio': p.get('isAd') is True}
+            for field in ('likes', 'comments', 'shares', 'saves', 'reach', 'follows', 'profileViews',
+                          'websiteClicks', 'igReelsAvgWatchTime', 'reelsSkipRate', 'completionRate', 'retentionCurve'):
+                r[field] = a.get(field)
+            result.append(r)
+    return result
+
+
+def overlay(v, z):
+    """Vamos's row with Zernio's numbers on top. Vamos keeps the id, the handle (Zernio's lags behind
+    renames) and every field Zernio doesn't give, such as a paid-partnership tag or a length Zernio left null."""
+    row = dict(v)
+    row.update({f: x for f, x in z.items() if x is not None})
+    row['id'], row['handle'], row['_vamos_row'] = v.get('id', z['id']), handle_of(v, ''), v
+    return row
+
+
+def merge_sources(sources):
+    merged, followers, curves = {}, [], []
+    has_z = False
+    for src in sources:
+        kind, data = shape(load(src))
+        if not kind:
+            sys.exit(f'unrecognised source: {src}')
+        if kind != 'vamos':
+            has_z = True
+        if kind == 'followers':
+            followers.append(data)
+            continue
+        if kind == 'retention':
+            curves.append(data)
+            continue
+        rows = zernio_rows(data) if kind == 'posts' else data
+        for r in rows:
+            if r.get('views') is None or not r.get('posted_at'):
+                continue
+            ident = key(r.get('id') or r.get('url'))
+            k = ((r.get('platform') or '').lower(), ident)
+            old = merged.get(k)
+            if not old:
+                merged[k] = r
+            elif r.get('_zernio') and old.get('_zernio'):
+                if (r.get('counts_as_of') or '') > (old.get('counts_as_of') or ''):
+                    merged[k] = overlay(old['_vamos_row'], r) if old.get('_vamos_row') else r
+            elif r.get('_zernio') != old.get('_zernio'):
+                z, v = (r, old) if r.get('_zernio') else (old, r)
+                merged[k] = overlay(v, z)
+    for c in curves:
+        row = merged.get(('youtube', c['videoId']))
+        if row:
+            row['_youtube_curve'] = c['retentionCurve']
+    return list(merged.values()), followers, has_z
+
+
+def private_line(r):
+    fields = []
+    for field, label in (('reach', 'reach'), ('saves', 'saves'), ('shares', 'shares'), ('follows', 'follows')):
+        if r.get(field) is not None:
+            fields.append(f"{label} {num(r[field])}")
+    for field, label in (('profileViews', 'profile visits'), ('websiteClicks', 'link clicks')):
+        if r.get(field):
+            fields.append(f"{label} {num(r[field])}")
+    line = '      from Zernio: ' + ', '.join(fields)
+    if r.get('saves') is not None or r.get('shares') is not None:
+        rate = ((r.get('saves') or 0) + (r.get('shares') or 0)) / r['views'] * 1000 if r['views'] else 0
+        line += f'; saves and shares {rate:.1f} per 1,000 views'
+    if r.get('igReelsAvgWatchTime'):
+        line += f"; watched {r['igReelsAvgWatchTime'] / 1000:.1f} s on average"
+        if r.get('duration_seconds'):
+            line += f" (of {num(r['duration_seconds'])} s)"
+    if r.get('completionRate'):
+        line += f"; {r['completionRate'] * 100:.1f}% watched to the end"
+    if r.get('reelsSkipRate'):
+        rate = r['reelsSkipRate']
+        line += f"; {rate * 100 if rate <= 1 else rate:.1f}% skipped in the first 3 s"
+    print(line)
+    c = r.get('_youtube_curve')
+    if c:
+        c = sorted(c, key=lambda x: x['elapsedVideoTimeRatio'])
+        half = min(c, key=lambda x: abs(x['elapsedVideoTimeRatio'] - .5))
+        line = f"      retention (YouTube, viewers watching as a share of views; over 1 means rewatches): {c[0]['audienceWatchRatio']:.2f} at the start, {half['audienceWatchRatio']:.2f} at half, {c[-1]['audienceWatchRatio']:.2f} at the end"
+        if half.get('relativeRetentionPerformance') is not None:
+            line += f"; at half it ranks {half['relativeRetentionPerformance']:.2f} against videos its length (0.5 is the median)"
+        print(line)
+    elif r.get('retentionCurve'):
+        curve = {int(k): v for k, v in r['retentionCurve'].items()}
+        points = sorted(curve)
+        end = max((x for x in points if not r.get('duration_seconds') or x <= r['duration_seconds']), default=points[-1])
+        half = int(r['duration_seconds'] // 2) if r.get('duration_seconds') else end
+        picks = [(1, ''), (3, ''), (half, ' (half)'), (end, ' (the end)')]
+        parts = [f"{num(curve[t] * 100)}% at {t} s{label}" for t, label in picks if t in curve]
+        pairs = [(curve[a] - curve[b], a, b) for a, b in zip(points, points[1:]) if b == a + 1]
+        line = '      retention (share still watching): ' + ', '.join(parts)
+        if pairs:
+            drop, a, b = max(pairs)
+            line += f'; the biggest drop {a} to {b} s ({num(drop * 100)} points)'
+        if r['platform'].lower() == 'facebook':
+            line += ' (a share of the plays Meta samples)'
+        print(line)
+
+
+def follower_lines(blobs, since):
+    if not blobs:
+        return
+    print('followers (Zernio, refreshed daily):')
+    for blob in blobs:
+        for a in blob['accounts']:
+            points = sorted(blob['stats'].get(a.get('_id'), []), key=lambda p: p['date'])
+            name = f"  @{(a.get('username') or '?').lstrip('@')} on {NAMES.get((a.get('platform') or '').lower(), (a.get('platform') or '').title())}: "
+            if not points:
+                print(name + 'no follower history yet')
+                continue
+            start = next((p for p in reversed(points) if p['date'] <= since.strftime('%Y-%m-%d')), points[0])
+            end = points[-1]
+            delta = end['followers'] - start['followers']
+            pct = f" ({delta / start['followers'] * 100:+.1f}%)" if start['followers'] else ''
+            line = name + f"{num(start['followers'])} on {start['date']}, {num(end['followers'])} on {end['date']}: {delta:+,}{pct}"
+            days = (ts(end['date']) - ts(start['date'])).days
+            cutoff = (ts(start['date']) - timedelta(days=days)).strftime('%Y-%m-%d')
+            prev = next ( (p for p in reversed(points) if p['date'] <= cutoff), None)
+            if prev:
+                line += f"; the {days} days before: {start['followers'] - prev['followers']:+,} ({num(prev['followers'])} on {prev['date']})"
+            print(line)
 
 
 def length_tag(sec):
@@ -88,6 +258,9 @@ def num(n):
 
 def key(link):
     """A post id from an id or a link, share-link query (?igsh=…, ?is_from_webapp=…) and fragment dropped."""
+    u = urlparse(link or '')
+    if u.hostname and u.hostname.lower().endswith('youtube.com') and u.path == '/watch':
+        return parse_qs(u.query).get('v', [''])[0]
     return re.split(r'[?#]', link or '')[0].rstrip('/').rsplit('/', 1)[-1]
 
 
@@ -113,7 +286,9 @@ def account(posts, tags, since, ads):
             r['_boost'] = likes is not None and views and likes / views < 0.005
             ours.append(r)
             continue
-        if r.get('paid_partnership') or r.get('sponsors') or PAID.search(cap):
+        if r.get('_paid_zernio'):
+            why = 'paid delivery (Zernio)'
+        elif r.get('paid_partnership') or r.get('sponsors') or PAID.search(cap):
             why = 'tagged paid'
         elif age >= SETTLED and likes is not None and views and likes / views < 0.005:
             why = f'likely boosted ({likes / views:.2%} likes)'
@@ -132,6 +307,10 @@ def account(posts, tags, since, ads):
         (aside if why else judged).append(r)
     if not judged:
         print('  no post is old enough to judge')
+        for r in posts:
+            if r.get('_zernio') and ts(r['posted_at']) >= since:
+                print(f"    {r['posted_at'][:10]} {r['id']} {num(r['views'])} views, {r.get('_aside') or 'too early'}, {r['_age']:.1f} days old | {(r.get('caption_head') or '')[:70]}")
+                private_line(r)
         return
     usual = st.median(r['views'] for r in judged)
     for r in young + ours:
@@ -160,6 +339,17 @@ def account(posts, tags, since, ads):
     xs = [r['_x'] for r in last]
     print(f'  hit rate, last {len(last)}: {sum(x > 1 for x in xs)} above 1x, {sum(x > 2 for x in xs)} above 2x, median {st.median(xs):.1f}x outlier')
     print(f'  comments per 1,000 views: median {usual_cpk:.2f}')
+    zs = [r for r in judged if r.get('_zernio')]
+    if zs:
+        rates = [((r.get('saves') or 0) + (r.get('shares') or 0)) / r['views'] * 1000 if r['views'] else 0 for r in zs]
+        print(f'  saves and shares per 1,000 views: median {st.median(rates):.1f}, over {len(zs)} posts with Zernio numbers')
+        visits = [r for r in zs if r.get('profileViews') is not None or r.get('websiteClicks') is not None]
+        if visits:
+            rates = [((r.get('profileViews') or 0) + (r.get('websiteClicks') or 0)) / r['views'] * 1000 if r['views'] else 0 for r in visits]
+            print(f'  profile visits and link clicks per 1,000 views: median {st.median(rates):.1f}')
+        watches = [r['igReelsAvgWatchTime'] / 1000 for r in zs if r.get('igReelsAvgWatchTime')]
+        if watches:
+            print(f'  average watch: median {st.median(watches):.1f} s')
     print(f'  since {since:%Y-%m-%d}:')
     for r in posts:
         if ts(r['posted_at']) < since:
@@ -167,6 +357,8 @@ def account(posts, tags, since, ads):
         state = r['_aside'] or f"{r['_x']:.1f}x outlier" + (' so far' if r.get('_floor') else '')
         mark = f" [ours, by {tag_of(tags, r).get('creator') or '?'}]" if r.get('_ours') else ''
         print(f"    {r['posted_at'][:10]} {r['id']}{mark} {num(r['views'])} views, {state}, {cpk(r):.1f} comments per 1,000, {r['_age']:.1f} days old | {(r.get('caption_head') or '')[:70]}")
+        if r.get('_zernio'):
+            private_line(r)
     keys = sorted({k for t in tags.values() for k in t if k != 'intent'} | {'length'})
     for key in keys:
         groups = {}
@@ -319,26 +511,31 @@ def creators(rows, tags, pay):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('source', help='json_url, a saved poll or rows file, or - for stdin')
+    ap.add_argument('source', nargs='+', help='json_url, a saved poll or rows file, or - for stdin')
     ap.add_argument('--tags')
     ap.add_argument('--since')
     ap.add_argument('--ads', action='store_true')
     ap.add_argument('--pay')
     a = ap.parse_args()
-    rows = [r for r in rows_of(load(a.source)) if r.get('views') is not None and r.get('posted_at')]
-    if not rows:
+    if a.source.count('-') > 1:
+        sys.exit('stdin may only be used once')
+    rows, followers, has_z = merge_sources(a.source)
+    if not rows and not followers:
         sys.exit('no rows with views and a date')
+    if has_z:
+        z = sum(bool(r.get('_zernio')) for r in rows)
+        print(f"numbers: {z} posts from Zernio, {len(rows) - z} from Vamos's rows only")
     stamp = max((r['counts_as_of'] for r in rows if r.get('counts_as_of')), default=None) or datetime.now().astimezone().isoformat()
     for r in rows:
         r.setdefault('counts_as_of', stamp)
         r['counts_as_of'] = r['counts_as_of'] or stamp
     tags = json.load(open(a.tags, encoding='utf-8')) if a.tags else {}
     tags = {key(k): v for k, v in tags.items()}
-    read = max(ts(r['counts_as_of']) for r in rows)
+    read = max((ts(r['counts_as_of']) for r in rows), default=ts(stamp))
     since = ts(a.since + 'T00:00:00+00:00') if a.since else read - timedelta(days=7)
     by = {}
     for r in rows:
-        by.setdefault((r.get('platform', ''), handle_of(r, '')), []).append(r)
+        by.setdefault(((r.get('platform') or '').lower(), handle_of(r, '')), []).append(r)
     for (platform, handle), posts in by.items():
         print(f"@{handle} on {NAMES.get(platform.lower(), platform.title())}, {len(posts)} posts read")
         account(posts, tags, since, a.ads)
@@ -350,6 +547,8 @@ def main():
         creators(rows, tags, json.load(open(a.pay, encoding='utf-8')) if a.pay else {})
     elif a.pay:
         print('creators: no post is tagged ours, so there is nothing to cost: tag each post made for the brand {"ours": true, "creator": "@handle", "hook": "..."} in --tags')
+
+    follower_lines(followers, since)
 
 
 if __name__ == '__main__':
