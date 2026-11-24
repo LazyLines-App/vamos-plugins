@@ -57,6 +57,43 @@ class Zernio(unittest.TestCase):
         self.assertIn('1,815 views, paid delivery (Zernio)', p.stdout)
         self.assertIn('18 posts read', p.stdout)
 
+    def test_vamos_fields_survive_the_merge(self):
+        # Zernio has no paid-partnership tag and can leave the length null: the merged row keeps Vamos's
+        with open(POLL, encoding='utf-8') as f:
+            poll = json.load(f)
+        next(r for r in poll['data']['videos'] if r['views'] == 293)['paid_partnership'] = True
+        with open(ZERNIO, encoding='utf-8') as f:
+            blob = json.load(f)
+        next(x for x in blob['posts'] if x['analytics']['views'] == 1815)['analytics']['videoDurationSeconds'] = None
+        paths = []
+        for data in (poll, blob):
+            with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f:
+                json.dump(data, f)
+            paths.append(f.name)
+        try:
+            p = run(*paths, '--since', '2026-11-09')
+        finally:
+            for path in paths:
+                os.unlink(path)
+        self.assertEqual(p.returncode, 0, p.stderr)
+        self.assertIn('293 views, tagged paid', p.stdout)
+        self.assertIn('median: 196 views, over 4 posts', p.stdout)
+        self.assertIn('watched 6.7 s on average (of 50 s)', p.stdout)
+
+    def test_quiet_poll(self):
+        # a Vamos answer with no rows is a quiet period, not an unknown file, and Zernio's answers after it still count
+        with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f:
+            json.dump({'runId': 'r', 'chatId': 'c', 'status': 'done', 'result': 'Nothing was posted.'}, f)
+        try:
+            alone = run(f.name, '--since', '2026-11-09')
+            with_zernio = run(f.name, ZERNIO, '--since', '2026-11-09')
+        finally:
+            os.unlink(f.name)
+        self.assertNotEqual(alone.returncode, 0)
+        self.assertIn('no rows with views and a date', alone.stderr)
+        self.assertEqual(with_zernio.returncode, 0, with_zernio.stderr)
+        self.assertIn('19 posts read', with_zernio.stdout)
+
     def test_single_post_and_youtube(self):
         p = run(os.path.join(FIX, 'single-post-saved.json'), '--since', '2026-11-01')
         self.assertEqual(p.returncode, 0, p.stderr)

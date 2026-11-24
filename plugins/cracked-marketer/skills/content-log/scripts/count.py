@@ -99,6 +99,8 @@ def shape(blob):
             return 'posts', b
         if isinstance(b.get('videos'), list) or isinstance(b.get('rows'), list):
             return 'vamos', b.get('videos', b.get('rows'))
+    if isinstance(blob, dict) and ('runId' in blob or 'chatId' in blob):
+        return 'vamos', []  # a Vamos answer with no rows: a quiet period
     return None, None
 
 
@@ -127,6 +129,15 @@ def zernio_rows(blob):
     return result
 
 
+def overlay(v, z):
+    """Vamos's row with Zernio's numbers on top. Vamos keeps the id, the handle (Zernio's lags behind
+    renames) and every field Zernio doesn't give, such as a paid-partnership tag or a length Zernio left null."""
+    row = dict(v)
+    row.update({f: x for f, x in z.items() if x is not None})
+    row['id'], row['handle'], row['_vamos_row'] = v.get('id', z['id']), handle_of(v, ''), v
+    return row
+
+
 def merge_sources(sources):
     merged, followers, curves = {}, [], []
     has_z = False
@@ -153,20 +164,10 @@ def merge_sources(sources):
                 merged[k] = r
             elif r.get('_zernio') and old.get('_zernio'):
                 if (r.get('counts_as_of') or '') > (old.get('counts_as_of') or ''):
-                    if old.get('_vamos_metadata'):
-                        r['id'], r['handle'] = old['id'], old['handle']
-                        if r.get('caption_head') is None:
-                            r['caption_head'] = old.get('_vamos_caption')
-                        r['_vamos_metadata'], r['_vamos_caption'] = True, old.get('_vamos_caption')
-                    merged[k] = r
+                    merged[k] = overlay(old['_vamos_row'], r) if old.get('_vamos_row') else r
             elif r.get('_zernio') != old.get('_zernio'):
                 z, v = (r, old) if r.get('_zernio') else (old, r)
-                z['_vamos_metadata'], z['_vamos_caption'] = True, v.get('caption_head')
-                z['id'] = v.get('id', z['id'])
-                z['handle'] = handle_of(v, '')
-                if z.get('caption_head') is None:
-                    z['caption_head'] = v.get('caption_head')
-                merged[k] = z
+                merged[k] = overlay(v, z)
     for c in curves:
         row = merged.get(('youtube', c['videoId']))
         if row:
