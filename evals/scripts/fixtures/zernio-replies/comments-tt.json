@@ -1,0 +1,6 @@
+{"status": "success", "comments": [
+ {"id": "7302000000000000001", "message": "wait you can scan receipts?? how", "createdTime": "2026-11-22T18:00:00Z", "from": {"id": "t1", "username": "noah.k"}, "likeCount": 31, "replyCount": 0, "replies": [], "canReply": true},
+ {"id": "7302000000000000002", "message": "Follow me for free money tips 💰 link in bio", "createdTime": "2026-11-22T18:05:00Z", "from": {"id": "t2", "username": "cash.guru.99"}, "likeCount": 0, "replyCount": 0, "replies": [], "canReply": true},
+ {"id": "7302000000000000003", "message": "is penny free", "createdTime": "2026-11-23T20:00:00Z", "from": {"id": "t3", "username": "mia"}, "likeCount": 4, "replyCount": 0, "replies": [], "canReply": true},
+ {"id": "7302000000000000004", "message": "love the edit", "createdTime": "2026-11-23T21:00:00Z", "from": {"id": "t4", "username": "z"}, "likeCount": 2, "replyCount": 1, "replies": [{"id": "7302000000000000104", "message": "thank youuu 🫶 took me 3 tries", "createdTime": "2026-11-23T22:00:00Z", "from": {"id": "ownt", "username": "penny.app", "isOwner": true}}], "canReply": true}
+], "pagination": {"hasMore": false}, "meta": {"platform": "tiktok", "postId": "7701234567890123456", "accountId": "66b2e19d8c3f5a7e9d0b1c2f", "lastUpdated": "2026-11-24T16:00:00Z"}}
