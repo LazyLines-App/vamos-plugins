@@ -22,11 +22,18 @@ Each file's post sheet is <file>.post.json beside it (make-video writes one), or
             agreed (an AI version of a real person who agreed: the user, or someone with their written yes) |
             likeness (an AI version of a real person who hasn't agreed): a likeness is never posted
   promotes  own (the user's own brand or product) | partner (paid by a brand: "partner": "@brand") | none
+  comment_dm  {"word": "GUIDE", "dm": "...", "reply": "...", "reply_after_dm": "..."} when the post asks viewers to
+            comment a word, or "none" when the user answers those themselves; on the batch's post it wins over the
+            sheet's. Each row through Zernio gets "dm_rule": on Instagram and Facebook the DM, then reply_after_dm
+            under the comment when given; on TikTok, Threads, LinkedIn and YouTube, which have no DM to a comment,
+            the public reply. Its "post_id" is POST_ID: send it after the row's create, with the id that create returned.
+            The rule needs the account's "profile" (profileId in accounts_list).
 
 --urls maps each file to the publicUrl Zernio's upload gave it; without it the payloads hold UPLOAD:<file>.
 
-Prints the batch table to show for the user's yes, then DEFECT lines (fix before anything is sent: exit 1)
-and FLAG lines (show them with the table). plan.json holds each row's validate_post and posts_create_post
+Prints the batch table to show for the user's yes, then KEYWORD lines (each post's keyword DM, for the yes), ASK
+lines (a question for the user, asked with the table; that post's rows wait, with no create), DEFECT lines (fix
+before anything is sent: exit 1) and FLAG lines (show them with the table). plan.json holds each row's validate_post and posts_create_post
 arguments: send them as they are.
 """
 import argparse, datetime as dt, hashlib, json, os, re, shutil, subprocess, sys
@@ -85,6 +92,28 @@ def parse_at(text, tz):
     return t.astimezone(tz) if t.tzinfo else t.replace(tzinfo=tz)
 
 
+ASK = re.compile(
+    r"\b(?:(?i:comment)\s+|(?i:drop|type|leave|write)\s+)"
+    r"(?:(?i:the\s+word)\s+)?"
+    r"(?P<word>\"[^\"\s]{2,30}\"|'[^'\s]{2,30}'|“[^”\s]{2,30}”|‘[^’\s]{2,30}’|[A-Z][A-Z0-9]{1,29}\b)"
+)
+STOP_WORDS = {'BELOW', 'DOWN', 'HERE', 'THE', 'YOUR', 'AND', 'IF', 'WHAT', 'WHICH', 'IN', 'ON', 'A', 'AN', 'FOR', 'WITH'}
+
+
+def comment_ask(caption):
+    for m in ASK.finditer(caption):
+        token = m.group('word')
+        quoted = token[0] in "\"'“‘"
+        word = token[1:-1] if quoted else token
+        if not quoted and word in STOP_WORDS:
+            continue
+        verb = m.group().split()[0].lower()
+        if verb != 'comment' and not re.match(r'\s+(?i:below\b|in\s+(?:the\s+)?comments\b)', caption[m.end():]):
+            continue
+        return word.upper()
+    return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('batch')
@@ -108,7 +137,8 @@ def main():
     drafts = bool(b.get('tiktok_drafts'))
     cap = lambda p: min(CAPS[p], DRAFTS) if drafts and p == 'tiktok' else CAPS[p]
     start = dt.date.fromisoformat(b['start']) if b.get('start') else now.date()
-    defects, flags, rows, uploads = [], [], [], []
+    defects, flags, asks, rows, uploads = [], [], [], [], []
+    keyword_groups = []
     seen_file = {}   # (sha, platform) -> handles
 
     def next_slot(acc):
@@ -150,6 +180,18 @@ def main():
         ai = bool(sheet['ai']) or sheet['people'] in ('made', 'agreed')
         promotes = sheet.get('promotes', 'none')
         caption = sheet['caption'].strip()
+        comment_dm = post.get('comment_dm', sheet.get('comment_dm'))
+        asked = comment_ask(caption)
+        waits = bool(asked and comment_dm is None)   # a question for the user, not a fault: its rows wait for the answer
+        if waits:
+            asks.append(f'{name}: the caption asks people to comment {asked}; what should the DM send them (the link, or the '
+                        'thing itself)? Or do they answer those comments themselves ("comment_dm": "none")? Ask it under the yes line: '
+                        'its rows wait for the answer, and every other row goes ahead on this table\'s yes')
+        if isinstance(comment_dm, dict) and not comment_dm.get('word'):
+            defects.append(f'{name}: the keyword rule needs a word')
+            comment_dm = None
+        group = []
+        keyword_groups.append((name, group))
         disclosure = (sheet.get('disclosure') or ('Made with AI.' if ai else '')).strip()
         if ai and disclosure.lower() not in caption.lower():
             caption += '\n\n' + disclosure
@@ -253,11 +295,48 @@ def main():
                    'secs': info and round(info['secs'], 1), '_t': when}
             if p == 'twitter':
                 row['cost'] = 0.2 if LINK.search(caption) else X_POST
-            if not how.startswith('by hand'):
+            if waits and not how.startswith('by hand'):
+                row['how'] = f'waits for your answer on the {asked} DM'
+                row['validate'] = validate
+            elif not how.startswith('by hand'):
                 row['validate'] = validate
                 row['create'] = {'name': 'posts_create_post', 'arguments': create}
                 if p == 'tiktok' and post.get('at') != 'now' and not drafts:
                     row['dry_run'] = {'name': 'posts_create_post', 'arguments': {**create, 'dry_run': True}}
+            if isinstance(comment_dm, dict) and 'create' in row:
+                word = comment_dm['word']
+                keyword = word.upper()
+                dm = comment_dm.get('dm')
+                answer = None
+                if p == 'tiktok' and drafts:
+                    flags.append(f'{name} → {who}: a TikTok inbox draft is posted by you, so no keyword rule; answer by hand')
+                elif p in ('twitter', 'pinterest'):
+                    flags.append(f'{name} → {who}: {p} can\'t answer comments by itself, so {keyword} comments there go unanswered; answer them by hand or take the ask out of this caption')
+                elif p in ('instagram', 'facebook'):
+                    if not dm:
+                        defects.append(f"{name} → {who}: the keyword rule needs the DM's words")
+                    elif len(dm) > 1000:
+                        defects.append(f"{name} → {who}: the DM is {len(dm)} characters, over Zernio's 1000")
+                    else:
+                        answer = 'dm'
+                elif comment_dm.get('reply'):
+                    answer = 'reply'
+                else:
+                    flags.append(f"{name} → {who}: {p} can't DM a commenter, only answer in public; give a public reply (where to find it), or {keyword} comments there go unanswered")
+                if answer and not acc.get('profile'):
+                    defects.append(f"{who}: the keyword rule needs the account's profile id (profileId in accounts_list)")
+                    answer = None
+                if answer:
+                    args = {'profile_id': acc['profile'], 'account_id': acc_id, 'post_id': 'POST_ID',
+                            'name': f'{name} · {keyword}', 'keywords': [word], 'match_mode': 'word'}
+                    if answer == 'dm':
+                        args['dm_message'] = dm
+                    reply = comment_dm.get('reply_after_dm' if answer == 'dm' else 'reply')
+                    if reply:
+                        args['comment_reply'] = reply
+                    row.update({'dm_rule': {'name': 'comment_automations_create_comment_automation', 'arguments': args},
+                                'keyword': keyword, 'answer': answer})
+                    group.append(row)
             rows.append(row)
 
     for (sha, p), who in seen_file.items():
@@ -277,17 +356,41 @@ def main():
         length = f' ({r["secs"]} s)' if r['secs'] else ''
         print(f'| {r["n"]} | {r["handle"]} ({r["platform"]}) | {r["_t"]:%a %d %b %H:%M} | {os.path.basename(r["file"])}{length} '
               f'| {cap} | {r["label"]} | {r["disclosure"] or "—"} | {r["how"]} |')
+    for name, group in keyword_groups:
+        if not group:
+            continue
+        dm_rows = [r for r in group if r['answer'] == 'dm']
+        reply_rows = [r for r in group if r['answer'] == 'reply']
+        def describe(items):
+            return f"rows {', '.join(str(r['n']) for r in items)} ({', '.join(r['platform'] for r in items)})"
+        line = f"KEYWORD {name}: whoever comments {group[0]['keyword']} gets "
+        if dm_rows:
+            args = dm_rows[0]['dm_rule']['arguments']
+            dm = args['dm_message'].replace('\n', ' / ')
+            line += f'this DM on {describe(dm_rows)}: "{dm}"'
+            if args.get('comment_reply'):
+                reply = args['comment_reply'].replace('\n', ' / ')
+                line += f' and the public reply "{reply}"'
+        if reply_rows:
+            reply = reply_rows[0]['dm_rule']['arguments']['comment_reply'].replace('\n', ' / ')
+            line += ('; this' if dm_rows else 'this') + f' public reply on {describe(reply_rows)}: "{reply}"'
+        print(line)
+    for q in asks:
+        print('ASK   ', q)
     for d in defects:
         print('DEFECT', d)
     for f in flags:
         print('FLAG  ', f)
     sent = [r for r in rows if 'create' in r]
-    hand = len(rows) - len(sent)
+    wait = sum(1 for r in rows if r['how'].startswith('waits'))
+    hand = len(rows) - len(sent) - wait
     days = sorted({r['_t'].date() for r in rows})
     x = sum(r.get('cost', 0) for r in sent)
+    rules = sum(1 for r in rows if 'dm_rule' in r)
     print(f'BATCH: {len(rows)} posts on {len({r["account"] for r in rows})} accounts over {len(days)} day(s); '
-          f'{len(sent)} through Zernio, {hand} by hand.' + (f' X bills ${x:.3f} for its {sum(1 for r in sent if r["platform"] == "twitter")} '
-          'post(s), from your Zernio balance.' if x else ''))
+          f'{len(sent)} through Zernio, {hand} by hand' + (f', {wait} waiting for an answer.' if wait else '.') +
+          (f' {rules} keyword rule(s); each DM sent is one Zernio automation run (2,000 a month free, then $2 per 1,000).' if rules else '') +
+          (f' X bills ${x:.3f} for its {sum(1 for r in sent if r["platform"] == "twitter")} post(s), from your Zernio balance.' if x else ''))
     need = [u for u in uploads if u not in urls]
     if need and sent:
         print('UPLOAD first, then run this again with --urls:', ', '.join(need))
