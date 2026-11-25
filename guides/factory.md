@@ -595,7 +595,7 @@ In the Claude app, nothing can run these for you, so start Claude Code once your
 ```
 # Claude Code in the terminal, if `claude --version` doesn't answer (sign in with your Claude account when it starts)
 curl -fsSL https://claude.ai/install.sh | bash
-# Homebrew, if `brew --version` doesn't answer (Mac)
+# Homebrew, if `brew --version` doesn't answer (Mac). Paste this one yourself: it asks for your Mac password, then prints two "Next steps" lines to paste too
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Node 22 or newer, FFmpeg, Python 3 and Tesseract
 brew install node ffmpeg python tesseract
@@ -607,7 +607,7 @@ On Linux: `apt install ffmpeg python3 tesseract-ocr` and Node 22 from nodejs.org
 
 Then, in Claude Code, add the plugin and Vamos there too (chapter 1, "In Claude Code": the two install lines, a restart, then `/mcp` → vamos), and connect your board's app (`/mcp` lists Notion or Google if you add them, or paste the script into the chat instead of naming its card).
 
-For the voice, an ElevenLabs API key: make an account at elevenlabs.io and create a key under your profile's API keys. Add the line `export ELEVENLABS_API_KEY=…` to your `~/.zshrc` (your terminal's settings file), open a new terminal, and start Claude Code there with `claude`, so the key is always set and never sits in a chat.
+For the voice, an ElevenLabs API key: make an account at elevenlabs.io and create a key under your profile's API keys. Paste `echo 'export ELEVENLABS_API_KEY=paste-key-here' >> ~/.zshrc` into Terminal with your key in place of paste-key-here (it saves the key in your terminal's settings file), open a new terminal, and start Claude Code there with `claude`, so the key is always set and never sits in a chat.
 
 **Time:** 1 to 2 hours the first time. **Check (Claude):** `node --version` shows 22 or above; `ffmpeg -version`, `python3 --version` and `tesseract --version` all answer; `npx hyperframes --version` answers.
 
@@ -690,7 +690,7 @@ It writes ten lines from proven hooks in your niche, shows them as one table for
 Carousels: one change per slide, a cover that reads at thumbnail size, reading text 27 px or more, and a last slide with one job.
 
 ```
-/cracked-marketer:make-video the static for [the idea's code, e.g. WA-1118-1]
+/cracked-marketer:make-video the static for [the ad idea's code from winning-ad-ideas, e.g. WA-1118-1]
 ```
 
 ### Recipe 5. AI presenter (experimental)
