@@ -592,15 +592,15 @@ Building hasn't been tested on Windows. On Windows, run chapters 1 to 4, 8 and 9
 
 Each box below holds one command. Paste one box at a time into Terminal and press Return; wait for it to finish before the next.
 
-**Step 1, Homebrew on a Mac (you paste this).** Open Terminal (Cmd+Space, type Terminal, Return). If `brew --version` doesn't answer, paste:
+**Step 1, Homebrew on a Mac (you paste this).** Open Terminal (Cmd+Space, type Terminal, Return). Type `brew --version`; if it prints "command not found", paste:
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-It asks for your Mac password: type it (nothing shows as you type) and press Return, then press Return again when it asks to continue. It's done when it prints "Installation successful", with an exclamation mark. Under "Next steps" it prints a few lines to run (newer Homebrew prints three; an Intel Mac may print none): paste each of them, one at a time. Then close this window and open a new one (Cmd+N), so the next steps can find `brew`.
+It asks for your Mac password: type it (nothing shows as you type) and press Return, then press Return again when it asks to continue. On a new Mac it first downloads Apple's Command Line Tools and can sit quiet for up to 30 minutes: leave it. It's done when it prints "Installation successful", with an exclamation mark. Under "Next steps" it prints a few lines to run (newer Homebrew prints three; an Intel Mac may print none): paste each of them, one at a time. Then close this window and open a new one (Cmd+N), so the next steps can find `brew`.
 
-**Step 2, Claude Code (you paste this, in the new window).** If `claude --version` doesn't answer, paste:
+**Step 2, Claude Code (you paste this, in the new window).** Type `claude --version`; if it prints "command not found", paste:
 
 ```
 curl -fsSL https://claude.ai/install.sh | bash
@@ -618,7 +618,7 @@ brew install node ffmpeg python tesseract
 npx -y skills add heygen-com/hyperframes -g -a claude-code -s '*' -y
 ```
 
-The second installs HyperFrames (HTML rendered to video) for Claude Code without asking questions. On Linux: `apt install ffmpeg python3 tesseract-ocr` and Node 22 from nodejs.org.
+The second installs HyperFrames (HTML rendered to video) for Claude Code without asking questions. On Linux: `sudo apt install ffmpeg python3 tesseract-ocr` and Node 22 from nodejs.org.
 
 **Step 4, the plugin in Claude Code.** Claude runs chapter 1's two install lines (`claude plugin marketplace add LazyLines-App/vamos-plugins`, then `claude plugin install cracked-marketer@vamos-plugins`); you restart Claude Code (type `/exit`, then `claude --continue` brings the chat back), type `/mcp`, pick vamos and sign in. Connect your board's app there too (Notion or Google), or paste the script into the chat instead of naming its card.
 
@@ -628,7 +628,7 @@ The second installs HyperFrames (HTML rendered to video) for Claude Code without
 read -s "k?Paste your ElevenLabs key, then press Return: " && echo "export ELEVENLABS_API_KEY=$k" >> ~/.zshrc && unset k && echo saved
 ```
 
-It asks for the key: paste it (nothing shows) and press Return; it prints "saved". Then, in the Claude Code window, type `/exit`, open a new Terminal window and type `claude --continue`, so Claude sees the key.
+It asks for the key: paste it (nothing shows) and press Return; it prints "saved". If it shows an error instead (an older Mac account may use bash, not zsh), type `zsh`, press Return, and paste the line again. Then, in the Claude Code window, type `/exit`, open a new Terminal window and type `claude --continue`, so Claude sees the key.
 
 **For Claude:** never run the key line yourself and never ask for the key in the chat; the person pastes it in their own window. Check it's set with `test -n "$ELEVENLABS_API_KEY" && echo set`, which doesn't print the key. If it isn't set, ask them to run Step 5 again.
 
