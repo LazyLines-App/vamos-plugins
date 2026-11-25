@@ -592,23 +592,23 @@ Building hasn't been tested on Windows. On Windows, run chapters 1 to 4, 8 and 9
 
 Each box below holds one command. Paste one box at a time into Terminal and press Return; wait for it to finish before the next.
 
-**Step 1, Claude Code (you paste this).** Open Terminal (Cmd+Space, type Terminal, Return). If `claude --version` doesn't answer, paste:
-
-```
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-Then type `claude`, press Return and sign in with your Claude account. Paste this guide's line into it ("Read … and set me up"), and say you're at chapter 6.
-
-**Step 2, Homebrew on a Mac (you paste this, in a second window).** Claude Code now holds the first Terminal window, so open a new one with Cmd+N. If `brew --version` doesn't answer there, paste:
+**Step 1, Homebrew on a Mac (you paste this).** Open Terminal (Cmd+Space, type Terminal, Return). If `brew --version` doesn't answer, paste:
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-It asks for your Mac password: type it (nothing shows as you type) and press Return, then press Return again when it asks to continue. It's done when it prints "Installation successful", with an exclamation mark. Under "Next steps" it prints a few lines to run (newer Homebrew prints three; an Intel Mac may print none): paste each of them, one at a time, in the same window.
+It asks for your Mac password: type it (nothing shows as you type) and press Return, then press Return again when it asks to continue. It's done when it prints "Installation successful", with an exclamation mark. Under "Next steps" it prints a few lines to run (newer Homebrew prints three; an Intel Mac may print none): paste each of them, one at a time. Then close this window and open a new one (Cmd+N), so the next steps can find `brew`.
 
-**Step 3, the video tools (Claude runs these).** Back in the Claude Code window, Claude runs:
+**Step 2, Claude Code (you paste this, in the new window).** If `claude --version` doesn't answer, paste:
+
+```
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+Then type `claude` and press Return. If it says "command not found", paste the line the installer printed under its setup notes (it adds Claude Code to your Terminal's path), open a new window, and type `claude` again. Sign in with your Claude account, then paste the line at the top of this guide, in full, and say you're at chapter 6.
+
+**Step 3, the video tools (Claude runs these).** In the Claude Code window, Claude runs:
 
 ```
 brew install node ffmpeg python tesseract
@@ -620,17 +620,17 @@ npx -y skills add heygen-com/hyperframes -g -a claude-code -s '*' -y
 
 The second installs HyperFrames (HTML rendered to video) for Claude Code without asking questions. On Linux: `apt install ffmpeg python3 tesseract-ocr` and Node 22 from nodejs.org.
 
-**Step 4, the plugin in Claude Code.** Claude runs chapter 1's two install lines (`claude plugin marketplace add LazyLines-App/vamos-plugins`, then `claude plugin install cracked-marketer@vamos-plugins`); you restart Claude Code (`claude --continue` brings the chat back), type `/mcp`, pick vamos and sign in. Connect your board's app there too (Notion or Google), or paste the script into the chat instead of naming its card.
+**Step 4, the plugin in Claude Code.** Claude runs chapter 1's two install lines (`claude plugin marketplace add LazyLines-App/vamos-plugins`, then `claude plugin install cracked-marketer@vamos-plugins`); you restart Claude Code (type `/exit`, then `claude --continue` brings the chat back), type `/mcp`, pick vamos and sign in. Connect your board's app there too (Notion or Google), or paste the script into the chat instead of naming its card.
 
-**Step 5, the voice key (you paste this, never in the chat).** Make an account at elevenlabs.io, then Developers → API Keys → Create, with Text to Speech access on, and copy the key. In the second Terminal window (not the Claude chat), paste this with your key in place of paste-key-here:
+**Step 5, the voice key (you paste this, never in the chat).** Make an account at elevenlabs.io, then Developers → API Keys → Create, with Text to Speech access on, and copy the key. Open a second Terminal window (Cmd+N), not the Claude chat, and paste:
 
 ```
-echo 'export ELEVENLABS_API_KEY=paste-key-here' >> ~/.zshrc
+read -s "k?Paste your ElevenLabs key, then press Return: " && echo "export ELEVENLABS_API_KEY=$k" >> ~/.zshrc && unset k && echo saved
 ```
 
-Then close Claude Code, open a new Terminal window and start it again with `claude --continue`, so it sees the key.
+It asks for the key: paste it (nothing shows) and press Return; it prints "saved". Then, in the Claude Code window, type `/exit`, open a new Terminal window and type `claude --continue`, so Claude sees the key.
 
-**For Claude:** never run the key line yourself and never ask for the key in the chat; the person pastes it in their own window. Check it's set with `test -n "$ELEVENLABS_API_KEY" && echo set`, which doesn't print the key.
+**For Claude:** never run the key line yourself and never ask for the key in the chat; the person pastes it in their own window. Check it's set with `test -n "$ELEVENLABS_API_KEY" && echo set`, which doesn't print the key. If it isn't set, ask them to run Step 5 again.
 
 **Time:** 1 to 2 hours the first time. **Check (Claude):** `node --version` shows 22 or above; `ffmpeg -version`, `python3 --version` and `tesseract --version` all answer; `npx hyperframes --version` answers; the key check prints "set".
 
